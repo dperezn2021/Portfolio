@@ -6,7 +6,6 @@ import Footer from '../components/layout/Footer.astro';
 import Profile from '../components/about/Profile.astro';
 import Skills from '../components/about/Skills.astro';
 import ToolsGrid from '../components/about/ToolsGrid.astro';
-import DigitalCV from '../components/about/DigitalCV.astro';
 import type { Language } from '../utils/url';
 
 interface Props {
@@ -23,7 +22,6 @@ const isEs = lang === 'es';
   <main class="pt-24">
     <Profile lang={lang} />
     <Skills lang={lang} />
-    <DigitalCV lang={lang} />
     <ToolsGrid lang={lang} />
   </main>
   

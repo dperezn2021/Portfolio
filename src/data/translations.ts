@@ -5,6 +5,7 @@ export const TRANSLATIONS = {
     // Navegación
     'nav.home': 'Inicio',
     'nav.about': 'Sobre Mí',
+    'nav.trayectory': 'Trayectoria',
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
 
@@ -353,6 +354,7 @@ export const TRANSLATIONS = {
     // Navigation
     'nav.home': 'Home',
     'nav.about': 'About Me',
+    'nav.trayectory': 'Career',
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
 
