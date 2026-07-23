@@ -8,6 +8,7 @@ import { projects, DISCIPLINE_MAP, getDisciplineLabel } from "../../data/project
 import { t } from "../../data/translations";
 import type { Project } from "../../data/projects";
 import type { Language } from "../../utils/url";
+import { withBasePath } from '../../utils/paths';
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -22,7 +23,17 @@ interface Props {
 }
 
 const { project, lang = 'es' } = Astro.props;
-const galleryImages = project.galleryImages || [];
+const rawGalleryImages: NonNullable<Project['galleryImages']> = project.galleryImages ?? [];
+const galleryImages = rawGalleryImages.map((image: NonNullable<Project['galleryImages']>[number]) => {
+  if (typeof image === 'string') {
+    return withBasePath(image);
+  }
+
+  return {
+    ...image,
+    src: withBasePath(image.src),
+  };
+});
 const galleryConfig = project.galleryConfig || {};
 const isEs = lang === 'es';
 const projectText = (field: 'title' | 'desc' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings', fallback: string) => {
@@ -56,7 +67,7 @@ const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: st
       <!-- Volver -->
       <div class="mb-8">
         <a
-          href="/proyectos"
+          href={withBasePath('/proyectos')}
           class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400"
         >
           <span class="material-symbols-outlined text-sm">arrow_back</span>
@@ -233,7 +244,7 @@ const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: st
 
       <!-- Botones -->
       <div class="mt-12 flex flex-wrap gap-4">
-        <a href="/proyectos" class="btn-primary">
+        <a href={withBasePath('/proyectos')} class="btn-primary">
           {t(lang, 'project.back')}
         </a>
 

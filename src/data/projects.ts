@@ -12,7 +12,7 @@ export interface Project {
   highlights?: string[];
   tags: string[];
   coverImage: string;
-  galleryImages?: string[];
+  galleryImages?: (string | { src: string; rotate?: 90 | 180 | 270 })[];
   galleryConfig?: {
     columns?: 1 | 2 | 3 | 4;
     gap?: 'small' | 'medium' | 'large';

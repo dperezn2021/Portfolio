@@ -5,6 +5,7 @@ import { projects } from '../../data/projects';
 import { DISCIPLINE_MAP } from '../../data/projects';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
+import { withBasePath } from '../../utils/paths';
 
 interface Props {
   lang?: Language;
@@ -27,7 +28,7 @@ const featuredProjects = projects.filter(p =>
         <span slot="subtitle">Una selección curada de mi trabajo más reciente.</span>
       </SectionTitle>
       <a
-        href="/proyectos"
+        href={withBasePath('/proyectos')}
         class="inline-flex items-center gap-2 font-bold text-cyan-600 transition hover:underline dark:text-cyan-400 text-sm"
       >
         <span data-i18n="projects.view_all">Ver Todo</span>
@@ -39,12 +40,12 @@ const featuredProjects = projects.filter(p =>
       <!-- Menteando - card grande -->
       {featuredProjects.filter(p => p.slug === 'menteando').map((project) => (
         <a
-          href={`/proyectos/${project.slug}`}
+          href={withBasePath(`/proyectos/${project.slug}`)}
           class="group overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
         >
           <div class="relative aspect-video overflow-hidden">
             <img
-              src={project.coverImage}
+              src={withBasePath(project.coverImage)}
               alt={project.title}
               class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
             />
@@ -83,12 +84,12 @@ const featuredProjects = projects.filter(p =>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {featuredProjects.filter(p => p.slug !== 'menteando').map((project) => (
           <a
-            href={`/proyectos/${project.slug}`}
+            href={withBasePath(`/proyectos/${project.slug}`)}
             class="group overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
           >
             <div class="relative aspect-video overflow-hidden">
               <img
-                src={project.coverImage}
+                src={withBasePath(project.coverImage)}
                 alt={project.title}
                 class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
               />

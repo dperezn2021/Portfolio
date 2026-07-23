@@ -1,6 +1,7 @@
 ---
 import '../styles/globals.css';
 import { TRANSLATIONS } from '../data/translations';
+import { withBasePath } from '../utils/paths';
 
 interface Props {
   title?: string;
@@ -10,6 +11,14 @@ interface Props {
 
 const { title = 'Daniel Pérez Navarro', description = 'Portfolio profesional', lang = 'es' } =
   Astro.props;
+
+const faviconPath = withBasePath('/favicon.svg');
+const themeScriptPath = withBasePath('/scripts/theme.js');
+const languageScriptPath = withBasePath('/scripts/language.js');
+const animationsScriptPath = withBasePath('/scripts/animations.js');
+const filtersScriptPath = withBasePath('/scripts/filters.js');
+const contactScriptPath = withBasePath('/scripts/contact.js');
+const mainScriptPath = withBasePath('/scripts/main.js');
 ---
 
 <!doctype html>
@@ -19,7 +28,7 @@ const { title = 'Daniel Pérez Navarro', description = 'Portfolio profesional', 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href={faviconPath} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -59,11 +68,11 @@ const { title = 'Daniel Pérez Navarro', description = 'Portfolio profesional', 
     <!-- Scripts -->
     <script is:inline set:html={`window.translations = ${JSON.stringify(TRANSLATIONS)};`}></script>
     <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script is:inline src="/scripts/theme.js"></script>
-    <script is:inline src="/scripts/language.js"></script>
-    <script is:inline src="/scripts/animations.js"></script>
-    <script is:inline src="/scripts/filters.js"></script>
-    <script is:inline src="/scripts/contact.js"></script>
-    <script is:inline src="/scripts/main.js"></script>
+    <script is:inline src={themeScriptPath}></script>
+    <script is:inline src={languageScriptPath}></script>
+    <script is:inline src={animationsScriptPath}></script>
+    <script is:inline src={filtersScriptPath}></script>
+    <script is:inline src={contactScriptPath}></script>
+    <script is:inline src={mainScriptPath}></script>
   </body>
 </html>

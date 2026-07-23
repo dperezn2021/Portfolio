@@ -1,6 +1,7 @@
 ---
 import Badge from '../common/Badge.astro';
 import { site } from '../../data/settings';
+import { withBasePath } from '../../utils/paths';
 ---
 
 <section class="relative flex min-h-screen items-center overflow-hidden pt-20" id="home">
@@ -22,11 +23,11 @@ import { site } from '../../data/settings';
       </p>
 
       <div class="mt-10 flex flex-wrap gap-4">
-        <a href="/proyectos" class="btn-primary flex items-center gap-2">
+        <a href={withBasePath('/proyectos')} class="btn-primary flex items-center gap-2">
           <span data-i18n="hero.cta_projects">Ver Proyectos</span>
           <span class="material-symbols-outlined text-sm">arrow_forward</span>
         </a>
-        <a href="/sobre-mi" class="btn-secondary" data-i18n="hero.cta_about">
+        <a href={withBasePath('/sobre-mi')} class="btn-secondary" data-i18n="hero.cta_about">
           Sobre Mí
         </a>
       </div>
