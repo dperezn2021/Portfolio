@@ -4,7 +4,7 @@ Portfolio profesional de Daniel Pérez Navarro, Graduado en Diseño y Desarrollo
 
 ## 🌐 Ver el sitio
 
-[https://dperezn2021.github.io/Portfolio/](https://dperezn2021.github.io/Portfolio/)
+[https://dperezn2021.github.io/](https://dperezn2021.github.io/)
 
 ## 🛠️ Tecnologías
 
