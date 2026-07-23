@@ -1,0 +1,58 @@
+---
+import type { Language } from '../../utils/url';
+import { DISCIPLINE_MAP } from '../../data/projects';
+import { getDisciplineLabel } from '../../data/projects';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+
+const disciplineList = Object.entries(DISCIPLINE_MAP).map(([id, { emoji }]) => ({
+  id,
+  label: getDisciplineLabel(id, lang as 'es' | 'en'),
+  emoji,
+}));
+---
+
+<div class="my-8">
+  <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 pb-4">
+    {disciplineList.map((filter) => (
+      <button
+        class:list={[
+          'px-4 py-2 rounded-full border text-sm font-medium transition-all filter-btn cursor-pointer',
+          'border-cyan-100 bg-white text-black shadow-sm hover:border-cyan-400 hover:bg-white dark:border-white/20 dark:bg-zinc-900/40 dark:text-gray-300 dark:shadow-none dark:hover:border-cyan-400',
+          'data-[active=true]:bg-linear-to-r data-[active=true]:from-cyan-400 data-[active=true]:to-fuchsia-600 data-[active=true]:text-white data-[active=true]:border-none',
+        ]}
+        data-category={filter.id}
+        data-filter-id={filter.id}
+        data-active="false"
+      >
+        <span>{filter.emoji}</span>
+        <span data-i18n={`discipline.${filter.id}`}>{filter.label}</span>
+      </button>
+    ))}
+    
+    <button
+      id="clear-filters"
+      class="px-4 py-2 rounded-full text-sm font-medium transition-all border border-cyan-100 bg-white text-black shadow-sm hover:border-red-400 hover:bg-white hover:text-red-500 dark:border-white/20 dark:bg-zinc-900/40 dark:text-black dark:shadow-none dark:hover:border-red-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+      data-i18n="filter.clear"
+    >
+      {lang === 'es' ? 'Limpiar filtros' : 'Clear filters'}
+    </button>
+  </div>
+  <p class="text-center text-sm text-black/70 dark:text-black" data-i18n="filter.hint">
+    {lang === 'es' 
+      ? 'Haz clic en un filtro para activarlo/desactivarlo (múltiples permitidos)' 
+      : 'Click a filter to toggle it (multiple allowed)'}
+  </p>
+</div>
+
+<style>
+  .filter-btn[data-active="true"] {
+    background: linear-gradient(to right, #00dbe7, #b600f8) !important;
+    color: white !important;
+    border: none !important;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import { site } from '../../data/settings';
+import SectionTitle from '../common/SectionTitle.astro';
+---
+
+<section class="py-16 transition-colors duration-300 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <SectionTitle titleKey="about.title" subtitleKey="about.subtitle" centered>
+      <span slot="title">Sobre Mí</span>
+      <span slot="subtitle">Conoce mi trayectoria, habilidades y pasiones</span>
+    </SectionTitle>
+
+    <div class="mt-10 md:mt-12 grid grid-cols-1 gap-12 md:grid-cols-2">
+      <!-- Foto -->
+      <div class="flex justify-center">
+        <div class="aspect-square w-full max-w-md overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400/20 to-fuchsia-500/20 p-1">
+          <img
+            src="https://placehold.co/600x600/1a1a1a/00dbe7?text=Daniel+Pérez"
+            alt={site.name}
+            class="h-full w-full rounded-2xl object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Información -->
+      <div class="flex flex-col justify-center space-y-6">
+        <div>
+          <h2 class="text-3xl font-bold card-title">{site.name}</h2>
+          <p class="text-xl text-cyan-600 dark:text-cyan-400" data-i18n="profile.title">
+            Graduado en Diseño y Desarrollo de Videojuegos
+          </p>
+          <p class="text-black/70 dark:text-black" data-i18n="profile.job">
+            Application Junior Support Analyst
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400">location_on</span>
+            <span class="text-black dark:text-gray-300">{site.location}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400">email</span>
+            <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">
+              {site.email}
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-grotesk text-2xl font-bold card-title" data-i18n="about.resume_title">
+            Resumen
+          </h3>
+          <p class="mt-2 text-black dark:text-gray-300" data-i18n="about.resume">
+            Soy un profesional apasionado por el diseño y desarrollo de
+            videojuegos, con experiencia en creación de mundos inmersivos y
+            experiencias interactivas. Combino habilidades técnicas en
+            programación y modelado 3D con una fuerte visión creativa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+// src/pages/proyectos.astro
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import ProjectsGrid from '../components/projects/ProjectsGrid.astro';
+import ProjectFilters from '../components/projects/ProjectFilters.astro';
+import SectionTitle from '../components/common/SectionTitle.astro';
+import { t } from '../data/translations';
+import type { Language } from '../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props; // ✅ Por defecto español
+const isEs = lang === 'es';
+---
+
+<MainLayout title={isEs ? "Proyectos | Daniel Pérez Navarro" : "Projects | Daniel Pérez Navarro"}>
+  <Header currentPage="/proyectos" lang={lang} />
+  
+  <main class="pt-24">
+    <section class="py-16 transition-colors duration-300 md:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <SectionTitle titleKey="projects.page_title" subtitleKey="projects.page_subtitle" centered>
+          <span slot="title">{t(lang, 'projects.page_title')}</span>
+          <span slot="subtitle">{t(lang, 'projects.page_subtitle')}</span>
+        </SectionTitle>
+        
+        <!-- Buscador -->
+        <div class="mt-8 flex justify-center">
+          <div class="relative w-full max-w-md">
+            <input
+              id="search-projects"
+              type="text"
+              placeholder={t(lang, 'projects.search_placeholder')}
+              data-i18n-placeholder="projects.search_placeholder"
+              class="w-full rounded-full border border-cyan-100 bg-white px-6 py-3 pl-12 text-black shadow-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:border-white/10 dark:bg-zinc-900/50 dark:text-white dark:placeholder-gray-400 dark:shadow-none"
+            />
+            <button
+              id="search-btn"
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-600 transition hover:text-cyan-500 dark:text-black dark:hover:text-cyan-400"
+            >
+              <span class="material-symbols-outlined text-2xl">search</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filtros -->
+        <ProjectFilters lang={lang} />
+
+        <!-- Grid de proyectos -->
+        <ProjectsGrid lang={lang} />
+
+        <!-- Mensaje "No hay resultados" -->
+        <div id="no-results" class="mt-12 hidden text-center">
+          <p class="text-lg text-black/70 dark:text-black" data-i18n="projects.no_results">
+            {t(lang, 'projects.no_results')}
+          </p>
+        </div>
+
+        <!-- Botón "Ver más" -->
+        <div class="mt-12 flex justify-center">
+          <button
+            id="show-more-projects"
+            class="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-8 py-3 font-medium text-black shadow-sm transition hover:border-cyan-400 hover:bg-white dark:border-white/20 dark:bg-zinc-900/40 dark:text-gray-300 dark:shadow-none dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10"
+          >
+            <span data-show-more-label data-i18n="projects.load_more">{t(lang, 'projects.load_more')}</span>
+            <span data-show-more-count class="text-black dark:text-black"></span>
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer lang={lang} />
+</MainLayout>

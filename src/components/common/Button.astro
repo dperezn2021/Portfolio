@@ -1,0 +1,45 @@
+---
+interface Props {
+    href?: string;
+    variant?: "primary" | "secondary" | "outline";
+    type?: "button" | "submit";
+}
+
+const {
+    href,
+    variant = "primary",
+    type = "button"
+} = Astro.props;
+
+// Construimos las clases según el tipo de botón
+const classes = {
+    primary:
+        "btn btn-primary",
+
+    secondary:
+        "btn btn-secondary",
+
+    outline:
+        "btn btn-outline"
+};
+---
+
+{
+    href
+        ? (
+            <a
+                href={href}
+                class={classes[variant]}
+            >
+                <slot />
+            </a>
+        )
+        : (
+            <button
+                type={type}
+                class={classes[variant]}
+            >
+                <slot />
+            </button>
+        )
+}

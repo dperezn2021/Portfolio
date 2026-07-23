@@ -1,0 +1,25 @@
+---
+import { projects } from '../../data/projects';
+import ProjectCard from './ProjectCard.astro';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+---
+
+<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="project-grid">
+  {projects.map((project) => (
+    <ProjectCard
+      slug={project.slug}
+      title={project.title}
+      description={project.description}
+      coverImage={project.coverImage}
+      tags={project.tags}
+      disciplines={project.disciplines}
+      lang={lang}
+    />
+  ))}
+</div>

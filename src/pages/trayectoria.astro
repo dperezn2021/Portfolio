@@ -1,0 +1,24 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Timeline from '../components/about/Timeline.astro';
+import LearningOverview from '../components/about/LearningOverview.astro';
+import type { Language } from '../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+---
+<MainLayout title={lang === 'es' ? 'Trayectoria | Daniel Pérez Navarro' : 'Career | Daniel Pérez Navarro'}>
+  <Header currentPage="/trayectoria" lang={lang} />
+  
+  <main class="pt-24">
+    <Timeline lang={lang} />
+    <LearningOverview lang={lang} maxSkills={16} />
+  </main>
+  
+  <Footer lang={lang} />
+</MainLayout>

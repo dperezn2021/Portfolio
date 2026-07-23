@@ -1,0 +1,127 @@
+---
+// src/components/home/FeaturedProjects.astro
+import SectionTitle from '../common/SectionTitle.astro';
+import { projects } from '../../data/projects';
+import { DISCIPLINE_MAP } from '../../data/projects';
+import { t } from '../../data/translations';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+
+const featuredProjects = projects.filter(p => 
+  p.slug === 'menteando' || 
+  p.slug === 'histeria' || 
+  p.slug === 'raki-animacion'
+);
+---
+
+<section class="py-16 transition-colors duration-300 md:py-20" id="projects">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mb-10 md:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <SectionTitle titleKey="projects.title" subtitleKey="projects.subtitle">
+        <span slot="title">Proyectos Destacados</span>
+        <span slot="subtitle">Una selección curada de mi trabajo más reciente.</span>
+      </SectionTitle>
+      <a
+        href="/proyectos"
+        class="inline-flex items-center gap-2 font-bold text-cyan-600 transition hover:underline dark:text-cyan-400 text-sm"
+      >
+        <span data-i18n="projects.view_all">Ver Todo</span>
+        <span class="material-symbols-outlined text-sm">north_east</span>
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <!-- Menteando - card grande -->
+      {featuredProjects.filter(p => p.slug === 'menteando').map((project) => (
+        <a
+          href={`/proyectos/${project.slug}`}
+          class="group overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
+        >
+          <div class="relative aspect-video overflow-hidden">
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+              {project.tags.slice(0, 3).map((tag) => (
+                <span class="tag rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 backdrop-blur-md">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div class="p-6">
+            <!-- ✅ Mostrar disciplinas -->
+            <div class="flex flex-wrap gap-1 mb-2">
+              {project.disciplines.map((discipline) => {
+                const disciplineInfo = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+                return disciplineInfo ? (
+                  <span class="tag text-cyan-600 dark:text-cyan-400 text-xs">
+                    <span>{disciplineInfo.emoji}</span> <span data-i18n={`discipline.${discipline}`}>{lang === 'es' ? disciplineInfo.label : disciplineInfo.label_en}</span>
+                  </span>
+                ) : null;
+              })}
+            </div>
+            <h3 class="card-title mt-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" data-i18n={`project.${project.slug}.title`}>
+              {t(lang, `project.${project.slug}.title`)}
+            </h3>
+            <p class="card-text mt-2 line-clamp-2" data-i18n={`project.${project.slug}.desc`}>
+              {t(lang, `project.${project.slug}.desc`)}
+            </p>
+          </div>
+        </a>
+      ))}
+
+      {/* Histeria y Raki Animación */}
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {featuredProjects.filter(p => p.slug !== 'menteando').map((project) => (
+          <a
+            href={`/proyectos/${project.slug}`}
+            class="group overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
+          >
+            <div class="relative aspect-video overflow-hidden">
+              <img
+                src={project.coverImage}
+                alt={project.title}
+                class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                {project.tags.slice(0, 2).map((tag) => (
+                  <span class="tag rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 backdrop-blur-md">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex flex-wrap gap-1 mb-2">
+                {project.disciplines.map((discipline) => {
+                  const disciplineInfo = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+                  return disciplineInfo ? (
+                    <span class="tag text-cyan-600 dark:text-cyan-400 text-xs">
+                      <span>{disciplineInfo.emoji}</span> <span data-i18n={`discipline.${discipline}`}>{lang === 'es' ? disciplineInfo.label : disciplineInfo.label_en}</span>
+                    </span>
+                  ) : null;
+                })}
+              </div>
+              <h3 class="card-title mt-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" data-i18n={`project.${project.slug}.title`}>
+                {t(lang, `project.${project.slug}.title`)}
+              </h3>
+              <p class="card-text mt-2 line-clamp-2" data-i18n={`project.${project.slug}.desc`}>
+                {t(lang, `project.${project.slug}.desc`)}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

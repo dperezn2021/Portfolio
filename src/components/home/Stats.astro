@@ -1,0 +1,24 @@
+---
+const stats = [
+  { value: '21+', labelKey: 'stats.projects' },
+  { value: '3+', labelKey: 'stats.experience' },
+  { value: '100%', labelKey: 'stats.passion' },
+];
+---
+
+<section class="border-y border-gray-200 dark:border-white/10 py-16 transition-colors duration-300">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-3">
+      {stats.map((stat) => (
+        <div class="flex flex-col gap-2">
+          <span class="font-grotesk text-4xl font-bold gradient-text md:text-5xl">
+            {stat.value}
+          </span>
+          <span class="text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-black" data-i18n={stat.labelKey}>
+            Proyectos Completados
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

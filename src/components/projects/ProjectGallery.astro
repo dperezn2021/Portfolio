@@ -1,0 +1,264 @@
+---
+interface GalleryImage {
+  src: string;
+  rotate?: 90 | 180 | 270;
+}
+
+interface Props {
+  images: (string | GalleryImage)[];
+  alt?: string;
+  config?: {
+    columns?: 1 | 2 | 3 | 4;
+    gap?: 'small' | 'medium' | 'large';
+    imageSize?: 'small' | 'medium' | 'large' | 'full';
+    aspectRatio?: 'auto' | 'square' | 'video' | 'portrait' | 'landscape';
+    layout?: 'grid' | 'masonry' | 'featured';
+  };
+}
+
+const { images, alt = 'Imagen del proyecto', config = {} } = Astro.props;
+
+// Normalizar imágenes: convertir strings a objetos con rotate
+const normalizedImages = images.map((img) => {
+  if (typeof img === 'string') {
+    return { src: img, rotate: 0 };
+  }
+  return { src: img.src, rotate: img.rotate || 0 };
+});
+
+// Tipos
+type GapSize = 'small' | 'medium' | 'large';
+type ColumnCount = 1 | 2 | 3 | 4;
+type LayoutType = 'grid' | 'masonry' | 'featured';
+
+// Configuración por defecto
+const defaultConfig = {
+  columns: 3 as ColumnCount,
+  gap: 'medium' as GapSize,
+  imageSize: 'medium' as 'small' | 'medium' | 'large' | 'full',
+  aspectRatio: 'auto' as 'auto' | 'square' | 'video' | 'portrait' | 'landscape',
+  layout: 'masonry' as LayoutType,
+};
+
+const finalConfig = {
+  columns: (config.columns || defaultConfig.columns) as ColumnCount,
+  gap: (config.gap || defaultConfig.gap) as GapSize,
+  imageSize: (config.imageSize || defaultConfig.imageSize) as 'small' | 'medium' | 'large' | 'full',
+  aspectRatio: (config.aspectRatio || defaultConfig.aspectRatio) as 'auto' | 'square' | 'video' | 'portrait' | 'landscape',
+  layout: (config.layout || defaultConfig.layout) as LayoutType,
+};
+
+const imageCount = normalizedImages.length;
+
+// Mapear configuración a clases CSS
+const gapClasses: Record<GapSize, string> = {
+  small: 'gap-2 md:gap-3',
+  medium: 'gap-4 md:gap-6',
+  large: 'gap-6 md:gap-8',
+};
+
+const columnsClasses: Record<ColumnCount, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-2 md:grid-cols-3',
+  4: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+};
+
+const aspectRatioClasses: Record<string, string> = {
+  auto: '',
+  square: 'aspect-square',
+  video: 'aspect-video',
+  portrait: 'aspect-[3/4]',
+  landscape: 'aspect-[4/3]',
+};
+
+const imageSizeClasses: Record<string, string> = {
+  small: 'h-32 md:h-40 lg:h-48',
+  medium: 'h-48 md:h-56 lg:h-64',
+  large: 'h-64 md:h-80 lg:h-96',
+  full: 'h-auto',
+};
+
+const layout = finalConfig.layout;
+const imageData = normalizedImages.map((img, index) => ({
+  src: img.src,
+  index,
+  rotate: img.rotate || 0,
+}));
+---
+
+<div class="project-gallery" id="gallery-{Math.random().toString(36).slice(2, 7)}">
+  <!-- LAYOUT: FEATURED -->
+  {layout === 'featured' && (
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {imageData.map((img, idx) => {
+        const isFirst = idx === 0;
+        const colSpan = isFirst && imageCount > 1 ? 'md:col-span-2' : '';
+        const sizeClass = isFirst ? 'h-96 md:h-[500px]' : 'h-48 md:h-64';
+        return (
+          <div class={`overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 ${colSpan} cursor-pointer group`} onclick="openLightbox(this)">
+            <img
+              src={img.src}
+              alt={`${alt} ${idx + 1}`}
+              class={`w-full ${sizeClass} object-cover transition duration-500 group-hover:scale-105 ${img.rotate ? 'rotate-' + img.rotate : ''}`}
+              style={img.rotate ? { transform: `rotate(${img.rotate}deg)` } : {}}
+              loading="lazy"
+              data-fullsrc={img.src}
+            />
+          </div>
+        );
+      })}
+    </div>
+  )}
+
+  <!-- LAYOUT: GRID -->
+  {layout === 'grid' && (
+    <div class={`grid ${columnsClasses[finalConfig.columns]} ${gapClasses[finalConfig.gap]}`}>
+      {imageData.map((img) => (
+        <div class={`overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 ${aspectRatioClasses[finalConfig.aspectRatio]} cursor-pointer group`} onclick="openLightbox(this)">
+          <img
+            src={img.src}
+            alt={`${alt} ${img.index + 1}`}
+            class={`w-full ${imageSizeClasses[finalConfig.imageSize]} object-cover transition duration-500 group-hover:scale-105 ${img.rotate ? 'rotate-' + img.rotate : ''}`}
+            style={img.rotate ? { transform: `rotate(${img.rotate}deg)` } : {}}
+            loading="lazy"
+            data-fullsrc={img.src}
+          />
+        </div>
+      ))}
+    </div>
+  )}
+
+  <!-- LAYOUT: MASONRY -->
+  {layout === 'masonry' && (
+    <div class={`columns-${finalConfig.columns} ${gapClasses[finalConfig.gap]}`}>
+      {imageData.map((img) => (
+        <div class="mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 cursor-pointer group" onclick="openLightbox(this)">
+          <img
+            src={img.src}
+            alt={`${alt} ${img.index + 1}`}
+            class={`w-full h-auto object-cover transition duration-500 group-hover:scale-105 ${img.rotate ? 'rotate-' + img.rotate : ''}`}
+            style={img.rotate ? { transform: `rotate(${img.rotate}deg)` } : {}}
+            loading="lazy"
+            data-fullsrc={img.src}
+          />
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-9999 hidden items-center justify-center bg-black/95 backdrop-blur-sm" onclick="closeLightbox()">
+  <button class="absolute top-4 right-4 z-10000 text-white text-4xl hover:text-cyan-300 transition-colors" onclick="closeLightbox()">✕</button>
+  <button class="absolute left-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="prevImage(event)" id="lightbox-prev">‹</button>
+  <button class="absolute right-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="nextImage(event)" id="lightbox-next">›</button>
+  <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg" />
+  <span id="lightbox-counter" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium"></span>
+</div>
+
+<script>
+  let currentImages: string[] = [];
+  let currentIndex = 0;
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  function openLightbox(element: HTMLElement) {
+    const img = element.querySelector('img');
+    if (!img) return;
+    const gallery = element.closest('.project-gallery');
+    if (!gallery) return;
+    const allImages = gallery.querySelectorAll('img');
+    currentImages = Array.from(allImages).map((el) => el.getAttribute('data-fullsrc') || el.src);
+    currentIndex = currentImages.indexOf(img.getAttribute('data-fullsrc') || img.src);
+    if (currentIndex === -1) currentIndex = 0;
+    showImage(currentIndex);
+    lightbox?.classList.remove('hidden');
+    lightbox?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showImage(index: number) {
+    if (!lightboxImg || !lightboxCounter) return;
+    lightboxImg.src = currentImages[index] || '';
+    lightboxCounter.textContent = `${index + 1} / ${currentImages.length}`;
+    if (prevBtn) prevBtn.style.display = currentImages.length > 1 ? 'block' : 'none';
+    if (nextBtn) nextBtn.style.display = currentImages.length > 1 ? 'block' : 'none';
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  function prevImage(event: Event) {
+    event.stopPropagation();
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    showImage(currentIndex);
+  }
+
+  function nextImage(event: Event) {
+    event.stopPropagation();
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    showImage(currentIndex);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      showImage(currentIndex);
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      showImage(currentIndex);
+    }
+  });
+
+  (window as any).openLightbox = openLightbox;
+  (window as any).closeLightbox = closeLightbox;
+  (window as any).prevImage = prevImage;
+  (window as any).nextImage = nextImage;
+</script>
+
+<style>
+  .project-gallery img {
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .project-gallery img:hover {
+    transform: scale(1.03);
+  }
+
+  .project-gallery > div > div {
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #ffffff;
+  }
+
+  html.dark .project-gallery > div > div {
+    background: rgb(30 41 59);
+  }
+
+  /* Masonry columns */
+  .columns-1 { column-count: 1; }
+  .columns-2 { column-count: 2; }
+  .columns-3 { column-count: 3; }
+  .columns-4 { column-count: 4; }
+
+  @media (max-width: 640px) {
+    .columns-2, .columns-3, .columns-4 { column-count: 2; }
+  }
+
+  #lightbox { transition: opacity 0.3s ease; }
+  #lightbox.hidden { opacity: 0; pointer-events: none; }
+  #lightbox:not(.hidden) { opacity: 1; pointer-events: auto; }
+</style>

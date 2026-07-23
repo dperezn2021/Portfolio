@@ -1,0 +1,20 @@
+---
+interface Props {
+  titleKey: string;
+  subtitleKey?: string;
+  centered?: boolean;
+}
+
+const { titleKey, subtitleKey, centered = false } = Astro.props;
+---
+
+<div class={centered ? 'text-center' : ''}>
+  <h2 class="section-title" data-i18n={titleKey}>
+    <slot name="title" />
+  </h2>
+  {subtitleKey && (
+    <p class="section-subtitle" data-i18n={subtitleKey}>
+      <slot name="subtitle" />
+    </p>
+  )}
+</div>

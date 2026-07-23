@@ -1,0 +1,570 @@
+/* src/styles/globals.css */
+@import 'tailwindcss';
+
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #0a0a0a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
+
+  html.dark body {
+    background-color: #0a0a0a;
+    color: #e5e2e1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  ::selection {
+    background: #00dbe7;
+    color: #0a0a0a;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #e2e8f0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #00dbe7;
+    border-radius: 4px;
+  }
+  html.dark ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+#top-nav {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.9);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+html.dark #top-nav {
+  background: rgba(10, 10, 10, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#top-nav.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+html.dark #top-nav.scrolled {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+#mobile-menu {
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #e2e8f0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+html.dark #mobile-menu {
+  background: rgba(10, 10, 10, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #e2e8f0;
+}
+
+html.dark footer {
+  background: rgba(10, 10, 10, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   GLASS CARD
+   ============================================ */
+.glass-card {
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: #0891b2;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.08);
+}
+
+html.dark .glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+html.dark .glass-card:hover {
+  border-color: rgba(0, 219, 231, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(0, 219, 231, 0.2);
+}
+
+/* ============================================
+   TEXTO GRADIENTE
+   ============================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #00dbe7 0%, #b600f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   BOTÓN PRINCIPAL
+   ============================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #00dbe7 0%, #b600f8 100%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(0, 219, 231, 0.3);
+}
+
+/* ============================================
+   BOTÓN SECUNDARIO
+   ============================================ */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0a0a0a;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+html.dark .btn-secondary {
+  background: transparent;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: #e5e2e1;
+}
+
+html.dark .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   TÍTULOS
+   ============================================ */
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0a0a0a;
+}
+
+html.dark .section-title {
+  color: #e5e2e1;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 3.75rem;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  margin-top: 0.5rem;
+  color: #374151;
+}
+
+html.dark .section-subtitle {
+  color: #94a3b8;
+}
+
+/* ============================================
+   TÍTULOS DE CARD
+   ============================================ */
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  transition: color 0.2s ease;
+  color: #0a0a0a;
+}
+
+.card-title:hover {
+  color: #0891b2;
+}
+
+html.dark .card-title {
+  color: #e5e2e1;
+}
+
+html.dark .card-title:hover {
+  color: #00dbe7;
+}
+
+/* ============================================
+   TEXTO DE CARD
+   ============================================ */
+.card-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #1f2937;
+}
+
+html.dark .card-text {
+  color: #94a3b8;
+}
+
+/* ============================================
+   TAGS
+   ============================================ */
+.tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0891b2;
+}
+
+html.dark .tag {
+  color: #00dbe7;
+}
+
+/* ============================================
+   LIGHT LEAKS
+   ============================================ */
+.light-leak {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+}
+
+html.dark .light-leak {
+  opacity: 0.15;
+}
+
+.light-leak-cyan {
+  background: radial-gradient(circle, #00dbe7 0%, transparent 70%);
+  width: 60vw;
+  height: 60vw;
+  top: -20%;
+  right: -10%;
+}
+
+.light-leak-purple {
+  background: radial-gradient(circle, #b600f8 0%, transparent 70%);
+  width: 60vw;
+  height: 60vw;
+  bottom: -10%;
+  left: -10%;
+}
+
+/* ============================================
+   INPUTS
+   ============================================ */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0a0a0a;
+  transition: all 0.2s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #0891b2;
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+}
+
+html.dark .input-field {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e5e2e1;
+}
+
+html.dark .input-field:focus {
+  border-color: #00dbe7;
+  box-shadow: 0 0 0 3px rgba(0, 219, 231, 0.15);
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+html.dark .input-field::placeholder {
+  color: #64748b;
+}
+
+/* ============================================
+   UTILITY - TEXTOS (UNIFICADOS)
+   ============================================ */
+/* MODO CLARO: TEXTOS NEGROS O GRISES OSCUROS */
+.text-gray-900 { color: #111827; }
+.text-gray-800 { color: #1f2937; }
+.text-gray-700 { color: #374151; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-400 { color: #9ca3af; }
+.text-gray-300 { color: #d1d5db; }
+.text-black { color: #0a0a0a; }
+
+/* MODO OSCURO: TEXTOS BLANCOS O GRISES CLAROS */
+html.dark .text-gray-900 { color: #e5e2e1; }
+html.dark .text-gray-800 { color: #e5e2e1; }
+html.dark .text-gray-700 { color: #d4d4d4; }
+html.dark .text-gray-600 { color: #b9cacb; }
+html.dark .text-gray-500 { color: #94a3b8; }
+html.dark .text-gray-400 { color: #b9cacb; }
+html.dark .text-gray-300 { color: #94a3b8; }
+html.dark .text-black { color: #e5e2e1; }
+
+/* ============================================
+   SOBRESCRITOS PARA MODO CLARO (FONDOS BLANCOS)
+   ============================================ */
+.bg-white {
+  background: #ffffff !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background: #ffffff !important;
+}
+
+html.dark .bg-white {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark .bg-gray-50,
+html.dark .bg-gray-100 {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Bordes */
+.border-cyan-100 {
+  border-color: #e2e8f0 !important;
+}
+
+html.dark .border-cyan-100 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Sombras */
+.shadow-sm,
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+html.dark .shadow-sm,
+html.dark .shadow {
+  box-shadow: none !important;
+}
+
+/* ============================================
+   CORRECCIONES PARA MODO OSCURO
+   ============================================ */
+
+/* ✅ Títulos de secciones en modo oscuro (My Role, Equipo, Duración, etc.) */
+html.dark h3.text-sm,
+html.dark .text-sm.font-bold,
+html.dark .text-sm.font-semibold,
+html.dark .text-sm.uppercase.tracking-wider {
+  color: #94a3b8 !important;
+}
+
+/* ✅ Años y fechas en modo oscuro */
+html.dark .text-sm.text-gray-500,
+html.dark .text-gray-500.dark\:text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+/* ✅ Títulos de timeline en modo oscuro */
+html.dark .font-grotesk.text-xl.font-bold {
+  color: #e5e2e1 !important;
+}
+
+/* ✅ Descripciones de timeline en modo oscuro */
+html.dark .text-gray-600.dark\:text-gray-300 {
+  color: #94a3b8 !important;
+}
+
+/* ✅ Search input en modo oscuro */
+html.dark #search-projects {
+  color: #e5e2e1 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark #search-projects::placeholder {
+  color: #64748b !important;
+}
+
+/* ✅ Títulos de contacto (Local Time, Location, etc.) */
+html.dark .contact-label,
+html.dark .text-sm.font-bold.uppercase.tracking-wider.text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+/* ✅ Valores de contacto (Madrid, Spain, etc.) */
+html.dark .contact-value,
+html.dark .text-gray-800.dark\:text-white {
+  color: #e5e2e1 !important;
+}
+
+/* ✅ Stats en modo oscuro */
+html.dark .stat-value,
+html.dark .text-4xl.font-bold {
+  color: #e5e2e1 !important;
+}
+
+html.dark .stat-label,
+html.dark .text-sm.uppercase.tracking-wider {
+  color: #94a3b8 !important;
+}
+
+/* ✅ FORZAR COLORES EN MODO OSCURO PARA TODOS LOS TEXTOS IMPORTANTES */
+html.dark .text-gray-500 { color: #94a3b8 !important; }
+html.dark .text-gray-600 { color: #b9cacb !important; }
+html.dark .text-gray-700 { color: #d4d4d4 !important; }
+html.dark .text-gray-800 { color: #e5e2e1 !important; }
+html.dark .text-gray-900 { color: #e5e2e1 !important; }
+html.dark .text-black { color: #e5e2e1 !important; }
+
+/* ✅ PARA TÍTULOS DE SECCIÓN EN MODO OSCURO */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark .font-grotesk {
+  color: #e5e2e1 !important;
+}
+
+/* ✅ PARA SUBTÍTULOS EN MODO OSCURO */
+html.dark .section-subtitle,
+html.dark .text-gray-600 {
+  color: #94a3b8 !important;
+}
+
+/* ✅ PARA CUALQUIER TEXTO CON OPACIDAD */
+html.dark .text-black\/80 {
+  color: rgba(229, 226, 225, 0.8) !important;
+}
+
+html.dark .text-black\/70 {
+  color: rgba(229, 226, 225, 0.7) !important;
+}
+
+html.dark .text-black\/60 {
+  color: rgba(229, 226, 225, 0.6) !important;
+}
+
+/* ============================================
+   CORRECCIONES PARA MODO OSCURO - TEXTOS ESPECÍFICOS
+   ============================================ */
+
+/* ✅ Social Networks, Location, Email - Títulos en modo oscuro */
+html.dark .contact-label,
+html.dark .text-sm.font-bold.uppercase.tracking-wider.text-gray-500,
+html.dark .text-gray-500.dark\:text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+/* ✅ Social Networks - Links (GitHub, LinkedIn) en modo oscuro */
+html.dark .contact-link,
+html.dark .text-gray-600.hover\:text-cyan-600,
+html.dark .text-gray-600.dark\:text-gray-400 {
+  color: #e5e2e1 !important;
+}
+
+html.dark .contact-link:hover,
+html.dark .text-gray-600.hover\:text-cyan-600:hover {
+  color: #00dbe7 !important;
+}
+
+/* ✅ Location y Email - Valores en modo oscuro */
+html.dark .contact-value,
+html.dark .text-gray-800.dark\:text-white {
+  color: #e5e2e1 !important;
+}
+
+/* ✅ Iconos de contacto en modo oscuro (location_on, email, etc.) */
+html.dark .contact-icon,
+html.dark .material-symbols-outlined.text-cyan-600 {
+  color: #00dbe7 !important;
+}
+
+/* ✅ Fondo de los iconos de contacto en modo oscuro */
+html.dark .contact-icon-bg,
+html.dark .bg-cyan-100.dark\:bg-cyan-400\/10 {
+  background: rgba(0, 219, 231, 0.1) !important;
+}
+
+/* ✅ FORZAR COLORES PARA TODOS LOS TEXTOS DE CONTACTO EN MODO OSCURO */
+html.dark .contact-section .text-gray-500,
+html.dark .contact-section .text-gray-600,
+html.dark .contact-section .text-gray-700,
+html.dark .contact-section .text-gray-800 {
+  color: #e5e2e1 !important;
+}
+
+html.dark .contact-section .text-sm {
+  color: #94a3b8 !important;
+}

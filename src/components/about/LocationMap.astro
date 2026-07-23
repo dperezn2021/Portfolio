@@ -1,0 +1,68 @@
+---
+import type { Language } from '../../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+const isEs = lang === 'es';
+---
+
+<section class="py-16 transition-colors duration-300 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    
+      <!-- Reloj y zona horaria -->
+      <div class="glass-card rounded-2xl border border-cyan-100 bg-white p-8 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+        <div class="absolute inset-0 bg-linear-to-br from-cyan-400/5 to-fuchsia-500/5"></div>
+        <div class="relative z-10">
+          <p class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="about.clock_title">
+            {isEs ? 'Hora local' : 'Local Time'}
+          </p>
+          <p class="font-grotesk text-6xl font-bold text-black dark:text-white md:text-7xl tracking-wider" id="local-time-display">
+            00:00:00
+          </p>
+          <p class="mt-3 text-sm text-black/70 dark:text-black" id="local-date-display">
+            {isEs ? 'Cargando fecha...' : 'Loading date...'}
+          </p>
+          <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-4 py-2 dark:border-white/10 dark:bg-zinc-800/50">
+            <span class="material-symbols-outlined text-sm text-cyan-600 dark:text-cyan-400">schedule</span>
+            <span class="text-sm font-medium text-black dark:text-gray-300" data-i18n="about.timezone">
+              {isEs ? 'Hora de Madrid (UTC+1)' : 'Madrid Time (UTC+1)'}
+            </span>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function updateClock() {
+    const timeDisplay = document.getElementById('local-time-display');
+    const dateDisplay = document.getElementById('local-date-display');
+    
+    if (!timeDisplay || !dateDisplay) return;
+    
+    const now = new Date();
+    
+    // Formatear hora (24h)
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+    
+    // Formatear fecha
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    };
+    const currentLang = localStorage.getItem('lang') === 'en' ? 'en-GB' : 'es-ES';
+    dateDisplay.textContent = now.toLocaleDateString(currentLang, options);
+  }
+  
+  // Actualizar cada segundo
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>

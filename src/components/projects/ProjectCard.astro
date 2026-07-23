@@ -1,0 +1,67 @@
+---
+import { DISCIPLINE_MAP, getDisciplineLabel } from '../../data/projects';
+import { t } from '../../data/translations';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  tags: string[];
+  disciplines: string[];
+  lang?: Language;
+}
+
+const { slug, title, description, coverImage, tags, disciplines, lang = 'es' } = Astro.props;
+const titleKey = `project.${slug}.title`;
+const descKey = `project.${slug}.desc`;
+const translatedTitle = t(lang, titleKey);
+const translatedDescription = t(lang, descKey);
+const safeTitle = translatedTitle === titleKey ? title : translatedTitle;
+const safeDescription = translatedDescription === descKey ? description : translatedDescription;
+---
+
+<a
+  href={`/proyectos/${slug}`}
+  class="group block overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
+  data-disciplines={disciplines.join(',')}
+>
+  <div class="relative aspect-video overflow-hidden">
+    <img
+      src={coverImage}
+      alt={title}
+      class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+    />
+    <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
+    <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
+      {tags.slice(0, 2).map((tag) => (
+        <span class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs backdrop-blur-md text-white">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div class="p-6">
+    <!-- Disciplinas traducidas -->
+    <div class="flex flex-wrap gap-1 mb-2">
+      {disciplines.slice(0, 3).map((discipline) => {
+        const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+        if (!info) return null;
+        const label = getDisciplineLabel(discipline, lang);
+        return (
+          <span class="text-cyan-600 dark:text-cyan-400 text-xs font-medium">
+            <span>{info.emoji}</span> <span data-i18n={`discipline.${discipline}`}>{label}</span>
+          </span>
+        );
+      })}
+    </div>
+    <h3 class="text-xl font-bold text-black group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400 transition-colors" data-i18n={titleKey}>
+      {safeTitle}
+    </h3>
+    <p class="mt-2 text-black dark:text-gray-300 line-clamp-2" data-i18n={descKey}>
+      {safeDescription}
+    </p>
+  </div>
+</a>

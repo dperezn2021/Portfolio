@@ -1,0 +1,184 @@
+---
+import { credentials, skillsInventory } from '../../data/learning';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  lang?: Language;
+  maxSkills?: number;
+}
+
+const { lang = 'es', maxSkills = 8 } = Astro.props;
+const isEs = lang === 'es';
+
+const visibleSkills = skillsInventory.slice(0, maxSkills);
+
+const totalWithLevel = skillsInventory.filter((skill) => skill.level).length;
+const avgLevel =
+  totalWithLevel > 0
+    ? (
+        skillsInventory
+          .filter((skill) => skill.level)
+          .reduce((acc, skill) => acc + (skill.level || 0), 0) / totalWithLevel
+      ).toFixed(1)
+    : '0.0';
+
+const sourceSummary = {
+  university: skillsInventory.filter((skill) => skill.university).length,
+  work: skillsInventory.filter((skill) => skill.work).length,
+  personal: skillsInventory.filter((skill) => skill.personal).length,
+};
+---
+
+<section class="py-16 transition-colors duration-300 md:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <h2 class="section-title text-center" data-i18n="about.learning_title">
+      {isEs ? 'Cursos, Certificados y Habilidades' : 'Courses, Credentials, and Skills'}
+    </h2>
+    <p class="section-subtitle text-center" data-i18n="about.learning_subtitle">
+      {isEs
+        ? 'Base inicial montada desde tu inventario para poder escalarla.'
+        : 'Initial dataset built from your inventory, ready to scale.'}
+    </p>
+
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_credentials">
+          {isEs ? 'Credenciales' : 'Credentials'}
+        </p>
+        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{credentials.length}</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_skills">
+          {isEs ? 'Habilidades registradas' : 'Registered skills'}
+        </p>
+        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{skillsInventory.length}</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_avg_level">
+          {isEs ? 'Nivel medio (1-5)' : 'Average level (1-5)'}
+        </p>
+        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{avgLevel}</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_sources">
+          {isEs ? 'Origen principal' : 'Primary source'}
+        </p>
+        <p
+          class="mt-2 text-lg font-semibold text-black dark:text-white"
+          data-i18n-es={
+            sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
+              ? 'Trabajo'
+              : sourceSummary.university >= sourceSummary.personal
+                ? 'Universidad'
+                : 'Personal'
+          }
+          data-i18n-en={
+            sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
+              ? 'Work'
+              : sourceSummary.university >= sourceSummary.personal
+                ? 'University'
+                : 'Personal'
+          }
+        >
+          {sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
+            ? isEs
+              ? 'Trabajo'
+              : 'Work'
+            : sourceSummary.university >= sourceSummary.personal
+              ? isEs
+                ? 'Universidad'
+                : 'University'
+              : isEs
+                ? 'Personal'
+                : 'Personal'}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+      <h3 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="about.learning.credentials_title">
+        {isEs ? 'Cursos y certificaciones obtenidas' : 'Completed courses and credentials'}
+      </h3>
+      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {credentials.map((credential) => (
+          <article class="rounded-xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
+            <p class="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
+              <span data-i18n-es={credential.typeEs} data-i18n-en={credential.typeEn}>
+                {isEs ? credential.typeEs : credential.typeEn}
+              </span>
+            </p>
+            <h4 class="mt-2 text-base font-semibold text-black dark:text-white">
+              <span data-i18n-es={credential.titleEs} data-i18n-en={credential.titleEn}>
+                {isEs ? credential.titleEs : credential.titleEn}
+              </span>
+            </h4>
+            <p class="mt-1 text-sm text-black dark:text-gray-300" data-i18n-es={credential.issuer} data-i18n-en={credential.issuer}>{credential.issuer}</p>
+            <p class="mt-2 text-xs font-semibold text-black/70 dark:text-black" data-i18n-es={credential.year} data-i18n-en={credential.year}>{credential.year}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h3 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="about.learning.skills_title">
+          {isEs ? 'Habilidades obtenidas (inventario)' : 'Acquired skills (inventory)'}
+        </h3>
+        <span class="rounded-full border border-cyan-100 bg-white px-3 py-1 text-xs font-medium text-black dark:border-white/10 dark:bg-zinc-900/50 dark:text-gray-300">
+          <span
+            data-i18n-es={`Mostrando ${visibleSkills.length} de ${skillsInventory.length}`}
+            data-i18n-en={`Showing ${visibleSkills.length} of ${skillsInventory.length}`}
+          >
+            {isEs ? `Mostrando ${visibleSkills.length} de ${skillsInventory.length}` : `Showing ${visibleSkills.length} of ${skillsInventory.length}`}
+          </span>
+        </span>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {visibleSkills.map((skill) => (
+          <article class="rounded-xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
+                  <span data-i18n-es={`${skill.category} • ${skill.type}`} data-i18n-en={`${skill.category} • ${skill.type}`}>
+                    {skill.category} • {skill.type}
+                  </span>
+                </p>
+                <h4 class="mt-1 text-base font-semibold text-black dark:text-white" data-i18n-es={skill.name} data-i18n-en={skill.name}>{skill.name}</h4>
+              </div>
+              {skill.level && (
+                <span class="rounded-full border border-cyan-300 bg-cyan-50 px-2.5 py-1 text-xs font-bold text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">
+                  <span data-i18n-es={`Nivel ${skill.level}/5`} data-i18n-en={`Level ${skill.level}/5`}>
+                    {isEs ? `Nivel ${skill.level}/5` : `Level ${skill.level}/5`}
+                  </span>
+                </span>
+              )}
+            </div>
+
+            <p class="mt-2 text-sm text-black dark:text-gray-300" data-i18n-es={skill.descriptionEs} data-i18n-en={skill.descriptionEn}>
+              {isEs ? skill.descriptionEs : skill.descriptionEn}
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              {skill.university && (
+                <span class="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300">
+                  <span data-i18n-es="Universidad" data-i18n-en="University">{isEs ? 'Universidad' : 'University'}</span>
+                </span>
+              )}
+              {skill.work && (
+                <span class="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-300">
+                  <span data-i18n-es="Trabajo" data-i18n-en="Work">{isEs ? 'Trabajo' : 'Work'}</span>
+                </span>
+              )}
+              {skill.personal && (
+                <span class="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-700 dark:border-violet-400/30 dark:bg-violet-500/10 dark:text-violet-300">
+                  <span data-i18n-es="Personal" data-i18n-en="Personal">{isEs ? 'Personal' : 'Personal'}</span>
+                </span>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

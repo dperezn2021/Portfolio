@@ -1,0 +1,69 @@
+---
+import '../styles/globals.css';
+import { TRANSLATIONS } from '../data/translations';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+}
+
+const { title = 'Daniel Pérez Navarro', description = 'Portfolio profesional', lang = 'es' } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          const normalizedTheme = savedTheme === 'dark' ? 'dark' : 'light';
+          const isDark = normalizedTheme === 'dark';
+          document.documentElement.classList.toggle('dark', isDark);
+          document.documentElement.setAttribute('data-theme', normalizedTheme);
+          document.documentElement.style.colorScheme = normalizedTheme;
+
+          if (savedTheme !== 'dark' && savedTheme !== 'light') {
+            localStorage.setItem('theme', 'light');
+          }
+        } catch {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.style.colorScheme = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="light-leak light-leak-cyan"></div>
+    <div class="light-leak light-leak-purple"></div>
+    <slot />
+
+    <!-- Scripts -->
+    <script is:inline set:html={`window.translations = ${JSON.stringify(TRANSLATIONS)};`}></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script is:inline src="/scripts/theme.js"></script>
+    <script is:inline src="/scripts/language.js"></script>
+    <script is:inline src="/scripts/animations.js"></script>
+    <script is:inline src="/scripts/filters.js"></script>
+    <script is:inline src="/scripts/contact.js"></script>
+    <script is:inline src="/scripts/main.js"></script>
+  </body>
+</html>

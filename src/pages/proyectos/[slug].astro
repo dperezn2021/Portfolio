@@ -1,0 +1,251 @@
+---
+// src/pages/proyectos/[slug].astro
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/layout/Header.astro";
+import Footer from "../../components/layout/Footer.astro";
+import ProjectGallery from "../../components/projects/ProjectGallery.astro";
+import { projects, DISCIPLINE_MAP, getDisciplineLabel } from "../../data/projects";
+import { t } from "../../data/translations";
+import type { Project } from "../../data/projects";
+import type { Language } from "../../utils/url";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project, lang: 'es' as Language },
+  }));
+}
+
+interface Props {
+  project: Project;
+  lang?: Language;
+}
+
+const { project, lang = 'es' } = Astro.props;
+const galleryImages = project.galleryImages || [];
+const galleryConfig = project.galleryConfig || {};
+const isEs = lang === 'es';
+const projectText = (field: 'title' | 'desc' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings', fallback: string) => {
+  const key = `project.${project.slug}.${field}`;
+  const translated = t(lang, key);
+  return translated === key ? fallback : translated;
+};
+
+const titleKey = `project.${project.slug}.title`;
+const descKey = `project.${project.slug}.desc`;
+const challengesKey = `project.${project.slug}.challenges`;
+const solutionKey = `project.${project.slug}.solution`;
+const roleKey = `project.${project.slug}.role`;
+const teamKey = `project.${project.slug}.team`;
+const durationKey = `project.${project.slug}.duration`;
+const learningsKey = `project.${project.slug}.learnings`;
+
+const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: string }> = {
+  'completado': { emoji: '✅', key: 'project.status.completed' },
+  'en-desarrollo': { emoji: '🔄', key: 'project.status.in_development' },
+  'prototipo': { emoji: '🧪', key: 'project.status.prototype' },
+  'pausado': { emoji: '⏸️', key: 'project.status.paused' },
+};
+---
+
+<MainLayout title={`${project.title} | Daniel Pérez Navarro`}>
+  <Header currentPage="/proyectos" lang={lang} />
+
+  <main class="pt-24">
+    <article class="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-20">
+      <!-- Volver -->
+      <div class="mb-8">
+        <a
+          href="/proyectos"
+          class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400"
+        >
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>{t(lang, 'project.back')}</span>
+        </a>
+      </div>
+
+
+      <!-- Hero -->
+      <div class="mb-10">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-wrap gap-2">
+            {project.disciplines.map((discipline) => {
+              const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+              if (!info) return null;
+              const label = getDisciplineLabel(discipline, lang);
+              return (
+                <span class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+                  <span>{info.emoji}</span> <span data-i18n={`discipline.${discipline}`}>{label}</span>
+                </span>
+              );
+            })}
+          </div>
+          <span class="text-sm text-black/70 dark:text-black">{project.year}</span>
+          <span class="text-sm text-black/70 dark:text-black">•</span>
+          <span class="text-sm text-black/70 dark:text-black">{project.type}</span>
+          {project.status && (
+            <span
+              class={`
+                text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full
+                ${project.status === "completado" ? "bg-green-500/20 text-green-600 dark:text-green-400" : ""}
+                ${project.status === "en-desarrollo" ? "bg-yellow-500/20 text-yellow-600 dark:text-yellow-400" : ""}
+                ${project.status === "prototipo" ? "bg-blue-500/20 text-blue-600 dark:text-blue-400" : ""}
+                ${project.status === "pausado" ? "bg-orange-500/20 text-orange-600 dark:text-orange-400" : ""}
+              `}
+            >
+              <span>{statusMap[project.status].emoji}</span>{' '}
+              <span data-i18n={statusMap[project.status].key}>{t(lang, statusMap[project.status].key)}</span>
+            </span>
+          )}
+        </div>
+
+        <h1 class="mt-4 font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl" data-i18n={titleKey}>
+          {projectText('title', project.title)}
+        </h1>
+
+        <p class="mt-4 max-w-3xl text-lg text-black dark:text-gray-300" data-i18n={descKey}>
+          {projectText('desc', project.description)}
+        </p>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-1.5 text-sm font-medium text-cyan-600 dark:text-cyan-400">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Galería -->
+      {galleryImages.length > 0 && (
+        <ProjectGallery images={galleryImages} alt={project.title} config={galleryConfig} />
+      )}
+
+      <!-- Información ampliada del proyecto -->
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="space-y-6">
+          {project.role && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.role_label">
+                {t(lang, 'project.role_label')}
+              </h3>
+              <p class="mt-2 text-black dark:text-white" data-i18n={roleKey}>{projectText('role', project.role)}</p>
+            </div>
+          )}
+
+          {project.team && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.team_label">
+                {t(lang, 'project.team_label')}
+              </h3>
+              <p class="mt-2 text-black dark:text-white" data-i18n={teamKey}>{projectText('team', project.team)}</p>
+            </div>
+          )}
+
+          {project.duration && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.duration_label">
+                {t(lang, 'project.duration_label')}
+              </h3>
+              <p class="mt-2 text-black dark:text-white" data-i18n={durationKey}>{projectText('duration', project.duration)}</p>
+            </div>
+          )}
+
+          {project.highlights && project.highlights.length > 0 && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.highlights_label">
+                {t(lang, 'project.highlights_label')}
+              </h3>
+              <ul class="mt-3 space-y-2">
+                {project.highlights.map((highlight) => (
+                  <li class="text-black dark:text-gray-300">{highlight}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div class="space-y-6">
+          {project.technologies && project.technologies.length > 0 && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.technologies_label">
+                {t(lang, 'project.technologies_label')}
+              </h3>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    class={`
+                      rounded-full px-3 py-1.5 text-xs font-medium
+                      ${tech.level === "principal" ? "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300" : ""}
+                      ${tech.level === "secundaria" ? "bg-purple-500/20 text-purple-700 dark:text-purple-300" : ""}
+                      ${tech.level === "experimental" ? "bg-indigo-500/20 text-indigo-700 dark:text-indigo-300" : ""}
+                    `}
+                  >
+                    {tech.name}
+                    {tech.level === "principal" && " ★"}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {project.learnings && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.key_learnings_label">
+                {t(lang, 'project.key_learnings_label')}
+              </h3>
+              <p class="mt-2 text-black dark:text-gray-300" data-i18n={learningsKey}>{projectText('learnings', project.learnings)}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Desafíos y Soluciones -->
+      {(project.challenges || project.solution) && (
+        <div class="mt-12 rounded-2xl border border-cyan-100 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+          <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white">
+            {t(lang, 'project.challenges_title')}
+          </h2>
+          <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="rounded-xl border border-red-200/50 bg-red-50/50 p-5 dark:border-red-500/20 dark:bg-red-500/5">
+              <span class="text-sm font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
+                ⚠️ <span data-i18n="project.challenge_label">{t(lang, 'project.challenge_label')}</span>
+              </span>
+              <p class="mt-2 text-black dark:text-gray-300" data-i18n={challengesKey}>
+                {project.challenges
+                  ? projectText('challenges', project.challenges)
+                  : t(lang, 'project.challenge_fallback')}
+              </p>
+            </div>
+            <div class="rounded-xl border border-green-200/50 bg-green-50/50 p-5 dark:border-green-500/20 dark:bg-green-500/5">
+              <span class="text-sm font-bold uppercase tracking-wider text-green-600 dark:text-green-400">
+                ✅ <span data-i18n="project.solution_label">{t(lang, 'project.solution_label')}</span>
+              </span>
+              <p class="mt-2 text-black dark:text-gray-300" data-i18n={solutionKey}>
+                {project.solution
+                  ? projectText('solution', project.solution)
+                  : t(lang, 'project.solution_fallback')}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Botones -->
+      <div class="mt-12 flex flex-wrap gap-4">
+        <a href="/proyectos" class="btn-primary">
+          {t(lang, 'project.back')}
+        </a>
+
+        {project.links && project.links.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <span class="material-symbols-outlined text-sm">link</span>
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </article>
+  </main>
+
+  <Footer lang={lang} />
+</MainLayout>

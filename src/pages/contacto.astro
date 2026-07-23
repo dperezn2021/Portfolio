@@ -1,0 +1,58 @@
+---
+// src/pages/contacto.astro
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import ContactForm from '../components/contact/ContactForm.astro';
+import ContactInfo from '../components/contact/ContactInfo.astro';
+import SectionTitle from '../components/common/SectionTitle.astro';
+import LocationMap from '../components/about/LocationMap.astro';
+import { t } from '../data/translations';
+import type { Language } from '../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+const isEs = lang === 'es';
+---
+
+<MainLayout title={isEs ? "Contacto | Daniel Pérez Navarro" : "Contact | Daniel Pérez Navarro"}>
+  <Header currentPage="/contacto" lang={lang} />
+  
+  <main class="pt-24">
+    <section class="py-20 transition-colors duration-300">
+      <div class="mx-auto max-w-7xl px-6">
+        <SectionTitle titleKey="contact.title" subtitleKey="contact.subtitle" centered>
+          <span slot="title">{t(lang, 'contact.title')}</span>
+          <span slot="subtitle">{t(lang, 'contact.subtitle')}</span>
+        </SectionTitle>
+
+        <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div class="space-y-6">
+            <div class="glass-card rounded-2xl border border-cyan-100 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900/60 dark:shadow-none">
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400" data-i18n="contact.available">
+                {t(lang, 'contact.available')}
+              </p>
+              <h3 class="mt-4 font-grotesk text-3xl font-bold text-black dark:text-white" data-i18n="contact.hero_title">
+                {isEs ? 'Construyamos algo memorable.' : "Let's build something memorable."}
+              </h3>
+              <p class="mt-4 text-lg text-black dark:text-gray-300" data-i18n="contact.hero_description">
+                {isEs 
+                  ? 'Estoy abierto a nuevas colaboraciones, freelance y oportunidades de producto. Si tienes una idea o necesitas un enfoque creativo y técnico, hablémoslo.'
+                  : "I'm open to new collaborations, freelance work, and product opportunities. If you have an idea or need a creative and technical approach, let's talk."}
+              </p>
+            </div>
+            <ContactInfo lang={lang} />
+          </div>
+          <ContactForm lang={lang} />
+        </div>
+
+        <LocationMap lang={lang} />
+      </div>
+    </section>
+  </main>
+  
+  <Footer lang={lang} />
+</MainLayout>

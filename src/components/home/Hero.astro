@@ -1,0 +1,39 @@
+---
+import Badge from '../common/Badge.astro';
+import { site } from '../../data/settings';
+---
+
+<section class="relative flex min-h-screen items-center overflow-hidden pt-20" id="home">
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="max-w-4xl">
+      <Badge color="cyan" i18nKey="hero.status">
+        Activo en el sector
+      </Badge>
+
+      <h1 class="mt-8 font-grotesk text-5xl font-bold leading-tight text-gray-800 dark:text-white md:text-7xl">
+        <span data-i18n="hero.name">Daniel Pérez Navarro-</span>
+        <br class="hidden md:block" />
+        <span class="gradient-text" data-i18n="hero.title">Diseño & Desarrollo </span>
+        <span class="text-gray-800 dark:text-white" data-i18n="hero.title_end">de Videojuegos</span>
+      </h1>
+
+      <p class="mt-8 max-w-2xl text-lg text-gray-700 dark:text-black" data-i18n="hero.description">
+        {site.description}
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/proyectos" class="btn-primary flex items-center gap-2">
+          <span data-i18n="hero.cta_projects">Ver Proyectos</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+        <a href="/sobre-mi" class="btn-secondary" data-i18n="hero.cta_about">
+          Sobre Mí
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+    <span class="material-symbols-outlined text-black dark:text-black">expand_more</span>
+  </div>
+</section>
