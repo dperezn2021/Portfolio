@@ -20,10 +20,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22  # ✅ CAMBIADO: 22 en lugar de 18 o 20
 
       - name: Install dependencies
-        run: npm install  # ✅ CAMBIADO: npm ci → npm install
+        run: npm ci  # ✅ Ahora funciona porque tienes package-lock.json
 
       - name: Build
         run: npm run build
