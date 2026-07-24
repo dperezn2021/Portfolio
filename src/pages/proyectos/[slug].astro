@@ -6,7 +6,7 @@ import Footer from "../../components/layout/Footer.astro";
 import ProjectGallery from "../../components/projects/ProjectGallery.astro";
 import { projects, DISCIPLINE_MAP, getDisciplineLabel } from "../../data/projects";
 import { t } from "../../data/translations";
-import type { Project } from "../../data/projects";
+import type { LocalizedText, Project, ProjectStoryStep } from "../../data/projects";
 import type { Language } from "../../utils/url";
 import { withBasePath } from '../../utils/paths';
 
@@ -28,7 +28,6 @@ const galleryImages = rawGalleryImages.map((image: NonNullable<Project['galleryI
   if (typeof image === 'string') {
     return withBasePath(image);
   }
-
   return {
     ...image,
     src: withBasePath(image.src),
@@ -36,225 +35,369 @@ const galleryImages = rawGalleryImages.map((image: NonNullable<Project['galleryI
 });
 const galleryConfig = project.galleryConfig || {};
 const isEs = lang === 'es';
-const projectText = (field: 'title' | 'desc' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings', fallback: string) => {
+
+// Helper para obtener texto traducido del proyecto
+const projectText = (field: keyof Pick<Project, 'title' | 'description' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings'>, fallback: string) => {
   const key = `project.${project.slug}.${field}`;
   const translated = t(lang, key);
   return translated === key ? fallback : translated;
 };
 
+const getLocalizedValue = (value: LocalizedText) => (isEs ? value.es : value.en);
+
+const storySteps: ProjectStoryStep[] = project.story ?? [];
+const skillGains = project.skillGains ?? [];
+const localizedHighlights = project.highlights ?? [];
+
+// ✅ Textos traducidos para el renderizado inicial
+const translatedTitle = projectText('title', project.title);
+const translatedDescription = projectText('description', project.description);
+const translatedRole = project.role ? projectText('role', project.role) : null;
+const translatedTeam = project.team ? projectText('team', project.team) : null;
+const translatedDuration = project.duration ? projectText('duration', project.duration) : null;
+
+// ✅ Claves para data-i18n (para que el JavaScript pueda actualizarlos)
 const titleKey = `project.${project.slug}.title`;
 const descKey = `project.${project.slug}.desc`;
-const challengesKey = `project.${project.slug}.challenges`;
-const solutionKey = `project.${project.slug}.solution`;
 const roleKey = `project.${project.slug}.role`;
 const teamKey = `project.${project.slug}.team`;
 const durationKey = `project.${project.slug}.duration`;
-const learningsKey = `project.${project.slug}.learnings`;
 
-const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: string }> = {
-  'completado': { emoji: '✅', key: 'project.status.completed' },
-  'en-desarrollo': { emoji: '🔄', key: 'project.status.in_development' },
-  'prototipo': { emoji: '🧪', key: 'project.status.prototype' },
-  'pausado': { emoji: '⏸️', key: 'project.status.paused' },
+const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: string; color: string }> = {
+  'completado': { emoji: '✅', key: 'project.status.completed', color: 'green' },
+  'en-desarrollo': { emoji: '🔄', key: 'project.status.in_development', color: 'yellow' },
+  'prototipo': { emoji: '🧪', key: 'project.status.prototype', color: 'blue' },
+  'pausado': { emoji: '⏸️', key: 'project.status.paused', color: 'orange' },
+};
+
+// Configuración de colores para cada tipo de paso
+const stepConfig: Record<string, { 
+  gradient: string; 
+  bg: string; 
+  border: string; 
+  iconBg: string; 
+  iconColor: string;
+  label: string;
+}> = {
+  'context': {
+    gradient: 'from-blue-500 to-cyan-400',
+    bg: 'bg-blue-50/80 dark:bg-blue-950/30',
+    border: 'border-blue-200 dark:border-blue-800/30',
+    iconBg: 'bg-blue-100 dark:bg-blue-900/40',
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    label: 'project.story.context'
+  },
+  'objective': {
+    gradient: 'from-purple-500 to-fuchsia-400',
+    bg: 'bg-purple-50/80 dark:bg-purple-950/30',
+    border: 'border-purple-200 dark:border-purple-800/30',
+    iconBg: 'bg-purple-100 dark:bg-purple-900/40',
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    label: 'project.story.objective'
+  },
+  'implementation': {
+    gradient: 'from-emerald-500 to-teal-400',
+    bg: 'bg-emerald-50/80 dark:bg-emerald-950/30',
+    border: 'border-emerald-200 dark:border-emerald-800/30',
+    iconBg: 'bg-emerald-100 dark:bg-emerald-900/40',
+    iconColor: 'text-emerald-600 dark:text-emerald-400',
+    label: 'project.story.implementation'
+  },
+  'learning': {
+    gradient: 'from-amber-500 to-orange-400',
+    bg: 'bg-amber-50/80 dark:bg-amber-950/30',
+    border: 'border-amber-200 dark:border-amber-800/30',
+    iconBg: 'bg-amber-100 dark:bg-amber-900/40',
+    iconColor: 'text-amber-600 dark:text-amber-400',
+    label: 'project.story.learning'
+  }
 };
 ---
 
-<MainLayout title={`${project.title} | Daniel Pérez Navarro`}>
+<MainLayout title={`${translatedTitle} | Daniel Pérez Navarro`}>
   <Header currentPage="/proyectos" lang={lang} />
 
   <main class="pt-24">
     <article class="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-20">
-      <!-- Volver -->
+      
+      <!-- ============================================ -->
+      <!-- 1. BOTÓN VOLVER -->
+      <!-- ============================================ -->
       <div class="mb-8">
         <a
           href={withBasePath('/proyectos')}
-          class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400"
+          class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400 group"
         >
-          <span class="material-symbols-outlined text-sm">arrow_back</span>
-          <span>{t(lang, 'project.back')}</span>
+          <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+          <span data-i18n="project.back">{t(lang, 'project.back')}</span>
         </a>
       </div>
 
-
-      <!-- Hero -->
-      <div class="mb-10">
-        <div class="flex flex-wrap items-center gap-4">
-          <div class="flex flex-wrap gap-2">
-            {project.disciplines.map((discipline) => {
-              const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
-              if (!info) return null;
-              const label = getDisciplineLabel(discipline, lang);
-              return (
-                <span class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-                  <span>{info.emoji}</span> <span data-i18n={`discipline.${discipline}`}>{label}</span>
-                </span>
-              );
-            })}
-          </div>
-          <span class="text-sm text-black/70 dark:text-black">{project.year}</span>
-          <span class="text-sm text-black/70 dark:text-black">•</span>
-          <span class="text-sm text-black/70 dark:text-black">{project.type}</span>
+      <!-- ============================================ -->
+      <!-- 2. HERO - TÍTULO Y METADATOS -->
+      <!-- ============================================ -->
+      <header class="mb-12">
+        <!-- Badges -->
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          {project.disciplines.map((discipline) => {
+            const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+            if (!info) return null;
+            const label = getDisciplineLabel(discipline, lang);
+            return (
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-100/80 px-3 py-1 text-xs font-semibold text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
+                <span>{info.emoji}</span>
+                <span data-i18n={`discipline.${discipline}`}>{label}</span>
+              </span>
+            );
+          })}
+          <span class="text-sm text-gray-500 dark:text-gray-400">{project.year}</span>
+          <span class="text-sm text-gray-400 dark:text-gray-600">•</span>
+          <span class="text-sm text-gray-500 dark:text-gray-400">{project.type}</span>
           {project.status && (
             <span
               class={`
-                text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full
-                ${project.status === "completado" ? "bg-green-500/20 text-green-600 dark:text-green-400" : ""}
-                ${project.status === "en-desarrollo" ? "bg-yellow-500/20 text-yellow-600 dark:text-yellow-400" : ""}
-                ${project.status === "prototipo" ? "bg-blue-500/20 text-blue-600 dark:text-blue-400" : ""}
-                ${project.status === "pausado" ? "bg-orange-500/20 text-orange-600 dark:text-orange-400" : ""}
+                inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold
+                ${project.status === "completado" ? "bg-green-100 text-green-700 dark:bg-green-400/10 dark:text-green-300" : ""}
+                ${project.status === "en-desarrollo" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-400/10 dark:text-yellow-300" : ""}
+                ${project.status === "prototipo" ? "bg-blue-100 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300" : ""}
+                ${project.status === "pausado" ? "bg-orange-100 text-orange-700 dark:bg-orange-400/10 dark:text-orange-300" : ""}
               `}
             >
-              <span>{statusMap[project.status].emoji}</span>{' '}
+              <span>{statusMap[project.status].emoji}</span>
               <span data-i18n={statusMap[project.status].key}>{t(lang, statusMap[project.status].key)}</span>
             </span>
           )}
         </div>
 
-        <h1 class="mt-4 font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl" data-i18n={titleKey}>
-          {projectText('title', project.title)}
+        {/* ✅ TÍTULO CON data-i18n */}
+        <h1 
+          class="font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl"
+          data-i18n={titleKey}
+        >
+          {translatedTitle}
         </h1>
 
-        <p class="mt-4 max-w-3xl text-lg text-black dark:text-gray-300" data-i18n={descKey}>
-          {projectText('desc', project.description)}
+        {/* ✅ DESCRIPCIÓN CON data-i18n */}
+        <p 
+          class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
+          data-i18n={descKey}
+        >
+          {translatedDescription}
         </p>
 
         <div class="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-1.5 text-sm font-medium text-cyan-600 dark:text-cyan-400">
-              {tag}
+            <span class="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-sm font-medium text-cyan-600 dark:text-cyan-400">
+              #{tag}
             </span>
           ))}
         </div>
-      </div>
+      </header>
 
-      <!-- Galería -->
+      <!-- ============================================ -->
+      <!-- 3. GALERÍA -->
+      <!-- ============================================ -->
       {galleryImages.length > 0 && (
-        <ProjectGallery images={galleryImages} alt={project.title} config={galleryConfig} />
+        <section class="mb-16">
+          <ProjectGallery images={galleryImages} alt={translatedTitle} config={galleryConfig} />
+        </section>
       )}
 
-      <!-- Información ampliada del proyecto -->
-      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div class="space-y-6">
-          {project.role && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.role_label">
-                {t(lang, 'project.role_label')}
-              </h3>
-              <p class="mt-2 text-black dark:text-white" data-i18n={roleKey}>{projectText('role', project.role)}</p>
+      <!-- ============================================ -->
+      <!-- 4. LÍNEA DE TIEMPO DEL PROYECTO (STORY) -->
+      <!-- ============================================ -->
+      {storySteps.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-2xl">📖</span>
+            <div>
+              <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.story_title">
+                {t(lang, 'project.story_title')}
+              </h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="project.story_subtitle">
+                {t(lang, 'project.story_subtitle')}
+              </p>
+            </div>
+          </div>
+
+          <!-- TIMELINE HORIZONTAL -->
+          <div class="relative">
+            <div class="absolute left-0 right-0 top-6 h-0.5 bg-gradient-to-r from-blue-400 via-purple-400 via-emerald-400 to-amber-400"></div>
+            
+            <div class="relative grid grid-cols-1 gap-8 md:grid-cols-4">
+              {storySteps.map((step) => {
+                const config = stepConfig[step.kind] || stepConfig['context'];
+                
+                return (
+                  <div class="relative flex flex-col items-center">
+                    <div class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25 transition-transform duration-300 hover:scale-110">
+                      <span class="material-symbols-outlined text-2xl">{step.icon}</span>
+                    </div>
+                    
+                    <div class={`
+                      relative mt-6 w-full rounded-2xl border p-5 transition-all duration-300 hover:shadow-md
+                      ${config.bg} ${config.border}
+                    `}>
+                      <div class={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${config.gradient}`}></div>
+                      
+                      <div class="relative pt-1">
+                        <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n={config.label}>
+                          {t(lang, config.label)}
+                        </p>
+                        <p class="mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300" data-i18n-es={step.text.es} data-i18n-en={step.text.en}>
+                          {getLocalizedValue(step.text)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 5. METADATA: ROL, EQUIPO, DURACIÓN + TECNOLOGÍAS -->
+      <!-- ============================================ -->
+      <section class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div class="space-y-4">
+          {translatedRole && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+                <span class="material-symbols-outlined text-sm">person</span>
+                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.role_label">
+                  {t(lang, 'project.role_label')}
+                </h3>
+              </div>
+              <p class="mt-2 text-black dark:text-white" data-i18n={roleKey}>
+                {translatedRole}
+              </p>
             </div>
           )}
 
-          {project.team && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.team_label">
-                {t(lang, 'project.team_label')}
-              </h3>
-              <p class="mt-2 text-black dark:text-white" data-i18n={teamKey}>{projectText('team', project.team)}</p>
+          {translatedTeam && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+                <span class="material-symbols-outlined text-sm">group</span>
+                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.team_label">
+                  {t(lang, 'project.team_label')}
+                </h3>
+              </div>
+              <p class="mt-2 text-black dark:text-white" data-i18n={teamKey}>
+                {translatedTeam}
+              </p>
             </div>
           )}
 
-          {project.duration && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.duration_label">
-                {t(lang, 'project.duration_label')}
-              </h3>
-              <p class="mt-2 text-black dark:text-white" data-i18n={durationKey}>{projectText('duration', project.duration)}</p>
-            </div>
-          )}
-
-          {project.highlights && project.highlights.length > 0 && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.highlights_label">
-                {t(lang, 'project.highlights_label')}
-              </h3>
-              <ul class="mt-3 space-y-2">
-                {project.highlights.map((highlight) => (
-                  <li class="text-black dark:text-gray-300">{highlight}</li>
-                ))}
-              </ul>
+          {translatedDuration && (
+            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+                <span class="material-symbols-outlined text-sm">schedule</span>
+                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.duration_label">
+                  {t(lang, 'project.duration_label')}
+                </h3>
+              </div>
+              <p class="mt-2 text-black dark:text-white" data-i18n={durationKey}>
+                {translatedDuration}
+              </p>
             </div>
           )}
         </div>
 
-        <div class="space-y-6">
+        <div class="md:col-span-2">
           {project.technologies && project.technologies.length > 0 && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.technologies_label">
-                {t(lang, 'project.technologies_label')}
-              </h3>
-              <div class="mt-3 flex flex-wrap gap-2">
+            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 h-full">
+              <div class="flex items-center gap-2 mb-4 text-cyan-600 dark:text-cyan-400">
+                <span class="material-symbols-outlined text-sm">code</span>
+                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.technologies_label">
+                  {t(lang, 'project.technologies_label')}
+                </h3>
+              </div>
+              <div class="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <span
                     class={`
-                      rounded-full px-3 py-1.5 text-xs font-medium
-                      ${tech.level === "principal" ? "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300" : ""}
-                      ${tech.level === "secundaria" ? "bg-purple-500/20 text-purple-700 dark:text-purple-300" : ""}
-                      ${tech.level === "experimental" ? "bg-indigo-500/20 text-indigo-700 dark:text-indigo-300" : ""}
+                      rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105
+                      ${tech.level === "principal" ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-400/30" : ""}
+                      ${tech.level === "secundaria" ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-400/20" : ""}
+                      ${tech.level === "experimental" ? "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-400/20" : ""}
                     `}
                   >
                     {tech.name}
-                    {tech.level === "principal" && " ★"}
+                    {tech.level === "principal" && " ⭐"}
                   </span>
                 ))}
               </div>
             </div>
           )}
-
-          {project.learnings && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-black" data-i18n="project.key_learnings_label">
-                {t(lang, 'project.key_learnings_label')}
-              </h3>
-              <p class="mt-2 text-black dark:text-gray-300" data-i18n={learningsKey}>{projectText('learnings', project.learnings)}</p>
-            </div>
-          )}
         </div>
-      </div>
+      </section>
 
-      <!-- Desafíos y Soluciones -->
-      {(project.challenges || project.solution) && (
-        <div class="mt-12 rounded-2xl border border-cyan-100 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-          <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white">
-            {t(lang, 'project.challenges_title')}
-          </h2>
-          <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div class="rounded-xl border border-red-200/50 bg-red-50/50 p-5 dark:border-red-500/20 dark:bg-red-500/5">
-              <span class="text-sm font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
-                ⚠️ <span data-i18n="project.challenge_label">{t(lang, 'project.challenge_label')}</span>
-              </span>
-              <p class="mt-2 text-black dark:text-gray-300" data-i18n={challengesKey}>
-                {project.challenges
-                  ? projectText('challenges', project.challenges)
-                  : t(lang, 'project.challenge_fallback')}
-              </p>
-            </div>
-            <div class="rounded-xl border border-green-200/50 bg-green-50/50 p-5 dark:border-green-500/20 dark:bg-green-500/5">
-              <span class="text-sm font-bold uppercase tracking-wider text-green-600 dark:text-green-400">
-                ✅ <span data-i18n="project.solution_label">{t(lang, 'project.solution_label')}</span>
-              </span>
-              <p class="mt-2 text-black dark:text-gray-300" data-i18n={solutionKey}>
-                {project.solution
-                  ? projectText('solution', project.solution)
-                  : t(lang, 'project.solution_fallback')}
-              </p>
-            </div>
+      <!-- ============================================ -->
+      <!-- 6. SKILL GAINS -->
+      <!-- ============================================ -->
+      {skillGains.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-2xl">🚀</span>
+            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.skills_gained_label">
+              {t(lang, 'project.skills_gained_label')}
+            </h2>
           </div>
-        </div>
+          <div class="flex flex-wrap gap-3">
+            {skillGains.map((skill) => (
+              <span class="rounded-full bg-gradient-to-r from-fuchsia-500/10 to-purple-500/10 px-5 py-2.5 text-sm font-medium text-fuchsia-700 dark:text-fuchsia-300 border border-fuchsia-400/30 transition-all hover:scale-105 hover:shadow-md" data-i18n-es={skill.es} data-i18n-en={skill.en}>
+                🎯 <span data-i18n-es={skill.es} data-i18n-en={skill.en}>{getLocalizedValue(skill)}</span>
+              </span>
+            ))}
+          </div>
+        </section>
       )}
 
-      <!-- Botones -->
-      <div class="mt-12 flex flex-wrap gap-4">
-        <a href={withBasePath('/proyectos')} class="btn-primary">
+      <!-- ============================================ -->
+      <!-- 7. HIGHLIGHTS -->
+      <!-- ============================================ -->
+      {localizedHighlights.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-2xl">✨</span>
+            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.highlights_label">
+              {t(lang, 'project.highlights_label')}
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {localizedHighlights.map((highlight) => {
+              const text = getLocalizedValue(highlight);
+              const emoji = text.match(/^[^\s]+/)?.[0] || '✨';
+              const rest = text.replace(/^[^\s]+\s/, '');
+              return (
+                <div class="flex items-start gap-3 rounded-2xl border border-cyan-100 bg-gradient-to-br from-cyan-50/50 to-white p-4 dark:border-white/10 dark:from-cyan-950/20 dark:to-zinc-900/30 transition-all hover:scale-[1.02]" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>
+                  <span class="text-lg">{emoji}</span>
+                  <span class="text-sm text-gray-700 dark:text-gray-300" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>{rest}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 8. ENLACES EXTERNOS -->
+      <!-- ============================================ -->
+      <div class="flex flex-wrap gap-4 pt-4 border-t border-gray-200 dark:border-white/10">
+        <a href={withBasePath('/proyectos')} class="btn-primary" data-i18n="project.back">
           {t(lang, 'project.back')}
         </a>
 
         {project.links && project.links.map((link) => (
-          <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn-secondary inline-flex items-center gap-2">
             <span class="material-symbols-outlined text-sm">link</span>
             {link.label}
           </a>
         ))}
       </div>
+
     </article>
   </main>
 

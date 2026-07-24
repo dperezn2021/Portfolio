@@ -58,10 +58,11 @@ const safeDescription = translatedDescription === descKey ? description : transl
         );
       })}
     </div>
-    <h3 class="text-xl font-bold text-black group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400 transition-colors" data-i18n={titleKey}>
+    <!-- ✅ AÑADIDA LA CLASE card-title AQUÍ -->
+    <h3 class="card-title text-xl font-bold text-black group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400 transition-colors" data-i18n={titleKey}>
       {safeTitle}
     </h3>
-    <p class="mt-2 text-black dark:text-gray-300 line-clamp-2" data-i18n={descKey}>
+    <p class="card-text mt-2 text-black dark:text-gray-300 line-clamp-2" data-i18n={descKey}>
       {safeDescription}
     </p>
   </div>

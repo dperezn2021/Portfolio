@@ -1,184 +1,200 @@
 ---
 import { credentials, skillsInventory } from '../../data/learning';
 import type { Language } from '../../utils/url';
+import { t } from '../../data/translations';
 
 interface Props {
   lang?: Language;
-  maxSkills?: number;
 }
 
-const { lang = 'es', maxSkills = 8 } = Astro.props;
+const { lang = 'es' } = Astro.props;
 const isEs = lang === 'es';
 
-const visibleSkills = skillsInventory.slice(0, maxSkills);
+// Categorías con sus claves de traducción
+const categories = [
+  { key: 'game_development', label: 'Desarrollo de Videojuegos' },
+  { key: 'web_development', label: 'Desarrollo Web' },
+  { key: 'design', label: 'Diseño' },
+  { key: 'programming', label: 'Programación' },
+  { key: 'databases', label: 'Bases de Datos' },
+  { key: 'cloud', label: 'Cloud' },
+  { key: 'devops', label: 'DevOps' },
+  { key: 'observability', label: 'Observabilidad' },
+  { key: 'streaming', label: 'Streaming' },
+  { key: 'support', label: 'Soporte' },
+  { key: 'ai', label: 'Inteligencia Artificial' },
+  { key: 'tools', label: 'Herramientas' },
+];
 
-const totalWithLevel = skillsInventory.filter((skill) => skill.level).length;
-const avgLevel =
-  totalWithLevel > 0
-    ? (
-        skillsInventory
-          .filter((skill) => skill.level)
-          .reduce((acc, skill) => acc + (skill.level || 0), 0) / totalWithLevel
-      ).toFixed(1)
-    : '0.0';
-
-const sourceSummary = {
-  university: skillsInventory.filter((skill) => skill.university).length,
-  work: skillsInventory.filter((skill) => skill.work).length,
-  personal: skillsInventory.filter((skill) => skill.personal).length,
+const getCategoryIcon = (categoryKey: string): string => {
+  const icons: Record<string, string> = {
+    'game_development': 'sports_esports',
+    'web_development': 'code',
+    'design': 'brush',
+    'programming': 'terminal',
+    'databases': 'database',
+    'cloud': 'cloud',
+    'devops': 'settings',
+    'observability': 'monitoring',
+    'streaming': 'play_arrow',
+    'support': 'support_agent',
+    'ai': 'neurology',
+    'tools': 'build',
+  };
+  return icons[categoryKey] || 'circle';
 };
+
+const getSourceColor = (source: string): string => {
+  const colors: Record<string, string> = {
+    'Universidad': 'bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300',
+    'Trabajo': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300',
+    'Personal': 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300',
+  };
+  return colors[source] || 'bg-gray-100 text-gray-700 dark:bg-gray-500/20 dark:text-gray-300';
+};
+
+const getLegendColor = (source: string): string => {
+  const colors: Record<string, string> = {
+    'Universidad': 'bg-purple-500',
+    'Trabajo': 'bg-emerald-500',
+    'Personal': 'bg-blue-500',
+  };
+  return colors[source] || 'bg-gray-500';
+};
+
+const legendItems = [
+  { key: 'Universidad', label: 'about.learning.tag_university' },
+  { key: 'Trabajo', label: 'about.learning.tag_work' },
+  { key: 'Personal', label: 'about.learning.tag_personal' },
+];
 ---
 
 <section class="py-16 transition-colors duration-300 md:py-20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <h2 class="section-title text-center" data-i18n="about.learning_title">
-      {isEs ? 'Cursos, Certificados y Habilidades' : 'Courses, Credentials, and Skills'}
+      {t(lang, 'about.learning_title')}
     </h2>
     <p class="section-subtitle text-center" data-i18n="about.learning_subtitle">
-      {isEs
-        ? 'Base inicial montada desde tu inventario para poder escalarla.'
-        : 'Initial dataset built from your inventory, ready to scale.'}
+      {t(lang, 'about.learning_subtitle')}
     </p>
 
-    <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+    <!-- MÉTRICAS -->
+    <div class="mt-10 grid grid-cols-3 gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 text-center shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
         <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_credentials">
-          {isEs ? 'Credenciales' : 'Credentials'}
+          {t(lang, 'about.learning.metric_credentials')}
         </p>
-        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{credentials.length}</p>
+        <p class="mt-1 text-3xl font-bold text-black dark:text-white">{credentials.length}</p>
       </div>
-      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 text-center shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
         <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_skills">
-          {isEs ? 'Habilidades registradas' : 'Registered skills'}
+          {t(lang, 'about.learning.metric_skills')}
         </p>
-        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{skillsInventory.length}</p>
+        <p class="mt-1 text-3xl font-bold text-black dark:text-white">{skillsInventory.length}</p>
       </div>
-      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_avg_level">
-          {isEs ? 'Nivel medio (1-5)' : 'Average level (1-5)'}
+      <div class="rounded-2xl border border-cyan-100 bg-white p-5 text-center shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_categories">
+          {t(lang, 'about.learning.metric_categories')}
         </p>
-        <p class="mt-2 text-3xl font-bold text-black dark:text-white">{avgLevel}</p>
+        <p class="mt-1 text-3xl font-bold text-black dark:text-white">{categories.length}</p>
       </div>
-      <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-        <p class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="about.learning.metric_sources">
-          {isEs ? 'Origen principal' : 'Primary source'}
-        </p>
-        <p
-          class="mt-2 text-lg font-semibold text-black dark:text-white"
-          data-i18n-es={
-            sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
-              ? 'Trabajo'
-              : sourceSummary.university >= sourceSummary.personal
-                ? 'Universidad'
-                : 'Personal'
-          }
-          data-i18n-en={
-            sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
-              ? 'Work'
-              : sourceSummary.university >= sourceSummary.personal
-                ? 'University'
-                : 'Personal'
-          }
-        >
-          {sourceSummary.work >= sourceSummary.university && sourceSummary.work >= sourceSummary.personal
-            ? isEs
-              ? 'Trabajo'
-              : 'Work'
-            : sourceSummary.university >= sourceSummary.personal
-              ? isEs
-                ? 'Universidad'
-                : 'University'
-              : isEs
-                ? 'Personal'
-                : 'Personal'}
-        </p>
-      </div>
+     
     </div>
 
-    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-      <h3 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="about.learning.credentials_title">
-        {isEs ? 'Cursos y certificaciones obtenidas' : 'Completed courses and credentials'}
+    <!-- LEYENDA -->
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm">
+      {legendItems.map((item) => (
+        <span class="flex items-center gap-2">
+          <span class={`inline-block h-3 w-3 rounded-full ${getLegendColor(item.key)}`}></span>
+          <span data-i18n={item.label}>{t(lang, item.label)}</span>
+        </span>
+      ))}
+    </div>
+
+    <!-- CERTIFICACIONES -->
+    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+      <h3 class="font-grotesk text-xl font-bold text-black dark:text-white" data-i18n="about.learning.credentials_title">
+        {t(lang, 'about.learning.credentials_title')}
       </h3>
-      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {credentials.map((credential) => (
-          <article class="rounded-xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
-            <p class="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
-              <span data-i18n-es={credential.typeEs} data-i18n-en={credential.typeEn}>
-                {isEs ? credential.typeEs : credential.typeEn}
-              </span>
-            </p>
-            <h4 class="mt-2 text-base font-semibold text-black dark:text-white">
-              <span data-i18n-es={credential.titleEs} data-i18n-en={credential.titleEn}>
-                {isEs ? credential.titleEs : credential.titleEn}
-              </span>
-            </h4>
-            <p class="mt-1 text-sm text-black dark:text-gray-300" data-i18n-es={credential.issuer} data-i18n-en={credential.issuer}>{credential.issuer}</p>
-            <p class="mt-2 text-xs font-semibold text-black/70 dark:text-black" data-i18n-es={credential.year} data-i18n-en={credential.year}>{credential.year}</p>
-          </article>
+      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-1">
+        {credentials.map((cred) => (
+          <div class="flex items-start gap-4 rounded-xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-100 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-400">
+              <span class="material-symbols-outlined text-2xl">{cred.icon || 'school'}</span>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase text-cyan-600 dark:text-cyan-400" data-i18n={`credential.type.${cred.type}`}>
+                {t(lang, `credential.type.${cred.type}`)}
+              </p>
+              <h4 class="font-semibold text-black dark:text-white" data-i18n={`credential.${cred.id}.title`}>
+                {t(lang, `credential.${cred.id}.title`)}
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{cred.issuer}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-500">{cred.year}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>
 
-    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <h3 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="about.learning.skills_title">
-          {isEs ? 'Habilidades obtenidas (inventario)' : 'Acquired skills (inventory)'}
+    <!-- INVENTARIO DE HABILIDADES -->
+    <div class="mt-8 rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
+      <div class="flex items-center justify-between">
+        <h3 class="font-grotesk text-xl font-bold text-black dark:text-white" data-i18n="about.learning.skills_title">
+          {t(lang, 'about.learning.skills_title')}
         </h3>
-        <span class="rounded-full border border-cyan-100 bg-white px-3 py-1 text-xs font-medium text-black dark:border-white/10 dark:bg-zinc-900/50 dark:text-gray-300">
-          <span
-            data-i18n-es={`Mostrando ${visibleSkills.length} de ${skillsInventory.length}`}
-            data-i18n-en={`Showing ${visibleSkills.length} of ${skillsInventory.length}`}
-          >
-            {isEs ? `Mostrando ${visibleSkills.length} de ${skillsInventory.length}` : `Showing ${visibleSkills.length} of ${skillsInventory.length}`}
-          </span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+          {skillsInventory.length} <span data-i18n="about.learning.skills_count">{t(lang, 'about.learning.skills_count')}</span>
         </span>
       </div>
 
-      <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {visibleSkills.map((skill) => (
-          <article class="rounded-xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="text-xs font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">
-                  <span data-i18n-es={`${skill.category} • ${skill.type}`} data-i18n-en={`${skill.category} • ${skill.type}`}>
-                    {skill.category} • {skill.type}
-                  </span>
-                </p>
-                <h4 class="mt-1 text-base font-semibold text-black dark:text-white" data-i18n-es={skill.name} data-i18n-en={skill.name}>{skill.name}</h4>
-              </div>
-              {skill.level && (
-                <span class="rounded-full border border-cyan-300 bg-cyan-50 px-2.5 py-1 text-xs font-bold text-cyan-700 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">
-                  <span data-i18n-es={`Nivel ${skill.level}/5`} data-i18n-en={`Level ${skill.level}/5`}>
-                    {isEs ? `Nivel ${skill.level}/5` : `Level ${skill.level}/5`}
-                  </span>
-                </span>
-              )}
-            </div>
+      {categories.map((cat) => {
+        const skills = skillsInventory.filter(s => s.category === cat.key);
+        if (skills.length === 0) return null;
 
-            <p class="mt-2 text-sm text-black dark:text-gray-300" data-i18n-es={skill.descriptionEs} data-i18n-en={skill.descriptionEn}>
-              {isEs ? skill.descriptionEs : skill.descriptionEn}
-            </p>
-
-            <div class="mt-3 flex flex-wrap gap-2">
-              {skill.university && (
-                <span class="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300">
-                  <span data-i18n-es="Universidad" data-i18n-en="University">{isEs ? 'Universidad' : 'University'}</span>
-                </span>
-              )}
-              {skill.work && (
-                <span class="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-300">
-                  <span data-i18n-es="Trabajo" data-i18n-en="Work">{isEs ? 'Trabajo' : 'Work'}</span>
-                </span>
-              )}
-              {skill.personal && (
-                <span class="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-700 dark:border-violet-400/30 dark:bg-violet-500/10 dark:text-violet-300">
-                  <span data-i18n-es="Personal" data-i18n-en="Personal">{isEs ? 'Personal' : 'Personal'}</span>
-                </span>
-              )}
+        return (
+          <div class="mt-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400">
+                {getCategoryIcon(cat.key)}
+              </span>
+              <h4 class="font-semibold text-black dark:text-white" data-i18n={`category.${cat.key}`}>
+                {t(lang, `category.${cat.key}`)}
+              </h4>
+              <span class="text-xs text-gray-500 dark:text-gray-400">({skills.length})</span>
             </div>
-          </article>
-        ))}
-      </div>
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+              {skills.map((skill) => (
+                <div class="rounded-lg border border-cyan-100/60 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-zinc-900/30">
+                  <div class="flex items-start justify-between">
+                    <span class="text-sm font-medium text-black dark:text-white" data-i18n={`skill.${skill.id}`}>
+                      {t(lang, `skill.${skill.id}`)}
+                    </span>
+                    {skill.level && (
+                      <span class="rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-bold text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
+                        {skill.level}/5
+                      </span>
+                    )}
+                  </div>
+                  <div class="mt-1 flex flex-wrap gap-1">
+                    {skill.sources.map((source) => {
+                      const labelKey = source === 'Universidad' ? 'about.learning.tag_university' : source === 'Trabajo' ? 'about.learning.tag_work' : 'about.learning.tag_personal';
+                      return (
+                        <span class={`rounded-full px-2 py-0.5 text-[10px] font-medium ${getSourceColor(source)}`}>
+                          <span data-i18n={labelKey}>{t(lang, labelKey)}</span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2" data-i18n={`skill.${skill.id}.desc`}>
+                    {t(lang, `skill.${skill.id}.desc`)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>
