@@ -4,15 +4,14 @@ Portfolio profesional de Daniel Pérez Navarro, Graduado en Diseño y Desarrollo
 
 ## 🌐 Ver el sitio
 
-[https://dperezn2021.github.io/](https://dperezn2021.github.io/)
+[https://dperezn2021.github.io/Portfolio](https://dperezn2021.github.io/Portfolio)
 
 ## 🛠️ Tecnologías
 
 - [Astro 7](https://astro.build/)
 - [Tailwind CSS 4](https://tailwindcss.com/)
-- TypeScript
-- GitHub Pages
-
+- [TypeScript](https://www.typescriptlang.org/)
+    
 ## 🌍 Idiomas
 🇪🇸 Español
 🇬🇧 English
@@ -20,6 +19,5 @@ Portfolio profesional de Daniel Pérez Navarro, Graduado en Diseño y Desarrollo
 ## 👤 Autor
 Daniel Pérez Navarro
 
-- GitHub: @dperezn2021
-- LinkedIn: Daniel Pérez Navarro
+- LinkedIn: [Daniel Pérez Navarro](https://www.linkedin.com/in/dpereznavarro/)
 - Email: d.pereznavarro15@gmail.com
