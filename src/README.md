@@ -1,18 +1,35 @@
-SRC
+# src/
 
-Esta es la carpeta principal del proyecto.
+Esta es la carpeta principal del proyecto. Aquí vive el código que genera la experiencia completa del portfolio.
 
-Todo el código que desarrolla el portfolio vive aquí.
+## Organización
 
-Está organizada por responsabilidades para mantener el proyecto limpio, modular y fácil de escalar.
+- `components/` → bloques visuales reutilizables
+- `data/` → contenido estructurado del portfolio
+- `layouts/` → layouts base para todas las páginas
+- `pages/` → rutas públicas del sitio
+- `styles/` → CSS global y estilos reutilizables
+- `utils/` → funciones auxiliares de rutas y lenguaje
 
-Subcarpetas:
+## Cómo entender el proyecto
 
-- assets      → Recursos internos.
-- components  → Componentes reutilizables.
-- layouts     → Estructuras base de las páginas.
-- pages       → Páginas del sitio.
-- data        → Datos del portfolio.
-- i18n        → Traducciones.
-- scripts     → JavaScript modular.
-- styles      → CSS global.
+El proyecto sigue una lógica simple:
+
+- `pages/` crea las URLs del sitio
+- `components/` construye los bloques visuales
+- `data/` contiene los textos y datos
+- `layouts/` envuelve la página con el shell base
+- `styles/` controla la apariencia global
+
+## Regla de mantenimiento
+
+Cuando quieras actualizar algo, intenta hacerlo desde el origen del dato:
+
+- texto visible → `src/data/translations.ts`
+- perfil y datos personales → `src/data/settings.ts`
+- proyectos → `src/data/projects.ts`
+- menú → `src/data/navigation.ts`
+
+## Recomendación importante
+
+No dupliques contenido en varios archivos. Si algo se repite, probablemente debe ir a `data/` o a un componente reutilizable.

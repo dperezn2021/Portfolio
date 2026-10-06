@@ -11,42 +11,38 @@ function initContact() {
     if (submitBtn) {
       submitBtn.innerHTML = `
         <span class="material-symbols-outlined text-sm animate-spin">progress_activity</span>
-        Enviando...
+        ${getContactText('contact.sending', 'Enviando...')}
       `;
       submitBtn.disabled = true;
     }
 
     try {
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      const publicKey = window.EMAILJS_PUBLIC_KEY;
-      const serviceId = window.EMAILJS_SERVICE_ID;
-      const templateId = window.EMAILJS_TEMPLATE_ID;
-
-      if (typeof window.emailjs !== 'undefined' && publicKey && serviceId && templateId) {
-        await window.emailjs.send(serviceId, templateId, {
-          from_name: data.name,
-          from_email: data.email,
-          subject: data.subject || 'Nuevo mensaje de contacto',
-          message: data.message,
-          reply_to: data.email,
-        }, publicKey);
-      } else {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { Accept: 'application/json' },
-        });
-
-        if (!response.ok) {
-          throw new Error('Error al enviar');
-        }
+      const data = Object.fromEntries(new FormData(form).entries());
+      const config = window.EMAILJS_CONFIG;
+      if (
+        typeof window.emailjs === 'undefined' ||
+        !config?.publicKey ||
+        !config.serviceId ||
+        !config.templateId
+      ) {
+        throw new Error('EMAILJS_NOT_CONFIGURED');
       }
 
+      await window.emailjs.send(config.serviceId, config.templateId, {
+        from_name: data.name,
+        from_email: data.email,
+        subject: data.subject || getContactText('contact.default_subject', 'Nuevo mensaje de contacto'),
+        message: data.message,
+        reply_to: data.email,
+      }, { publicKey: config.publicKey });
+
       form.reset();
-      showNotification('¡Mensaje enviado con éxito!', 'success');
+      showNotification(getContactText('contact.sent', '¡Mensaje enviado con éxito!'), 'success');
     } catch (error) {
-      showNotification('El formulario está listo para conectar con EmailJS o Formspree. Si quieres, te ayudo a dejarlo operativo con tu cuenta.', 'error');
+      const message = error?.message === 'EMAILJS_NOT_CONFIGURED'
+        ? getContactText('contact.not_configured', 'El formulario de contacto aún no está configurado.')
+        : getContactText('contact.send_error', 'No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.');
+      showNotification(message, 'error');
     } finally {
       if (submitBtn) {
         submitBtn.innerHTML = originalText || 'Enviar Mensaje';
@@ -54,6 +50,11 @@ function initContact() {
       }
     }
   });
+}
+
+function getContactText(key, fallback) {
+  const language = document.documentElement.lang || 'es';
+  return window.translations?.[language]?.[key] || fallback;
 }
 
 function showNotification(message, type = 'success') {
@@ -68,6 +69,8 @@ function showNotification(message, type = 'success') {
     ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}
   `;
   toast.textContent = message;
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
   document.body.appendChild(toast);
 
   setTimeout(() => {

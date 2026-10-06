@@ -6,6 +6,9 @@ export interface Credential {
   issuer: string;
   year: string;
   icon?: string;
+  url?: string;
+  credentialId?: string;
+  pending?: boolean;
 }
 
 export interface SkillItem {
@@ -760,3 +763,16 @@ export const skillsInventory: SkillItem[] = [
     sources: ['Universidad'],
   },
 ];
+
+export const shortCourses: Credential[] = [
+  { id: 'claude-101', type: 'short_course', issuer: 'Anthropic', year: 'Ago. 2026', credentialId: 'qxyb66akd34i', icon: 'neurology', url: 'https://verify.skilljar.com/c/qxyb66akd34i' },
+  { id: 'claude-api', type: 'short_course', issuer: 'Anthropic', year: 'Ago. 2026', credentialId: 'p68chv87qxdr', icon: 'code', url: 'https://verify.skilljar.com/c/p68chv87qxdr' },
+  { id: 'ai-fluency', type: 'short_course', issuer: 'Anthropic', year: 'Ago. 2026', credentialId: 'gdgcz8hpgjpw', icon: 'psychology', url: 'https://verify.skilljar.com/c/gdgcz8hpgjpw' },
+  { id: 'claude-code-action', type: 'short_course', issuer: 'Anthropic', year: 'Ago. 2026', credentialId: 'zkyogwdggb2g', icon: 'terminal', url: 'https://verify.skilljar.com/c/zkyogwdggb2g' },
+];
+
+export const pendingCredentials: Credential[] = [
+  { id: 'claude-architect-foundations', type: 'pending', issuer: 'Anthropic', year: '', icon: 'pending_actions' },
+];
+
+export const currentLearning = ['Astro', 'Node.js', 'React'];

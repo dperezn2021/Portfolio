@@ -58,6 +58,15 @@ function applyTranslations(lang) {
       el.textContent = value;
     }
   });
+
+  document.querySelectorAll('[data-i18n-alt-key]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-alt-key');
+    const suffix = el.getAttribute('data-i18n-alt-suffix');
+    const translatedAlt = key && translations[lang][key];
+    if (translatedAlt) {
+      el.setAttribute('alt', suffix ? `${translatedAlt} ${suffix}` : translatedAlt);
+    }
+  });
 }
 
 function updateLanguage(lang, persist = true) {

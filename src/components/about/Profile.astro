@@ -1,6 +1,7 @@
 ---
 import { site } from '../../data/settings';
 import SectionTitle from '../common/SectionTitle.astro';
+import { withBasePath } from '../../utils/paths';
 ---
 
 <section class="py-16 transition-colors duration-300 md:py-20">
@@ -15,7 +16,7 @@ import SectionTitle from '../common/SectionTitle.astro';
       <div class="flex justify-center">
         <div class="aspect-square w-full max-w-md overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400/20 to-fuchsia-500/20 p-1">
           <img
-            src="../../../public/images/extra/fotoDani.jpg"
+            src={withBasePath('/images/extra/fotoDani.jpg')}
             alt={site.name}
             class="h-full w-full rounded-2xl object-cover"
           />

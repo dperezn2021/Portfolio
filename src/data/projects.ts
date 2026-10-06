@@ -46,7 +46,7 @@ export interface Project {
   disciplines: string[];
 }
 
-export type DisciplineKey = 
+export type DisciplineKey =
   | 'videojuegos'
   | 'red'
   | 'aplicaciones'
@@ -60,7 +60,8 @@ export type DisciplineKey =
   | 'bases-datos'
   | 'devops'
   | 'analisis-datos'
-  | 'documentacion';
+  | 'documentacion'
+  | 'ia';
 
 export type DisciplineInfo = {
   emoji: string;
@@ -70,7 +71,6 @@ export type DisciplineInfo = {
 
 const localizedText = (es: string, en: string): LocalizedText => ({ es, en });
 
-// ✅ MAPA DE DISCIPLINAS
 export const DISCIPLINE_MAP: Record<DisciplineKey, DisciplineInfo> = {
   'videojuegos': { emoji: '🎮', label: 'Videojuegos', label_en: 'Video Games' },
   'red': { emoji: '🌐', label: 'Red', label_en: 'Network' },
@@ -78,6 +78,7 @@ export const DISCIPLINE_MAP: Record<DisciplineKey, DisciplineInfo> = {
   'desarrollo-web': { emoji: '💻', label: 'Desarrollo Web', label_en: 'Web Development' },
   'modelado-3d': { emoji: '🧊', label: 'Modelado 3D', label_en: '3D Modeling' },
   'animacion-3d': { emoji: '🎬', label: 'Animación 3D', label_en: '3D Animation' },
+  'ia': { emoji: '🤖', label: 'Inteligencia Artificial', label_en: 'Artificial Intelligence' },
   'ilustracion': { emoji: '🎨', label: 'Ilustración / Concept Art', label_en: 'Illustration / Concept Art' },
   'diseño-2d': { emoji: '🖌️', label: 'Diseño Gráfico', label_en: 'Graphic Design' },
   'ux-ui': { emoji: '🎯', label: 'UX/UI', label_en: 'UX/UI' },
@@ -88,11 +89,55 @@ export const DISCIPLINE_MAP: Record<DisciplineKey, DisciplineInfo> = {
   'documentacion': { emoji: '📝', label: 'Documentación Técnica', label_en: 'Technical Documentation' },
 };
 
-// ✅ FUNCIÓN PARA OBTENER LABEL DE DISCIPLINA TRADUCIDO
 export function getDisciplineLabel(discipline: string, lang: 'es' | 'en' = 'es'): string {
   const info = DISCIPLINE_MAP[discipline as DisciplineKey];
   if (!info) return discipline;
   return lang === 'es' ? info.label : info.label_en;
+}
+
+const PROJECT_TYPE_KEYS: Record<string, string> = {
+  'Proyecto de la Universidad': 'project.type.academic',
+  'Trabajo de Fin de Grado': 'project.type.degree_project',
+  'Personal': 'project.type.personal',
+  'Freelance': 'project.type.freelance',
+};
+
+const TAG_KEYS: Record<string, string> = {
+  'Patrones de diseño': 'project.tag.design_patterns',
+  'Modelado 3D': 'project.tag.3d_modeling',
+  'Exportación': 'project.tag.export',
+  'Texturización': 'project.tag.texturing',
+  'Ilustración': 'project.tag.illustration',
+  'Desarrollo Cognitivo': 'project.tag.cognitive_development',
+  'Gamificación': 'project.tag.gamification',
+  'Narrativa': 'project.tag.narrative',
+  'Diseño Gráfico': 'project.tag.graphic_design',
+  'Animación 3D': 'project.tag.3d_animation',
+  'Personajes': 'project.tag.characters',
+  'Game Design': 'project.tag.game_design',
+};
+
+const LINK_KEYS: Record<string, string> = {
+  'Jugar': 'project.link.play',
+  'Vídeo Explicativo': 'project.link.explainer_video',
+  'Prototipo': 'project.link.prototype',
+  'Memoria PDF': 'project.link.report_pdf',
+  'Web Sealy Studio': 'project.link.studio_website',
+  'Ir a la web': 'project.link.visit_website',
+  'Descargar Video Demo': 'project.link.demo_video',
+  'Descargar Memoria PDF': 'project.link.report_pdf',
+};
+
+export function getProjectTypeTranslationKey(type: string): string | undefined {
+  return PROJECT_TYPE_KEYS[type];
+}
+
+export function getProjectTagTranslationKey(tag: string): string | undefined {
+  return TAG_KEYS[tag];
+}
+
+export function getProjectLinkTranslationKey(label: string): string | undefined {
+  return LINK_KEYS[label];
 }
 
 // ============================================
@@ -175,7 +220,7 @@ export const projects: Project[] = [
       '/images/projects/alienrush14.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [
       { label: 'Jugar', url: 'https://gg-team.itch.io/alien-rush' },
       { label: 'GitHub', url: 'https://github.com/dperezn2021/AlienRush' },
@@ -265,7 +310,7 @@ export const projects: Project[] = [
       '/images/projects/astrofury9.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [
       { label: 'Jugar', url: 'https://tokpary.itch.io/astrofury' }
     ],
@@ -352,7 +397,7 @@ export const projects: Project[] = [
       '/images/projects/fantasyisland8.png',
     ],
     galleryConfig: { columns: 2, gap: 'small', layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Artista 3D, Modelador y Texturizador',
     team: 'Proyecto académico personal - Individual',
     duration: '4 meses',
@@ -437,7 +482,7 @@ export const projects: Project[] = [
       '/images/projects/flappychef10.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [
       { label: 'Jugar', url: 'https://mrdanieloo.itch.io/flappychef' },
     ],
@@ -523,7 +568,7 @@ export const projects: Project[] = [
       '/images/projects/goforsports6.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [
       { label: 'Prototipo', url: 'https://www.figma.com/proto/DNh3kjMxe65IOn76iNjAn7/GoForSports-IPM-V2.0?page-id=0%3A1&node-id=13-24&starting-point-node-id=13%3A24&t=PuG1OyKWfUUYBTge-1' },
       { label: 'Memoria PDF', url: 'https://drive.google.com/uc?export=download&id=1vPIxjVVV_J-wlNxr6CigIUlY7ocMf11r' },
@@ -611,7 +656,7 @@ export const projects: Project[] = [
       '/images/projects/gorobeia8.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Ilustrador y diseñador conceptual',
     team: 'Proyecto académico personal - Individual',
     duration: '2 meses',
@@ -803,7 +848,7 @@ export const projects: Project[] = [
       '/images/projects/hittandufo16.png',
     ],
     galleryConfig: { columns: 4, gap: 'small', imageSize: 'small', aspectRatio: 'auto', layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [
       { label: 'Jugar', url: 'https://gg-team.itch.io/hitt-and-ufo' },
       { label: 'GitHub', url: 'https://github.com/dperezn2021/HittAndUfo' },
@@ -886,7 +931,7 @@ export const projects: Project[] = [
       '/images/projects/internationalwarfare2.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: true,
+    featured: false,
     links: [{ label: 'Ir a la web', url: 'https://interwarfare2022.github.io/InterWarfare.github.io/' }],
     role: 'Desarrollador Web y Diseñador',
     team: 'Proyecto académico grupal - 5 personas',
@@ -1067,7 +1112,7 @@ export const projects: Project[] = [
       '/images/projects/raki6.png',
     ],
     galleryConfig: { columns: 2, gap: 'small', imageSize: 'medium', aspectRatio: 'video', layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Artista 3D',
     team: 'Proyecto académico personal - Individual',
     duration: '3 meses',
@@ -1244,7 +1289,7 @@ export const projects: Project[] = [
       '/images/projects/rrss10.png',
     ],
     galleryConfig: { columns: 2, layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Diseñador Gráfico',
     team: 'Proyecto personal - Individual',
     duration: '0.5 mes',
@@ -1328,7 +1373,7 @@ export const projects: Project[] = [
       '/images/projects/siseñoroscuro10.png',
     ],
     galleryConfig: { columns: 5, layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Ilustrador y diseñador de cartas',
     team: 'Proyecto académico grupal - 6 personas',
     duration: '2 meses',
@@ -1412,7 +1457,7 @@ export const projects: Project[] = [
       '/images/projects/whispersofshadows7.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Artista 3D y diseñador conceptual',
     team: 'Proyecto académico grupal - 4 personas',
     duration: '2 meses',
@@ -1487,7 +1532,7 @@ export const projects: Project[] = [
       '/images/projects/yumala1.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: true,
+    featured: false,
     role: 'Ilustrador y diseñador',
     team: 'Proyecto académico personal - Individual',
     duration: '3 semanas',

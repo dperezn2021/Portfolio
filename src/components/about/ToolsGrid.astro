@@ -1,6 +1,7 @@
 ---
 // src/components/about/ToolsGrid.astro
 import type { Language } from '../../utils/url';
+import { currentLearning } from '../../data/learning';
 
 interface Props {
   lang?: Language;
@@ -26,28 +27,34 @@ const tools = {
   otherApps: [
     { name: 'Sketchup', icon: '3d_rotation' },        // Fantasy Island
     { name: 'Android Studio', icon: 'android' },      // Flappy Chef
-    { name: 'Canva', icon: 'design_services' },       // Redes Sociales
+    { name: 'CMS', icon: 'web' },
+    { name: 'WinSCP', icon: 'sync_alt' },
+    { name: 'MOBA', icon: 'business_center' },
+    { name: 'Maya', icon: '3d_rotation' },     // Raki
     { name: 'Substance Painter', icon: 'brush' },     // Raki
     { name: 'Davinci Resolve', icon: 'video_library' },     // Raki
     { name: 'Miro', icon: 'groups' },     // Raki
     { name: 'Blender', icon: '3d_rotation' },     // Raki
-    { name: 'MongoDB', icon: 'storage' },     // Raki
+    { name: 'Robo-3T', icon: 'storage' },     // Raki
     { name: 'Springboot', icon: 'terminal' },     // Raki
     { name: 'Postman', icon: 'assignment' },     // Raki
+    { name: 'CompassDB', icon: 'storage' },     // Raki
+    { name: 'IntelliJ IDEA', icon: 'terminal' },     // Raki
+
   ],
   languages: [
     { name: 'HTML5', icon: 'html' },                  // Menteando, International Warfare
     { name: 'CSS3', icon: 'css' },                    // Menteando, International Warfare
     { name: 'JavaScript', icon: 'javascript' },       // AlienRush, HitAndUfo, Menteando
+    { name: 'C++', icon: 'data_array' },       // Menteando
     { name: 'C#', icon: 'code' },                     // Astrofury, Histeria
-    { name: 'Astro', icon: 'data_array' },       // Menteando
     { name: 'SQL', icon: 'database' },                // (lo tienes en skills)
   ],
   otherLanguages: [
     { name: 'Python', icon: 'terminal' },             // (lo tienes en skills)
     { name: 'Kotlin', icon: 'android' },              // Flappy Chef
-    { name: 'C++', icon: 'php' },                     // (lo tienes en skills)
-    { name: 'Java', icon: 'coffee' },                 // Flappy Chef (secundario)
+    { name: 'Astro', icon: 'code' },                     // (lo tienes en skills)
+    { name: 'Java', icon: 'data_array' },                 // Flappy Chef (secundario)
   ],
 };
 ---
@@ -122,6 +129,24 @@ const tools = {
             </span>
             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{langItem.name}</span>
           </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-cyan-100 pt-10 dark:border-white/10">
+      <h2 class="font-grotesk text-2xl font-bold text-gray-900 dark:text-white" data-i18n="about.learning.current_title">
+        {isEs ? 'En formación actualmente' : 'Currently learning'}
+      </h2>
+      <p class="mt-2 max-w-2xl text-gray-700 dark:text-gray-300" data-i18n="about.learning.current_description">
+        {isEs
+          ? 'Estoy ampliando mis conocimientos en desarrollo web moderno y herramientas para crear productos digitales.'
+          : 'I am expanding my knowledge of modern web development and tools for building digital products.'}
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {currentLearning.map((item) => (
+          <span class="rounded-full border border-cyan-200 bg-white px-3 py-1 text-sm text-cyan-800 dark:border-cyan-400/30 dark:bg-zinc-900 dark:text-cyan-300">
+            {item}
+          </span>
         ))}
       </div>
     </div>

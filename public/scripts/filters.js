@@ -8,13 +8,25 @@ function initFilters() {
   const showMoreBtn = document.getElementById('show-more-projects');
   const clearBtn = document.getElementById('clear-filters');
   const noResults = document.getElementById('no-results');
+  const filtersPanel = document.getElementById('project-filters-panel');
+  const filtersToggle = document.getElementById('toggle-project-filters');
+
+  if (filtersPanel && filtersToggle && filtersToggle.dataset.bound !== 'true') {
+    filtersToggle.dataset.bound = 'true';
+    filtersToggle.addEventListener('click', () => {
+      const isOpen = filtersPanel.classList.toggle('hidden') === false;
+      filtersToggle.setAttribute('aria-expanded', String(isOpen));
+      const icon = filtersToggle.querySelector('[data-filter-toggle-icon]');
+      if (icon) icon.textContent = isOpen ? 'close' : 'tune';
+    });
+  }
 
   if (!filterBtns.length || !projectCards.length) return;
 
-  const INITIAL_VISIBLE = 6;
+  const INITIAL_VISIBLE = 12;
   const LOAD_MORE = 6;
   let visibleCount = INITIAL_VISIBLE;
-  let activeFilters = new Set();
+  const activeFilters = new Map();
   let searchTerm = '';
 
   // Ordenar alfabéticamente
@@ -40,15 +52,15 @@ function initFilters() {
 
   const getFilteredCards = () => {
     return projectCards.filter((card) => {
-      // Filtro por disciplina
       const cardDisciplines = (card.getAttribute('data-disciplines') || '').split(',');
-      const matchesDiscipline = activeFilters.size === 0 || cardDisciplines.some(d => activeFilters.has(d));
-      
-      // ✅ Búsqueda por título (y descripción si quieres)
-      const title = card.querySelector('.card-title')?.textContent?.toLowerCase() || '';
-      const matchesSearch = title.includes(searchTerm.toLowerCase());
-
-      return matchesDiscipline && matchesSearch;
+      const cardOrigin = card.getAttribute('data-project-origin');
+      const matchesGroups = Array.from(activeFilters.entries()).every(([group, values]) => {
+        if (!values.size) return true;
+        const cardValues = group === 'discipline' ? cardDisciplines : [cardOrigin];
+        return cardValues.some(value => values.has(value));
+      });
+      const searchableText = `${card.querySelector('.card-title')?.textContent || ''} ${card.querySelector('.card-text')?.textContent || ''}`.toLowerCase();
+      return matchesGroups && searchableText.includes(searchTerm.toLowerCase());
     });
   };
 
@@ -107,17 +119,22 @@ function initFilters() {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       const filterId = this.getAttribute('data-filter-id');
+      const filterGroup = this.getAttribute('data-filter-group');
       const isActive = this.getAttribute('data-active') === 'true';
+      if (!filterId || !filterGroup) return;
+      if (!activeFilters.has(filterGroup)) activeFilters.set(filterGroup, new Set());
+      const groupFilters = activeFilters.get(filterGroup);
 
       if (isActive) {
         this.setAttribute('data-active', 'false');
-        activeFilters.delete(filterId);
-        this.classList.remove('bg-cyan-500', 'text-white');
+        this.setAttribute('aria-pressed', 'false');
+        groupFilters.delete(filterId);
       } else {
         this.setAttribute('data-active', 'true');
-        activeFilters.add(filterId);
-        this.classList.add('bg-cyan-500', 'text-white');
+        this.setAttribute('aria-pressed', 'true');
+        groupFilters.add(filterId);
       }
+      this.querySelector('.filter-indicator').textContent = isActive ? '+' : '✓';
 
       visibleCount = INITIAL_VISIBLE;
       renderCards();
@@ -160,9 +177,11 @@ function initFilters() {
     clearBtn.addEventListener('click', () => {
       filterBtns.forEach((btn) => {
         btn.setAttribute('data-active', 'false');
-        btn.classList.remove('bg-cyan-500', 'text-white');
+        btn.setAttribute('aria-pressed', 'false');
+        const indicator = btn.querySelector('.filter-indicator');
+        if (indicator) indicator.textContent = '+';
       });
-      activeFilters.clear();
+      activeFilters.forEach((values) => values.clear());
       if (searchInput) {
         searchInput.value = '';
         searchTerm = '';

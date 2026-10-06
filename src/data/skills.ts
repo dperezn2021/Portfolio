@@ -1,42 +1,45 @@
-// src/data/skills.ts
-
 export interface Skill {
-  name: string;
-  level: number;
-  icon?: string;
+  id: string;
+  name: { es: string; en: string };
+  icon: string;
+  projectSlugs: string[];
 }
 
-// ✅ HABILIDADES UNIFICADAS (sin separar el 3D)
 export const skills: Skill[] = [
-  { 
-    name: 'Desarrollo Web', 
-    level: 70, 
-    icon: 'code' 
+  {
+    id: 'web-development',
+    name: { es: 'Desarrollo web', en: 'Web development' },
+    icon: 'code',
+    projectSlugs: ['menteando', 'international-warfare'],
   },
-  { 
-    name: 'Diseño y Modelado 3D', 
-    level: 65, 
-    icon: '3d_rotation' 
+  {
+    id: '3d-art',
+    name: { es: 'Modelado y arte 3D', en: '3D modeling and art' },
+    icon: '3d_rotation',
+    projectSlugs: ['fantasy-island', 'raki', 'whispers-of-shadows'],
   },
-  { 
-    name: 'UX/UI Design', 
-    level: 60, 
-    icon: 'design_services' 
+  {
+    id: 'ux-ui',
+    name: { es: 'UX/UI e investigación de usuarios', en: 'UX/UI and user research' },
+    icon: 'design_services',
+    projectSlugs: ['go-for-sports'],
   },
-  { 
-    name: 'Ilustración Digital', 
-    level: 50, 
-    icon: 'brush' 
+  {
+    id: 'illustration',
+    name: { es: 'Ilustración y concept art', en: 'Illustration and concept art' },
+    icon: 'brush',
+    projectSlugs: ['gorobeia', 'si-senor-oscuro', 'yumala'],
   },
-  { 
-    name: 'Gestión de Proyectos', 
-    level: 65, 
-    icon: 'folder' 
+  {
+    id: 'project-management',
+    name: { es: 'Trabajo en equipo y gestión de proyectos', en: 'Teamwork and project management' },
+    icon: 'folder',
+    projectSlugs: ['histeria', 'si-senor-oscuro'],
   },
-  { 
-    name: 'Programación (C#, JS, Python)', 
-    level: 40, 
-    icon: 'terminal' 
+  {
+    id: 'programming',
+    name: { es: 'Programación y sistemas interactivos', en: 'Programming and interactive systems' },
+    icon: 'terminal',
+    projectSlugs: ['alien-rush', 'astrofury', 'flappy-chef', 'histeria'],
   },
-  
 ];

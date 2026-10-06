@@ -1,5 +1,6 @@
 /* src/styles/globals.css */
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================
    RESET Y BASE
@@ -290,7 +291,7 @@ html.dark .tag {
    LIGHT LEAKS
    ============================================ */
 .light-leak {
-  position: absolute;
+  position: fixed;
   border-radius: 50%;
   filter: blur(120px);
   pointer-events: none;

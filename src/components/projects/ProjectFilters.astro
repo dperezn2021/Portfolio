@@ -16,43 +16,75 @@ const disciplineList = Object.entries(DISCIPLINE_MAP).map(([id, { emoji }]) => (
 }));
 ---
 
-<div class="my-8">
-  <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 pb-4">
-    {disciplineList.map((filter) => (
+<div class="space-y-4">
+  <section class="rounded-2xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
+    <div class="mb-3 flex items-center justify-between gap-2">
+      <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400" data-i18n="filter.origin">
+        {lang === 'es' ? 'Tipo de proyecto' : 'Project type'}
+      </h3>
       <button
-        class:list={[
-          'px-4 py-2 rounded-full border text-sm font-medium transition-all filter-btn cursor-pointer',
-          'border-cyan-100 bg-white text-black shadow-sm hover:border-cyan-400 hover:bg-white dark:border-white/20 dark:bg-zinc-900/40 dark:text-gray-300 dark:shadow-none dark:hover:border-cyan-400',
-          'data-[active=true]:bg-linear-to-r data-[active=true]:from-cyan-400 data-[active=true]:to-fuchsia-600 data-[active=true]:text-white data-[active=true]:border-none',
-        ]}
-        data-category={filter.id}
-        data-filter-id={filter.id}
-        data-active="false"
+        id="clear-filters"
+        class="shrink-0 text-xs font-semibold text-red-500 transition hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+        data-i18n="filter.clear"
       >
-        <span>{filter.emoji}</span>
-        <span data-i18n={`discipline.${filter.id}`}>{filter.label}</span>
+        {lang === 'es' ? 'Limpiar' : 'Clear'}
       </button>
-    ))}
-    
-    <button
-      id="clear-filters"
-      class="px-4 py-2 rounded-full text-sm font-medium transition-all border border-cyan-100 bg-white text-black shadow-sm hover:border-red-400 hover:bg-white hover:text-red-500 dark:border-white/20 dark:bg-zinc-900/40 dark:text-black dark:shadow-none dark:hover:border-red-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
-      data-i18n="filter.clear"
-    >
-      {lang === 'es' ? 'Limpiar filtros' : 'Clear filters'}
-    </button>
-  </div>
-  <p class="text-center text-sm text-black/70 dark:text-black" data-i18n="filter.hint">
-    {lang === 'es' 
-      ? 'Haz clic en un filtro para activarlo/desactivarlo (múltiples permitidos)' 
-      : 'Click a filter to toggle it (multiple allowed)'}
-  </p>
+    </div>
+    <div class="space-y-2">
+      {[
+        { id: 'academic', emoji: '🎓', key: 'filter.origin.academic' },
+        { id: 'personal', emoji: '✨', key: 'filter.origin.personal' },
+        { id: 'work', emoji: '💼', key: 'filter.origin.work' },
+      ].map((filter) => (
+        <button
+          class="filter-btn flex w-full items-center justify-between gap-2 rounded-xl border border-cyan-100 bg-white px-3 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-50 dark:border-white/10 dark:bg-zinc-900/60 dark:text-gray-300 dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10"
+          data-filter-group="origin"
+          data-filter-id={filter.id}
+          data-active="false"
+          aria-pressed="false"
+        >
+          <span class="flex items-center gap-2"><span>{filter.emoji}</span><span data-i18n={filter.key}>{filter.key === 'filter.origin.academic' ? (lang === 'es' ? 'Formación (grado y máster)' : 'Academic (degree and master’s)') : filter.key === 'filter.origin.personal' ? (lang === 'es' ? 'Proyecto personal' : 'Personal project') : (lang === 'es' ? 'Proyecto laboral' : 'Professional project')}</span></span>
+          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-400">+</span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section class="rounded-2xl border border-cyan-100 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none">
+    <h3 class="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400" data-i18n="filter.discipline">
+      {lang === 'es' ? 'Disciplina' : 'Discipline'}
+    </h3>
+    <div class="grid grid-cols-1 gap-2">
+      {disciplineList.map((filter) => (
+        <button
+          class:list={[
+            'filter-btn flex items-center justify-between gap-2 rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-all duration-200 cursor-pointer',
+            'border-cyan-100 bg-white text-black hover:border-cyan-400 hover:bg-cyan-50 dark:border-white/10 dark:bg-zinc-900/60 dark:text-gray-300 dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10',
+          ]}
+          data-filter-group="discipline"
+          data-filter-id={filter.id}
+          data-active="false"
+          aria-pressed="false"
+        >
+          <span class="flex items-center gap-2">
+            <span>{filter.emoji}</span>
+            <span data-i18n={`discipline.${filter.id}`}>{filter.label}</span>
+          </span>
+          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-400">+</span>
+        </button>
+      ))}
+    </div>
+  </section>
 </div>
 
 <style>
   .filter-btn[data-active="true"] {
     background: linear-gradient(to right, #00dbe7, #b600f8) !important;
     color: white !important;
-    border: none !important;
+    border-color: transparent !important;
+  }
+
+  .filter-btn[data-active="true"] .filter-indicator {
+    color: white !important;
   }
 </style>

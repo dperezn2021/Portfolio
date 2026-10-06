@@ -1,5 +1,6 @@
 ---
 import { DISCIPLINE_MAP, getDisciplineLabel } from '../../data/projects';
+import { getProjectTagTranslationKey } from '../../data/projects';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 import { withBasePath } from '../../utils/paths';
@@ -11,12 +12,19 @@ interface Props {
   coverImage: string;
   tags: string[];
   disciplines: string[];
+  type: string;
   lang?: Language;
 }
 
-const { slug, title, description, coverImage, tags, disciplines, lang = 'es' } = Astro.props;
+const { slug, title, description, coverImage, tags, disciplines, type, lang = 'es' } = Astro.props;
 const titleKey = `project.${slug}.title`;
 const descKey = `project.${slug}.desc`;
+const normalizedType = type.toLocaleLowerCase('es');
+const origin = normalizedType.includes('universidad') || normalizedType.includes('fin de grado') || normalizedType.includes('máster') || normalizedType.includes('master')
+  ? 'academic'
+  : normalizedType.includes('freelance')
+    ? 'work'
+    : 'personal';
 const translatedTitle = t(lang, titleKey);
 const translatedDescription = t(lang, descKey);
 const safeTitle = translatedTitle === titleKey ? title : translatedTitle;
@@ -27,18 +35,22 @@ const safeDescription = translatedDescription === descKey ? description : transl
   href={withBasePath(`/proyectos/${slug}`)}
   class="group block overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
   data-disciplines={disciplines.join(',')}
+  data-project-origin={origin}
 >
   <div class="relative aspect-video overflow-hidden">
     <img
       src={withBasePath(coverImage)}
-      alt={title}
+      alt={safeTitle}
+      data-i18n-alt-key={titleKey}
       class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+      loading="lazy"
+      decoding="async"
     />
     <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
     <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
       {tags.slice(0, 2).map((tag) => (
         <span class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs backdrop-blur-md text-white">
-          {tag}
+          {getProjectTagTranslationKey(tag) ? <span data-i18n={getProjectTagTranslationKey(tag)}>{t(lang, getProjectTagTranslationKey(tag)!)}</span> : tag}
         </span>
       ))}
     </div>

@@ -19,6 +19,11 @@ const animationsScriptPath = withBasePath('/scripts/animations.js');
 const filtersScriptPath = withBasePath('/scripts/filters.js');
 const contactScriptPath = withBasePath('/scripts/contact.js');
 const mainScriptPath = withBasePath('/scripts/main.js');
+const emailjsConfig = {
+  publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY ?? '',
+  serviceId: import.meta.env.PUBLIC_EMAILJS_SERVICE_ID ?? '',
+  templateId: import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID ?? '',
+};
 ---
 
 <!doctype html>
@@ -67,6 +72,7 @@ const mainScriptPath = withBasePath('/scripts/main.js');
 
     <!-- Scripts -->
     <script is:inline set:html={`window.translations = ${JSON.stringify(TRANSLATIONS)};`}></script>
+    <script is:inline set:html={`window.EMAILJS_CONFIG = ${JSON.stringify(emailjsConfig)};`}></script>
     <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script is:inline src={themeScriptPath}></script>
     <script is:inline src={languageScriptPath}></script>

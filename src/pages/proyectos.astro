@@ -28,48 +28,64 @@ const isEs = lang === 'es';
           <span slot="subtitle">{t(lang, 'projects.page_subtitle')}</span>
         </SectionTitle>
         
-        <!-- Buscador -->
-        <div class="mt-8 flex justify-center">
-          <div class="relative w-full max-w-md">
-            <input
-              id="search-projects"
-              type="text"
-              placeholder={t(lang, 'projects.search_placeholder')}
-              data-i18n-placeholder="projects.search_placeholder"
-              class="w-full rounded-full border border-cyan-100 bg-white px-6 py-3 pl-12 text-black shadow-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:border-white/10 dark:bg-zinc-900/50 dark:text-white dark:placeholder-gray-400 dark:shadow-none"
-            />
-            <button
-              id="search-btn"
-              class="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-600 transition hover:text-cyan-500 dark:text-black dark:hover:text-cyan-400"
-            >
-              <span class="material-symbols-outlined text-2xl">search</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Filtros -->
-        <ProjectFilters lang={lang} />
-
-        <!-- Grid de proyectos -->
-        <ProjectsGrid lang={lang} />
-
-        <!-- Mensaje "No hay resultados" -->
-        <div id="no-results" class="mt-12 hidden text-center">
-          <p class="text-lg text-black/70 dark:text-black" data-i18n="projects.no_results">
-            {t(lang, 'projects.no_results')}
-          </p>
-        </div>
-
-        <!-- Botón "Ver más" -->
-        <div class="mt-12 flex justify-center">
-          <button
-            id="show-more-projects"
-            class="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-8 py-3 font-medium text-black shadow-sm transition hover:border-cyan-400 hover:bg-white dark:border-white/20 dark:bg-zinc-900/40 dark:text-gray-300 dark:shadow-none dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10"
+        <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(260px,0.4fr)_minmax(0,1fr)]">
+          <aside
+            id="project-filters-panel"
+            class="hidden self-start lg:block"
           >
-            <span data-show-more-label data-i18n="projects.load_more">{t(lang, 'projects.load_more')}</span>
-            <span data-show-more-count class="text-black dark:text-black"></span>
-            <span class="material-symbols-outlined text-sm">expand_more</span>
-          </button>
+            <ProjectFilters lang={lang} />
+          </aside>
+
+          <div class="min-w-0">
+            <div class="mb-6 flex min-w-0 gap-3">
+              <div class="relative min-w-0 flex-1">
+                <input
+                  id="search-projects"
+                  type="text"
+                  placeholder={t(lang, 'projects.search_placeholder')}
+                  data-i18n-placeholder="projects.search_placeholder"
+                  class="w-full rounded-full border border-cyan-100 bg-white px-6 py-3 pl-12 text-black shadow-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:border-white/10 dark:bg-zinc-900/50 dark:text-white dark:placeholder-gray-400 dark:shadow-none"
+                />
+                <button
+                  id="search-btn"
+                  type="button"
+                  aria-label={isEs ? 'Buscar proyectos' : 'Search projects'}
+                  class="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-600 transition hover:text-cyan-500 dark:text-black dark:hover:text-cyan-400"
+                >
+                  <span class="material-symbols-outlined text-2xl">search</span>
+                </button>
+              </div>
+              <button
+                id="toggle-project-filters"
+                type="button"
+                aria-controls="project-filters-panel"
+                aria-expanded="false"
+                class="inline-flex shrink-0 items-center gap-2 rounded-full border border-cyan-200 bg-white px-4 py-2 text-sm font-semibold text-cyan-800 shadow-sm transition hover:border-cyan-400 dark:border-white/15 dark:bg-zinc-900/60 dark:text-cyan-300 lg:hidden"
+              >
+                <span data-filter-toggle-icon class="material-symbols-outlined">tune</span>
+                <span data-i18n="filter.open">{t(lang, 'filter.open')}</span>
+              </button>
+            </div>
+
+            <ProjectsGrid lang={lang} />
+
+            <div id="no-results" class="mt-12 hidden text-center">
+              <p class="text-lg text-black/70 dark:text-black" data-i18n="projects.no_results">
+                {t(lang, 'projects.no_results')}
+              </p>
+            </div>
+
+            <div class="mt-12 flex justify-center">
+              <button
+                id="show-more-projects"
+                class="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-8 py-3 font-medium text-black shadow-sm transition hover:border-cyan-400 hover:bg-white dark:border-white/20 dark:bg-zinc-900/40 dark:text-gray-300 dark:shadow-none dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10"
+              >
+                <span data-show-more-label data-i18n="projects.load_more">{t(lang, 'projects.load_more')}</span>
+                <span data-show-more-count class="text-black dark:text-black"></span>
+                <span class="material-symbols-outlined text-sm">expand_more</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

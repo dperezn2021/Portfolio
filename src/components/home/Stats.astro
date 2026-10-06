@@ -1,6 +1,17 @@
 ---
+import { projects } from '../../data/projects';
+import { t } from '../../data/translations';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+
+const completedProjects = projects.filter((project) => project.status === 'completado').length;
 const stats = [
-  { value: '21+', labelKey: 'stats.projects' },
+  { value: completedProjects.toString(), labelKey: 'stats.projects' },
   { value: '3+', labelKey: 'stats.experience' },
   { value: '100%', labelKey: 'stats.passion' },
 ];
@@ -15,7 +26,7 @@ const stats = [
             {stat.value}
           </span>
           <span class="text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-black" data-i18n={stat.labelKey}>
-            Proyectos Completados
+            {t(lang, stat.labelKey)}
           </span>
         </div>
       ))}
