@@ -12,11 +12,16 @@ interface Props {
   coverImage: string;
   tags: string[];
   disciplines: string[];
+  context: 'grado' | 'master' | 'personal' | 'laboral';
+  academicYear: string;
+  year: number;
+  subjects: string[];
+  technologies: string[];
   type: string;
   lang?: Language;
 }
 
-const { slug, title, description, coverImage, tags, disciplines, type, lang = 'es' } = Astro.props;
+const { slug, title, description, coverImage, tags, disciplines, context, academicYear, year, subjects, technologies, type, lang = 'es' } = Astro.props;
 const titleKey = `project.${slug}.title`;
 const descKey = `project.${slug}.desc`;
 const normalizedType = type.toLocaleLowerCase('es');
@@ -36,6 +41,11 @@ const safeDescription = translatedDescription === descKey ? description : transl
   class="group block overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
   data-disciplines={disciplines.join(',')}
   data-project-origin={origin}
+  data-project-context={context}
+  data-project-year={String(year)}
+  data-project-academic-year={academicYear}
+  data-project-subjects={JSON.stringify(subjects)}
+  data-project-technologies={JSON.stringify(technologies)}
 >
   <div class="relative aspect-video overflow-hidden">
     <img

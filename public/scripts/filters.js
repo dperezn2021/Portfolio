@@ -10,6 +10,10 @@ function initFilters() {
   const noResults = document.getElementById('no-results');
   const filtersPanel = document.getElementById('project-filters-panel');
   const filtersToggle = document.getElementById('toggle-project-filters');
+  const yearMinInput = document.getElementById('project-year-min');
+  const yearMaxInput = document.getElementById('project-year-max');
+  const yearMinValue = document.getElementById('project-year-min-value');
+  const yearMaxValue = document.getElementById('project-year-max-value');
 
   if (filtersPanel && filtersToggle && filtersToggle.dataset.bound !== 'true') {
     filtersToggle.dataset.bound = 'true';
@@ -50,17 +54,30 @@ function initFilters() {
     return key;
   }
 
+  const getCardValues = (card, group) => {
+    if (group === 'discipline') return (card.getAttribute('data-disciplines') || '').split(',').filter(Boolean);
+    if (group === 'context') return [card.getAttribute('data-project-context')].filter(Boolean);
+    return [];
+  };
+
+  const getYearRange = () => {
+    const min = Number(yearMinInput?.value ?? 0);
+    const max = Number(yearMaxInput?.value ?? 0);
+    return { min, max };
+  };
+
   const getFilteredCards = () => {
     return projectCards.filter((card) => {
-      const cardDisciplines = (card.getAttribute('data-disciplines') || '').split(',');
-      const cardOrigin = card.getAttribute('data-project-origin');
       const matchesGroups = Array.from(activeFilters.entries()).every(([group, values]) => {
         if (!values.size) return true;
-        const cardValues = group === 'discipline' ? cardDisciplines : [cardOrigin];
-        return cardValues.some(value => values.has(value));
+        const cardValues = getCardValues(card, group);
+        return cardValues.some((value) => values.has(value));
       });
+      const projectYear = Number(card.getAttribute('data-project-year') || 0);
+      const { min, max } = getYearRange();
+      const matchesYearRange = projectYear >= min && projectYear <= max;
       const searchableText = `${card.querySelector('.card-title')?.textContent || ''} ${card.querySelector('.card-text')?.textContent || ''}`.toLowerCase();
-      return matchesGroups && searchableText.includes(searchTerm.toLowerCase());
+      return matchesGroups && matchesYearRange && searchableText.includes(searchTerm.toLowerCase());
     });
   };
 
@@ -142,7 +159,37 @@ function initFilters() {
   });
 
   // ============================================
-  // 2. BÚSQUEDA EN TIEMPO REAL
+  // 2. RANGO DE FECHAS
+  // ============================================
+  const updateYearRange = () => {
+    if (!yearMinInput || !yearMaxInput || !yearMinValue || !yearMaxValue) return;
+
+    let min = Number(yearMinInput.value);
+    let max = Number(yearMaxInput.value);
+
+    if (min > max) {
+      if (document.activeElement === yearMinInput) {
+        yearMaxInput.value = String(min);
+        max = min;
+      } else {
+        yearMinInput.value = String(max);
+        min = max;
+      }
+    }
+
+    yearMinValue.textContent = String(min);
+    yearMaxValue.textContent = String(max);
+    visibleCount = INITIAL_VISIBLE;
+    renderCards();
+  };
+
+  if (yearMinInput && yearMaxInput) {
+    yearMinInput.addEventListener('input', updateYearRange);
+    yearMaxInput.addEventListener('input', updateYearRange);
+  }
+
+  // ============================================
+  // 3. BÚSQUEDA EN TIEMPO REAL
   // ============================================
   const performSearch = () => {
     if (searchInput) {
@@ -185,6 +232,12 @@ function initFilters() {
       if (searchInput) {
         searchInput.value = '';
         searchTerm = '';
+      }
+      if (yearMinInput && yearMaxInput) {
+        yearMinInput.value = yearMinInput.min;
+        yearMaxInput.value = yearMaxInput.max;
+        yearMinValue.textContent = yearMinInput.min;
+        yearMaxValue.textContent = yearMaxInput.max;
       }
       visibleCount = INITIAL_VISIBLE;
       renderCards();

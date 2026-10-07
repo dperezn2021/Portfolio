@@ -1,5 +1,5 @@
 ---
-import { projects } from '../../data/projects';
+import { publicProjects } from '../../data/projects';
 import ProjectCard from './ProjectCard.astro';
 import type { Language } from '../../utils/url';
 
@@ -11,14 +11,19 @@ const { lang = 'es' } = Astro.props;
 ---
 
 <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="project-grid">
-  {projects.map((project) => (
+  {publicProjects.map((project) => (
     <ProjectCard
       slug={project.slug}
       title={project.title}
       description={project.description}
-      coverImage={project.coverImage}
+      coverImage={project.cover}
       tags={project.tags}
       disciplines={project.disciplines}
+      context={project.context}
+      academicYear={project.academicYear}
+      year={project.year}
+      subjects={project.subjects}
+      technologies={project.technologies?.map((technology) => technology.name) ?? []}
       type={project.type}
       lang={lang}
     />

@@ -14,9 +14,22 @@ export interface ProjectStoryStep {
   text: LocalizedText;
 }
 
+export interface GalleryItem {
+  type: 'image' | 'video' | 'audio' | 'pdf' | 'iframe' | 'game' | 'link';
+  src?: string;
+  url?: string;
+  title?: string;
+  description?: string;
+  alt?: string;
+}
+
+export type ProjectTechnology = { name: string; level?: 'principal' | 'secundaria' | 'experimental' };
+
 export interface Project {
   slug: string;
   year: number;
+  academicYear: string;
+  context: 'grado' | 'master' | 'personal' | 'laboral';
   type: string;
   title: string;
   description: string;
@@ -26,8 +39,12 @@ export interface Project {
   story?: ProjectStoryStep[];
   skillGains?: LocalizedText[];
   tags: string[];
+  subjects: string[];
+  publicable: boolean;
   coverImage: string;
+  cover: string;
   galleryImages?: (string | { src: string; rotate?: 90 | 180 | 270 })[];
+  gallery: GalleryItem[];
   galleryConfig?: {
     columns?: 1 | 2 | 3 | 4 | 5;
     gap?: 'small' | 'medium' | 'large';
@@ -36,15 +53,26 @@ export interface Project {
     layout?: 'grid' | 'masonry' | 'featured';
   };
   links?: { label: string; url: string }[];
+  externalLinks: { label: string; url: string }[];
   featured: boolean;
   role?: string;
   team?: string;
   duration?: string;
   learnings?: string;
   status?: 'completado' | 'en-desarrollo' | 'prototipo' | 'pausado';
-  technologies?: { name: string; level?: 'principal' | 'secundaria' | 'experimental' }[];
+  technologies?: ProjectTechnology[];
   disciplines: string[];
 }
+
+export type ProjectInput = Omit<Project, 'academicYear' | 'context' | 'subjects' | 'publicable' | 'cover' | 'gallery' | 'externalLinks'> & {
+  academicYear?: string;
+  context?: Project['context'];
+  subjects?: string[];
+  publicable?: boolean;
+  cover?: string;
+  gallery?: GalleryItem[];
+  externalLinks?: { label: string; url: string }[];
+};
 
 export type DisciplineKey =
   | 'videojuegos'
@@ -143,13 +171,15 @@ export function getProjectLinkTranslationKey(label: string): string | undefined 
 // ============================================
 // PROYECTOS - TODOS LOS 16 PROYECTOS
 // ============================================
-export const projects: Project[] = [
+const rawProjects: ProjectInput[] = [
   // ============================================
   // 1. ALIEN RUSH
   // ============================================
   {
     slug: 'alien-rush',
     year: 2025,
+    academicYear: '2024-25',
+    context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'AlienRush',
     description: 'Juego competitivo en red donde 2 jugadores compiten 1vs1. Arquitectura cliente-servidor con servidor central que comunica mediante paso de mensajes a los jugadores.',
@@ -202,26 +232,50 @@ export const projects: Project[] = [
       localizedText('Cuentas de usuario y lobbies', 'User accounts and lobbies'),
     ],
     tags: ['JS', 'Phaser3', 'API REST'],
-    coverImage: '/images/projects/alienrush_portada.png',
+    subjects: ['Juegos en Red'],
+    publicable: true,
+    coverImage: '/images/projects/2024-25/alien-rush/alienrush_portada.png',
+    cover: '/images/projects/2024-25/alien-rush/alienrush_portada.png',
     galleryImages: [
-      '/images/projects/alienrush1.png',
-      '/images/projects/alienrush2.png',
-      '/images/projects/alienrush3.png',
-      '/images/projects/alienrush4.png',
-      '/images/projects/alienrush5.png',
-      '/images/projects/alienrush6.png',
-      '/images/projects/alienrush7.png',
-      '/images/projects/alienrush8.png',
-      '/images/projects/alienrush9.png',
-      '/images/projects/alienrush10.png',
-      '/images/projects/alienrush11.png',
-      '/images/projects/alienrush12.png',
-      '/images/projects/alienrush13.png',
-      '/images/projects/alienrush14.png',
+      '/images/projects/2024-25/alien-rush/alienrush1.png',
+      '/images/projects/2024-25/alien-rush/alienrush2.png',
+      '/images/projects/2024-25/alien-rush/alienrush3.png',
+      '/images/projects/2024-25/alien-rush/alienrush4.png',
+      '/images/projects/2024-25/alien-rush/alienrush5.png',
+      '/images/projects/2024-25/alien-rush/alienrush6.png',
+      '/images/projects/2024-25/alien-rush/alienrush7.png',
+      '/images/projects/2024-25/alien-rush/alienrush8.png',
+      '/images/projects/2024-25/alien-rush/alienrush9.png',
+      '/images/projects/2024-25/alien-rush/alienrush10.png',
+      '/images/projects/2024-25/alien-rush/alienrush11.png',
+      '/images/projects/2024-25/alien-rush/alienrush12.png',
+      '/images/projects/2024-25/alien-rush/alienrush13.png',
+      '/images/projects/2024-25/alien-rush/alienrush14.png',
+    ],
+    gallery: [
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush1.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush2.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush3.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush4.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush5.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush6.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush7.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush8.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush9.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush10.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush11.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush12.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush13.png' },
+      { type: 'image', src: '/images/projects/2024-25/alien-rush/alienrush14.png' },
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: false,
     links: [
+      { label: 'Jugar', url: 'https://gg-team.itch.io/alien-rush' },
+      { label: 'GitHub', url: 'https://github.com/dperezn2021/AlienRush' },
+      { label: 'Vídeo Explicativo', url: 'https://www.youtube.com/watch?v=_1vSrSVZz-w' },
+    ],
+    externalLinks: [
       { label: 'Jugar', url: 'https://gg-team.itch.io/alien-rush' },
       { label: 'GitHub', url: 'https://github.com/dperezn2021/AlienRush' },
       { label: 'Vídeo Explicativo', url: 'https://www.youtube.com/watch?v=_1vSrSVZz-w' },
@@ -297,17 +351,17 @@ export const projects: Project[] = [
       localizedText('Arquitectura de sistemas en Unity', 'Systems architecture in Unity'),
     ],
     tags: ['Unity', 'C#', 'Patrones de diseño'],
-    coverImage: '/images/projects/astrofury_portada.png',
+    coverImage: '/images/projects/2023-24/astrofury/astrofury_portada.png',
     galleryImages: [
-      '/images/projects/astrofury1.png',
-      '/images/projects/astrofury2.png',
-      '/images/projects/astrofury3.png',
-      '/images/projects/astrofury4.png',
-      '/images/projects/astrofury5.png',
-      '/images/projects/astrofury6.png',
-      '/images/projects/astrofury7.png',
-      '/images/projects/astrofury8.png',
-      '/images/projects/astrofury9.png',
+      '/images/projects/2023-24/astrofury/astrofury1.png',
+      '/images/projects/2023-24/astrofury/astrofury2.png',
+      '/images/projects/2023-24/astrofury/astrofury3.png',
+      '/images/projects/2023-24/astrofury/astrofury4.png',
+      '/images/projects/2023-24/astrofury/astrofury5.png',
+      '/images/projects/2023-24/astrofury/astrofury6.png',
+      '/images/projects/2023-24/astrofury/astrofury7.png',
+      '/images/projects/2023-24/astrofury/astrofury8.png',
+      '/images/projects/2023-24/astrofury/astrofury9.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: false,
@@ -385,16 +439,16 @@ export const projects: Project[] = [
       localizedText('Optimización de polígonos', 'Polygon optimization'),
     ],
     tags: ['Modelado 3D', 'Exportación', 'Texturización'],
-    coverImage: '/images/projects/fantasyisland_portada.png',
+    coverImage: '/images/projects/2021-22/fantasy-island/fantasyisland_portada.png',
     galleryImages: [
-      '/images/projects/fantasyisland1.png',
-      '/images/projects/fantasyisland2.png',
-      '/images/projects/fantasyisland3.png',
-      '/images/projects/fantasyisland4.png',
-      '/images/projects/fantasyisland5.png',
-      '/images/projects/fantasyisland6.png',
-      '/images/projects/fantasyisland7.png',
-      '/images/projects/fantasyisland8.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland1.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland2.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland3.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland4.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland5.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland6.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland7.png',
+      '/images/projects/2021-22/fantasy-island/fantasyisland8.png',
     ],
     galleryConfig: { columns: 2, gap: 'small', layout: 'masonry' },
     featured: false,
@@ -468,18 +522,18 @@ export const projects: Project[] = [
       localizedText('Optimización para dispositivos móviles', 'Mobile device optimization'),
     ],
     tags: ['Kotlin', 'Android', 'Jetpack Compose'],
-    coverImage: '/images/projects/flappychef_portada.png',
+    coverImage: '/images/projects/2024-25/flappy-chef/flappychef_portada.png',
     galleryImages: [
-      '/images/projects/flappychef1.png',
-      '/images/projects/flappychef2.png',
-      '/images/projects/flappychef3.png',
-      '/images/projects/flappychef4.png',
-      '/images/projects/flappychef5.png',
-      '/images/projects/flappychef6.png',
-      '/images/projects/flappychef7.png',
-      '/images/projects/flappychef8.png',
-      '/images/projects/flappychef9.png',
-      '/images/projects/flappychef10.png',
+      '/images/projects/2024-25/flappy-chef/flappychef1.png',
+      '/images/projects/2024-25/flappy-chef/flappychef2.png',
+      '/images/projects/2024-25/flappy-chef/flappychef3.png',
+      '/images/projects/2024-25/flappy-chef/flappychef4.png',
+      '/images/projects/2024-25/flappy-chef/flappychef5.png',
+      '/images/projects/2024-25/flappy-chef/flappychef6.png',
+      '/images/projects/2024-25/flappy-chef/flappychef7.png',
+      '/images/projects/2024-25/flappy-chef/flappychef8.png',
+      '/images/projects/2024-25/flappy-chef/flappychef9.png',
+      '/images/projects/2024-25/flappy-chef/flappychef10.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
     featured: false,
@@ -558,14 +612,14 @@ export const projects: Project[] = [
       localizedText('Prototipado interactivo', 'Interactive prototyping'),
     ],
     tags: ['UX', 'UI', 'Figma'],
-    coverImage: '/images/projects/goforsports_portada.png',
+    coverImage: '/images/projects/2023-24/go-for-sports/goforsports_portada.png',
     galleryImages: [
-      '/images/projects/goforsports1.png',
-      '/images/projects/goforsports2.png',
-      '/images/projects/goforsports3.png',
-      '/images/projects/goforsports4.png',
-      '/images/projects/goforsports5.png',
-      '/images/projects/goforsports6.png',
+      '/images/projects/2023-24/go-for-sports/goforsports1.png',
+      '/images/projects/2023-24/go-for-sports/goforsports2.png',
+      '/images/projects/2023-24/go-for-sports/goforsports3.png',
+      '/images/projects/2023-24/go-for-sports/goforsports4.png',
+      '/images/projects/2023-24/go-for-sports/goforsports5.png',
+      '/images/projects/2023-24/go-for-sports/goforsports6.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: false,
@@ -644,16 +698,16 @@ export const projects: Project[] = [
       localizedText('Narrativa visual', 'Visual storytelling'),
     ],
     tags: ['Ilustración', 'Concept Art', 'Photoshop'],
-    coverImage: '/images/projects/gorobeia_portada.png',
+    coverImage: '/images/projects/2023-24/gorobeia/gorobeia_portada.png',
     galleryImages: [
-      '/images/projects/gorobeia1.png',
-      '/images/projects/gorobeia2.png',
-      '/images/projects/gorobeia3.png',
-      '/images/projects/gorobeia4.png',
-      '/images/projects/gorobeia5.png',
-      '/images/projects/gorobeia6.png',
-      '/images/projects/gorobeia7.png',
-      '/images/projects/gorobeia8.png',
+      '/images/projects/2023-24/gorobeia/gorobeia1.png',
+      '/images/projects/2023-24/gorobeia/gorobeia2.png',
+      '/images/projects/2023-24/gorobeia/gorobeia3.png',
+      '/images/projects/2023-24/gorobeia/gorobeia4.png',
+      '/images/projects/2023-24/gorobeia/gorobeia5.png',
+      '/images/projects/2023-24/gorobeia/gorobeia6.png',
+      '/images/projects/2023-24/gorobeia/gorobeia7.png',
+      '/images/projects/2023-24/gorobeia/gorobeia8.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: false,
@@ -728,29 +782,29 @@ export const projects: Project[] = [
       localizedText('Trabajo en equipo y metodologías ágiles', 'Teamwork and agile methodologies'),
     ],
     tags: ['Unity', 'C#', 'Pixel Art', 'Narrativa'],
-    coverImage: '/images/projects/histeria_portada.png',
+    coverImage: '/images/projects/2024-25/histeria/histeria_portada.png',
     galleryImages: [
-      '/images/projects/histeria1.png',
-      '/images/projects/histeria2.png',
-      '/images/projects/histeria3.png',
-      '/images/projects/histeria4.png',
-      '/images/projects/histeria5.png',
-      '/images/projects/histeria6.png',
-      '/images/projects/histeria7.png',
-      '/images/projects/histeria8.png',
-      '/images/projects/histeria11.png',
-      '/images/projects/histeria12.png',
-      '/images/projects/histeria13.png',
-      '/images/projects/histeria14.png',
-      '/images/projects/histeria15.png',
-      '/images/projects/histeria17.png',
-      '/images/projects/histeria18.png',
-      '/images/projects/histeria20.png',
-      '/images/projects/histeria21.png',
-      '/images/projects/histeria22.png',
-      '/images/projects/histeria23.png',
-      '/images/projects/histeria24.png',
-      '/images/projects/histeria25.png',
+      '/images/projects/2024-25/histeria/histeria1.png',
+      '/images/projects/2024-25/histeria/histeria2.png',
+      '/images/projects/2024-25/histeria/histeria3.png',
+      '/images/projects/2024-25/histeria/histeria4.png',
+      '/images/projects/2024-25/histeria/histeria5.png',
+      '/images/projects/2024-25/histeria/histeria6.png',
+      '/images/projects/2024-25/histeria/histeria7.png',
+      '/images/projects/2024-25/histeria/histeria8.png',
+      '/images/projects/2024-25/histeria/histeria11.png',
+      '/images/projects/2024-25/histeria/histeria12.png',
+      '/images/projects/2024-25/histeria/histeria13.png',
+      '/images/projects/2024-25/histeria/histeria14.png',
+      '/images/projects/2024-25/histeria/histeria15.png',
+      '/images/projects/2024-25/histeria/histeria17.png',
+      '/images/projects/2024-25/histeria/histeria18.png',
+      '/images/projects/2024-25/histeria/histeria20.png',
+      '/images/projects/2024-25/histeria/histeria21.png',
+      '/images/projects/2024-25/histeria/histeria22.png',
+      '/images/projects/2024-25/histeria/histeria23.png',
+      '/images/projects/2024-25/histeria/histeria24.png',
+      '/images/projects/2024-25/histeria/histeria25.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: true,
@@ -829,23 +883,23 @@ export const projects: Project[] = [
       localizedText('Comunicación en tiempo real', 'Real-time communication'),
     ],
     tags: ['JS', 'Phaser3', 'Socket.io'],
-    coverImage: '/images/projects/hittandufo_portada.png',
+    coverImage: '/images/projects/2023-24/hit-and-ufo/hittandufo_portada.png',
     galleryImages: [
-      '/images/projects/hittandufo1.png',
-      '/images/projects/hittandufo2.png',
-      '/images/projects/hittandufo4.png',
-      '/images/projects/hittandufo5.png',
-      '/images/projects/hittandufo6.png',
-      '/images/projects/hittandufo7.png',
-      '/images/projects/hittandufo8.png',
-      '/images/projects/hittandufo9.png',
-      '/images/projects/hittandufo10.png',
-      '/images/projects/hittandufo11.png',
-      '/images/projects/hittandufo12.png',
-      '/images/projects/hittandufo13.png',
-      '/images/projects/hittandufo14.png',
-      '/images/projects/hittandufo15.png',
-      '/images/projects/hittandufo16.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo1.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo2.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo4.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo5.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo6.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo7.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo8.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo9.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo10.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo11.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo12.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo13.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo14.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo15.png',
+      '/images/projects/2023-24/hit-and-ufo/hittandufo16.png',
     ],
     galleryConfig: { columns: 4, gap: 'small', imageSize: 'small', aspectRatio: 'auto', layout: 'masonry' },
     featured: false,
@@ -925,10 +979,10 @@ export const projects: Project[] = [
       localizedText('Documentación de diseño de juegos', 'Game design documentation'),
     ],
     tags: ['Crowdfunding', 'Web', 'Marketing', 'GDD'],
-    coverImage: '/images/projects/internationalwarfare_portada.png',
+    coverImage: '/images/projects/2021-22/international-warfare/internationalwarfare_portada.png',
     galleryImages: [
-      '/images/projects/internationalwarfare1.png',
-      '/images/projects/internationalwarfare2.png',
+      '/images/projects/2021-22/international-warfare/internationalwarfare1.png',
+      '/images/projects/2021-22/international-warfare/internationalwarfare2.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
     featured: false,
@@ -1005,29 +1059,29 @@ export const projects: Project[] = [
       localizedText('Gamificación y psicología cognitiva', 'Gamification and cognitive psychology'),
     ],
     tags: ['Desarrollo Cognitivo', 'Gamificación', 'Web'],
-    coverImage: '/images/projects/menteando_portada.png',
+    coverImage: '/images/projects/2025-26/menteando/menteando_portada.png',
     galleryImages: [
-      '/images/projects/menteando1.png',
-      '/images/projects/menteando2.png',
-      '/images/projects/menteando3.png',
-      '/images/projects/menteando4.png',
-      '/images/projects/menteando5.jpeg',
-      '/images/projects/menteando6.jpeg',
-      '/images/projects/menteando7.jpeg',
-      '/images/projects/menteando8.jpeg',
-      '/images/projects/menteando9.jpeg',
-      '/images/projects/menteando10.jpeg',
-      '/images/projects/menteando11.jpeg',
-      '/images/projects/menteando12.png',
-      '/images/projects/menteando13.png',
-      '/images/projects/menteando14.png',
-      '/images/projects/menteando15.png',
-      '/images/projects/menteando16.png',
-      '/images/projects/menteando17.png',
-      '/images/projects/menteando18.png',
-      '/images/projects/menteando19.png',
-      '/images/projects/menteando20.png',
-      '/images/projects/menteando21.png',
+      '/images/projects/2025-26/menteando/menteando1.png',
+      '/images/projects/2025-26/menteando/menteando2.png',
+      '/images/projects/2025-26/menteando/menteando3.png',
+      '/images/projects/2025-26/menteando/menteando4.png',
+      '/images/projects/2025-26/menteando/menteando5.jpeg',
+      '/images/projects/2025-26/menteando/menteando6.jpeg',
+      '/images/projects/2025-26/menteando/menteando7.jpeg',
+      '/images/projects/2025-26/menteando/menteando8.jpeg',
+      '/images/projects/2025-26/menteando/menteando9.jpeg',
+      '/images/projects/2025-26/menteando/menteando10.jpeg',
+      '/images/projects/2025-26/menteando/menteando11.jpeg',
+      '/images/projects/2025-26/menteando/menteando12.png',
+      '/images/projects/2025-26/menteando/menteando13.png',
+      '/images/projects/2025-26/menteando/menteando14.png',
+      '/images/projects/2025-26/menteando/menteando15.png',
+      '/images/projects/2025-26/menteando/menteando16.png',
+      '/images/projects/2025-26/menteando/menteando17.png',
+      '/images/projects/2025-26/menteando/menteando18.png',
+      '/images/projects/2025-26/menteando/menteando19.png',
+      '/images/projects/2025-26/menteando/menteando20.png',
+      '/images/projects/2025-26/menteando/menteando21.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
     featured: true,
@@ -1102,14 +1156,14 @@ export const projects: Project[] = [
       localizedText('Optimización para videojuegos', 'Video game optimization'),
     ],
     tags: ['3ds Max', 'Substance Painter', 'Modelado 3D', 'Personajes'],
-    coverImage: '/images/projects/raki_portada.png',
+    coverImage: '/images/projects/2021-22/raki/raki_portada.png',
     galleryImages: [
-      '/images/projects/raki1.png',
-      '/images/projects/raki2.png',
-      '/images/projects/raki3.png',
-      '/images/projects/raki4.png',
-      '/images/projects/raki5.png',
-      '/images/projects/raki6.png',
+      '/images/projects/2021-22/raki/raki1.png',
+      '/images/projects/2021-22/raki/raki2.png',
+      '/images/projects/2021-22/raki/raki3.png',
+      '/images/projects/2021-22/raki/raki4.png',
+      '/images/projects/2021-22/raki/raki5.png',
+      '/images/projects/2021-22/raki/raki6.png',
     ],
     galleryConfig: { columns: 2, gap: 'small', imageSize: 'medium', aspectRatio: 'video', layout: 'masonry' },
     featured: false,
@@ -1185,19 +1239,19 @@ export const projects: Project[] = [
       localizedText('Animación de escenarios', 'Environment animation'),
     ],
     tags: ['Animación 3D', 'Rigging', 'Mocaps', 'Unity'],
-    coverImage: '/images/projects/raki_fantasyisland_portada.png',
+    coverImage: '/images/projects/2023-24/raki-animacion/raki_fantasyisland_portada.png',
     galleryImages: [
-      '/images/projects/raki_fantasyisland1.png',
-      '/images/projects/raki_fantasyisland2.png',
-      '/images/projects/raki_fantasyisland3.png',
-      '/images/projects/raki_fantasyisland4.png',
-      '/images/projects/raki_fantasyisland5.png',
-      '/images/projects/raki_fantasyisland6.png',
-      '/images/projects/raki_fantasyisland7.png',
-      '/images/projects/raki_fantasyisland8.png',
-      '/images/projects/raki_fantasyisland9.png',
-      '/images/projects/raki_fantasyisland10.png',
-      '/images/projects/raki_fantasyisland11.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland1.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland2.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland3.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland4.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland5.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland6.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland7.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland8.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland9.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland10.png',
+      '/images/projects/2023-24/raki-animacion/raki_fantasyisland11.png',
     ],
     galleryConfig: { columns: 2, layout: 'masonry' },
     featured: true,
@@ -1275,18 +1329,18 @@ export const projects: Project[] = [
       localizedText('Guías de estilo', 'Style guides'),
     ],
     tags: ['Canva', 'Marketing', 'Diseño Gráfico'],
-    coverImage: '/images/projects/rrss_portada.png',
+    coverImage: '/images/projects/2024-25/redes-sociales/rrss_portada.png',
     galleryImages: [
-      '/images/projects/rrss1.png',
-      '/images/projects/rrss2.png',
-      '/images/projects/rrss3.png',
-      '/images/projects/rrss4.png',
-      '/images/projects/rrss5.png',
-      '/images/projects/rrss6.png',
-      '/images/projects/rrss7.png',
-      '/images/projects/rrss8.png',
-      '/images/projects/rrss9.png',
-      '/images/projects/rrss10.png',
+      '/images/projects/2024-25/redes-sociales/rrss1.png',
+      '/images/projects/2024-25/redes-sociales/rrss2.png',
+      '/images/projects/2024-25/redes-sociales/rrss3.png',
+      '/images/projects/2024-25/redes-sociales/rrss4.png',
+      '/images/projects/2024-25/redes-sociales/rrss5.png',
+      '/images/projects/2024-25/redes-sociales/rrss6.png',
+      '/images/projects/2024-25/redes-sociales/rrss7.png',
+      '/images/projects/2024-25/redes-sociales/rrss8.png',
+      '/images/projects/2024-25/redes-sociales/rrss9.png',
+      '/images/projects/2024-25/redes-sociales/rrss10.png',
     ],
     galleryConfig: { columns: 2, layout: 'masonry' },
     featured: false,
@@ -1359,18 +1413,18 @@ export const projects: Project[] = [
       localizedText('Herramientas de gestión (Jira, Miro)', 'Management tools (Jira, Miro)'),
     ],
     tags: ['Ilustración', 'Game Design', 'Scrum', 'Jira'],
-    coverImage: '/images/projects/siseñoroscuro_portada.png',
+    coverImage: '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro_portada.png',
     galleryImages: [
-      '/images/projects/siseñoroscuro1.png',
-      '/images/projects/siseñoroscuro2.png',
-      '/images/projects/siseñoroscuro3.png',
-      '/images/projects/siseñoroscuro4.png',
-      '/images/projects/siseñoroscuro5.png',
-      '/images/projects/siseñoroscuro6.png',
-      '/images/projects/siseñoroscuro7.png',
-      '/images/projects/siseñoroscuro8.png',
-      '/images/projects/siseñoroscuro9.png',
-      '/images/projects/siseñoroscuro10.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro1.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro2.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro3.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro4.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro5.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro6.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro7.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro8.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro9.png',
+      '/images/projects/2022-23/si-senor-oscuro/siseñoroscuro10.png',
     ],
     galleryConfig: { columns: 5, layout: 'masonry' },
     featured: false,
@@ -1445,16 +1499,16 @@ export const projects: Project[] = [
       localizedText('Concept art y moodboards', 'Concept art and moodboards'),
     ],
     tags: ['Chibi', '3ds Max', 'Concept Art', 'Pitch Deck'],
-    coverImage: '/images/projects/whispersofshadows_portada.png',
+    coverImage: '/images/projects/2024-25/whispers-of-shadows/whispersofshadows_portada.png',
     galleryImages: [
-      '/images/projects/whispersofshadows1.png',
-      '/images/projects/whispersofshadows2.png',
-      '/images/projects/whispersofshadows3.png',
-      '/images/projects/whispersofshadows8.png',
-      '/images/projects/whispersofshadows4.png',
-      '/images/projects/whispersofshadows5.png',
-      '/images/projects/whispersofshadows6.png',
-      '/images/projects/whispersofshadows7.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows1.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows2.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows3.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows8.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows4.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows5.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows6.png',
+      '/images/projects/2024-25/whispers-of-shadows/whispersofshadows7.png',
     ],
     galleryConfig: { columns: 3, layout: 'masonry' },
     featured: false,
@@ -1527,9 +1581,9 @@ export const projects: Project[] = [
       localizedText('Concept art de MOBA', 'MOBA concept art'),
     ],
     tags: ['Collage', 'Photoshop', 'Diseño Gráfico'],
-    coverImage: '/images/projects/yumala_portada.png',
+    coverImage: '/images/projects/2021-22/yumala/yumala_portada.png',
     galleryImages: [
-      '/images/projects/yumala1.png',
+      '/images/projects/2021-22/yumala/yumala1.png',
     ],
     galleryConfig: { columns: 4, layout: 'masonry' },
     featured: false,
@@ -1544,6 +1598,23 @@ export const projects: Project[] = [
     disciplines: ['diseño-2d', 'ilustracion'],
   },
 ];
+
+export const projects: Project[] = rawProjects.map((project) => ({
+  ...project,
+  academicYear: project.academicYear ?? 'Personal / sin año académico',
+  context: project.context ?? 'personal',
+  subjects: project.subjects ?? [],
+  publicable: project.publicable ?? true,
+  cover: project.cover ?? project.coverImage,
+  gallery: project.gallery?.length
+    ? project.gallery
+    : (project.galleryImages ?? []).map((item) => typeof item === 'string'
+        ? { type: 'image', src: item }
+        : { type: 'image', src: item.src, title: item.src, description: '' }),
+  externalLinks: project.externalLinks ?? project.links ?? [],
+}));
+
+export const publicProjects = projects.filter((project) => project.publicable);
 
 // Re-exportar t para facilitar el uso
 export { t };
