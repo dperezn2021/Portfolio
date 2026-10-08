@@ -1,5 +1,6 @@
 ---
 import type { GalleryItem } from '../../data/projects';
+import { resolveEmbed } from '../../utils/media';
 
 interface GalleryImage {
   src: string;
@@ -24,7 +25,16 @@ const galleryItems: GalleryItem[] = items.length > 0
   ? items
   : images.map(normalizeImage);
 
-const imageItems = galleryItems.filter((item): item is GalleryItem & { type: 'image'; src: string } => item.type === 'image' && Boolean(item.src));
+// La galería mezcla imágenes y vídeos con una experiencia visual coherente.
+// PDFs, repos, demos y enlaces sueltos se gestionan aparte en ProjectResources.
+const mediaItems = galleryItems.filter(
+  (item): item is GalleryItem & { src: string } => (item.type === 'image' || item.type === 'video') && Boolean(item.src)
+);
+const imageItems = mediaItems.filter((item) => item.type === 'image');
+const resolvedMedia = mediaItems.map((item) => ({
+  item,
+  embed: item.type === 'video' ? resolveEmbed(item.src, { declaredType: 'video' }) : null,
+}));
 
 type GapSize = 'small' | 'medium' | 'large';
 type ColumnCount = 1 | 2 | 3 | 4 | 5;
@@ -51,24 +61,27 @@ const gapClasses: Record<GapSize, string> = {
 <div class="project-gallery" id="gallery-{Math.random().toString(36).slice(2, 7)}">
   {finalConfig.layout === 'masonry' && (
     <div class={`columns-${finalConfig.columns} ${gapClasses[finalConfig.gap]} space-y-4`}>
-      {galleryItems.map((item, index) => (
+      {resolvedMedia.map(({ item, embed }, index) => (
         <div class="break-inside-avoid overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 shadow-sm hover:shadow-md transition-shadow">
-          {item.type === 'image' && item.src && (
+          {item.type === 'image' && (
             <img src={item.src} alt={item.alt || `${alt} ${index + 1}`} data-i18n-alt-key={altTranslationKey} data-i18n-alt-suffix={index + 1} class="w-full h-auto object-contain cursor-pointer transition duration-500 group-hover:scale-[1.02]" loading="lazy" data-fullsrc={item.src} onclick="openLightbox(this)" />
           )}
-          {item.type === 'video' && item.src && (
-            <video src={item.src} controls class="w-full" preload="metadata" />
+          {item.type === 'video' && embed?.embedUrl && (
+            <div class="aspect-video w-full">
+              <iframe
+                src={embed.embedUrl}
+                title={item.title || `${alt} ${index + 1}`}
+                class="h-full w-full border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+                allow="encrypted-media; picture-in-picture"
+              />
+            </div>
           )}
-          {item.type === 'audio' && item.src && (
-            <audio src={item.src} controls class="w-full" />
+          {item.type === 'video' && !embed?.embedUrl && (
+            <video src={item.src} poster={item.poster} controls preload="metadata" class="w-full" aria-label={item.title || `${alt} ${index + 1}`} />
           )}
-          {item.type === 'pdf' && item.src && (
-            <a href={item.src} target="_blank" rel="noopener noreferrer" class="block rounded-xl border border-cyan-200 bg-cyan-50 p-6 text-center font-semibold text-cyan-800 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">📄 {item.title || 'Abrir PDF'}</a>
-          )}
-          {item.type === 'iframe' && item.src && <iframe src={item.src} title={item.title || 'Contenido incrustado'} class="min-h-80 w-full border-0" loading="lazy" />}
-          {item.type === 'game' && item.src && <iframe src={item.src} title={item.title || 'Juego web'} class="min-h-96 w-full border-0" loading="lazy" />}
-          {item.type === 'link' && item.url && <a href={item.url} target="_blank" rel="noopener noreferrer" class="block rounded-xl border border-cyan-200 bg-white p-6 text-center font-semibold text-cyan-700 hover:bg-cyan-50 dark:border-white/10 dark:bg-zinc-900/50 dark:text-cyan-300">🔗 {item.title || item.url}</a>}
-          {item.title && item.type !== 'image' && <p class="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">{item.title}</p>}
         </div>
       ))}
     </div>

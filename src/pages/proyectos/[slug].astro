@@ -4,7 +4,9 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/layout/Header.astro";
 import Footer from "../../components/layout/Footer.astro";
 import ProjectGallery from "../../components/projects/ProjectGallery.astro";
-import { publicProjects, DISCIPLINE_MAP, getDisciplineLabel, getProjectLinkTranslationKey, getProjectTagTranslationKey, getProjectTypeTranslationKey } from "../../data/projects";
+import ProjectResources from "../../components/projects/ProjectResources.astro";
+import FeaturedMedia from "../../components/projects/FeaturedMedia.astro";
+import { publicProjects, DISCIPLINE_MAP, getDisciplineLabel, getProjectTagTranslationKey, getProjectTypeTranslationKey } from "../../data/projects";
 import { t } from "../../data/translations";
 import type { LocalizedText, Project, ProjectStoryStep } from "../../data/projects";
 import type { Language } from "../../utils/url";
@@ -23,14 +25,20 @@ interface Props {
 }
 
 const { project, lang = 'es' } = Astro.props;
-const galleryImages = project.gallery.map((item) => {
-  if (item.type === 'image' || item.type === 'video' || item.type === 'audio' || item.type === 'pdf' || item.type === 'iframe' || item.type === 'game') {
-    return { ...item, src: item.src ? withBasePath(item.src) : undefined };
-  }
-  return { ...item, url: item.url };
-});
 const galleryConfig = project.galleryConfig || {};
 const isEs = lang === 'es';
+
+// Contenido principal: usa `featuredMedia` si el proyecto lo define; si no,
+// la portada (`cover`) sigue haciendo de contenido principal como siempre.
+const featuredItem = project.featuredMedia ?? (project.cover ? { type: 'image' as const, src: project.cover } : null);
+
+// La galería mezcla imágenes y vídeos (nunca PDFs, repos ni enlaces: eso va
+// en ProjectResources). Se excluye el elemento ya mostrado como destacado
+// para no duplicar contenido entre el bloque principal y la galería.
+const galleryMedia = project.gallery
+  .filter((item) => (item.type === 'image' || item.type === 'video') && Boolean(item.src))
+  .filter((item) => !featuredItem || item.src !== featuredItem.src)
+  .map((item) => ({ ...item, src: item.src ? withBasePath(item.src) : undefined }));
 
 // Helper para obtener texto traducido del proyecto
 const projectText = (field: keyof Pick<Project, 'title' | 'description' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings'>, fallback: string) => {
@@ -41,7 +49,7 @@ const projectText = (field: keyof Pick<Project, 'title' | 'description' | 'chall
 
 const getLocalizedValue = (value: LocalizedText) => (isEs ? value.es : value.en);
 
-const storySteps: ProjectStoryStep[] = (project.story ?? []).filter((step) => step.kind !== 'context');
+const storySteps: ProjectStoryStep[] = project.story ?? [];
 const skillGains = project.skillGains ?? [];
 const localizedHighlights = project.highlights ?? [];
 
@@ -195,29 +203,45 @@ const stepConfig: Record<string, {
       </header>
 
       <!-- ============================================ -->
-      <!-- 3. PORTADA -->
+      <!-- 3. CONTENIDO PRINCIPAL (destacado) -->
       <!-- ============================================ -->
-      <section class="mb-12">
-        <img
-          src={withBasePath(project.cover)}
-          alt={translatedTitle}
-          class="w-full rounded-2xl border border-cyan-100 bg-white object-cover shadow-sm dark:border-white/10 dark:bg-zinc-900/40"
-          loading="eager"
-          decoding="async"
-        />
-      </section>
-
-      <!-- ============================================ -->
-      <!-- 4. GALERÍA -->
-      <!-- ============================================ -->
-      {galleryImages.length > 0 && (
-        <section class="mb-16">
-          <ProjectGallery items={galleryImages} alt={translatedTitle} altTranslationKey={titleKey} config={galleryConfig} />
+      {featuredItem && (
+        <section class="mb-12">
+          <FeaturedMedia item={featuredItem} title={translatedTitle} titleKey={titleKey} />
         </section>
       )}
 
       <!-- ============================================ -->
-      <!-- 5. LÍNEA DE TIEMPO DEL PROYECTO (STORY) -->
+      <!-- 4. GALERÍA MULTIMEDIA (imágenes + vídeos) -->
+      <!-- ============================================ -->
+      {galleryMedia.length > 0 && (
+        <section class="mb-16">
+          <ProjectGallery items={galleryMedia} alt={translatedTitle} altTranslationKey={titleKey} config={galleryConfig} />
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 5. RECURSOS Y ENLACES (justo tras el contenido multimedia) -->
+      <!-- ============================================ -->
+      {project.resources.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-2xl">🔗</span>
+            <div>
+              <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.resources_title">
+                {t(lang, 'project.resources_title')}
+              </h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="project.resources_subtitle">
+                {t(lang, 'project.resources_subtitle')}
+              </p>
+            </div>
+          </div>
+          <ProjectResources resources={project.resources} lang={lang} />
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 6. LÍNEA DE TIEMPO DEL PROYECTO (STORY) -->
       <!-- ============================================ -->
       {storySteps.length > 0 && (
         <section class="mb-16">
@@ -271,7 +295,7 @@ const stepConfig: Record<string, {
       )}
 
       <!-- ============================================ -->
-      <!-- 5. METADATA: ROL, EQUIPO, DURACIÓN + TECNOLOGÍAS -->
+      <!-- 7. ROL Y CONTRIBUCIONES: EQUIPO, DURACIÓN + TECNOLOGÍAS -->
       <!-- ============================================ -->
       <section class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div class="space-y-4">
@@ -348,7 +372,7 @@ const stepConfig: Record<string, {
       </section>
 
       <!-- ============================================ -->
-      <!-- 6. SKILL GAINS -->
+      <!-- 8. SKILL GAINS -->
       <!-- ============================================ -->
       {skillGains.length > 0 && (
         <section class="mb-16">
@@ -369,7 +393,7 @@ const stepConfig: Record<string, {
       )}
 
       <!-- ============================================ -->
-      <!-- 7. HIGHLIGHTS -->
+      <!-- 9. HIGHLIGHTS -->
       <!-- ============================================ -->
       {localizedHighlights.length > 0 && (
         <section class="mb-16">
@@ -396,22 +420,12 @@ const stepConfig: Record<string, {
       )}
 
       <!-- ============================================ -->
-      <!-- 8. ENLACES EXTERNOS -->
+      <!-- 10. VOLVER -->
       <!-- ============================================ -->
       <div class="flex flex-wrap gap-4 pt-4 border-t border-gray-200 dark:border-white/10">
         <a href={withBasePath('/proyectos')} class="btn-primary" data-i18n="project.back">
           {t(lang, 'project.back')}
         </a>
-
-        {project.links && project.links.map((link) => {
-          const linkKey = getProjectLinkTranslationKey(link.label);
-          return (
-            <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn-secondary inline-flex items-center gap-2">
-              <span class="material-symbols-outlined text-sm">link</span>
-              <span data-i18n={linkKey}>{linkKey ? t(lang, linkKey) : link.label}</span>
-            </a>
-          );
-        })}
       </div>
 
     </article>

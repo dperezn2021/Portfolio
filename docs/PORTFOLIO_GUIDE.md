@@ -59,7 +59,8 @@ Este archivo contiene los textos de la web en español e inglés. Es el punto m�
 La información del sitio vive en:
 
 - `src/data/settings.ts`
-- `src/data/projects.ts`
+- `src/data/projects/` (índice `index.ts` + proyectos individuales en `entries/`)
+- `src/data/academic-catalog.ts` (inventario de asignaturas del grado y qué proyecto tiene cada una — ver `docs/ACADEMIC_PROJECTS.md`)
 - `src/data/education.ts`
 - `src/data/experience.ts`
 - `src/data/learning.ts`
@@ -116,28 +117,25 @@ Edita:
 Aquí se controlan los textos visibles del sitio y la internacionalización.
 
 ### Añadir o editar proyectos
-Edita:
+Edita (o crea) su archivo en:
 
-- `src/data/projects.ts`
+- `src/data/projects/entries/<slug>.ts`, y regístralo en `src/data/projects/index.ts`
 
-Cada proyecto incluye:
+Mínimo imprescindible: `slug`, `year`, `type`, `title`, `description`, `tags`, `featured`, `disciplines`. Todo lo demás es opcional:
 
-- `slug`
-- `title`
-- `description`
-- `coverImage`
-- `tags`
-- `disciplines`
-- `galleryImages`
-- `featured`
+- `coverImage` / `cover` — portada (opcional; un proyecto oculto puede no tener aún)
+- `featuredMedia` — contenido principal opcional: imagen, vídeo (local o YouTube/Vimeo), PDF, Figma o demo/juego embebido. Si no se indica, la portada hace de contenido principal
+- `galleryImages` o `gallery` — galería de imágenes **y vídeos** mezclados (nunca PDFs ni enlaces sueltos)
+- `resources` — recursos y enlaces opcionales (GitHub, itch.io, PDF, documentación, demo, Figma, web...); los proyectos antiguos siguen funcionando con `links`/`externalLinks`
+- `publicable` — `false` oculta el proyecto por completo (sin página, sin listados, sin filtros)
+- `academicYear`, `context`, `subjects` — metadatos académicos; si el proyecto pertenece a una asignatura, regístralo también en `src/data/academic-catalog.ts` (ver `docs/ACADEMIC_PROJECTS.md`)
 - `status`
-- `links`
 
 Si añades un proyecto nuevo, también conviene revisar:
 
-- la veces que se usa el filtro por disciplina,
-- si quieres que aparezca en la home,
-- si debes crear imágenes en `public/images/projects/`.
+- las veces que se usa el filtro por disciplina,
+- si quieres que aparezca en la home (`featured: true`),
+- si debes crear imágenes en `public/images/projects/{curso}/{asignatura-principal}/{slug}/`.
 
 ### Añadir una nueva sección en una página
 Hazlo de esta forma:
@@ -249,7 +247,7 @@ Si tienes que modificar el portfolio, normalmente estas son las ubicaciones corr
 - navegación: `src/data/navigation.ts`
 - información del sitio: `src/data/settings.ts`
 - textos globales: `src/data/translations.ts`
-- proyectos: `src/data/projects.ts`
+- proyectos: `src/data/projects/`
 - estilos: `src/styles/globals.css`
 - páginas: `src/pages/*.astro`
 

@@ -1,0 +1,75 @@
+---
+// src/components/projects/FeaturedMedia.astro
+// Contenido principal opcional de un proyecto: una única pieza destacada
+// (imagen, vídeo local/YouTube/Vimeo, PDF, Figma o demo/juego embebido).
+// Para proyectos sin contenido multimedia propio, [slug].astro reutiliza la
+// portada (`cover`) como contenido principal, así que este componente no
+// necesita conocer ese caso de compatibilidad.
+import type { GalleryItem } from '../../data/projects';
+import { resolveEmbed, applyDisplayOverride } from '../../utils/media';
+import { withBasePath } from '../../utils/paths';
+
+interface Props {
+  item: GalleryItem;
+  title: string;
+  titleKey?: string;
+}
+
+const { item, title, titleKey } = Astro.props;
+const url = item.src || item.url;
+const accessibleTitle = item.title || title;
+
+const resolved = url && item.type !== 'image'
+  ? applyDisplayOverride(resolveEmbed(url, { declaredType: item.type, label: item.title }), item.display)
+  : null;
+
+const frameClasses = "w-full overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-900/40";
+---
+
+{url && item.type === 'image' && (
+  <img
+    src={withBasePath(url)}
+    alt={item.alt || accessibleTitle}
+    data-i18n-alt-key={titleKey}
+    class={`${frameClasses} object-cover`}
+    loading="eager"
+    decoding="async"
+  />
+)}
+
+{url && item.type === 'video' && !resolved?.embedUrl && (
+  <video
+    src={withBasePath(url)}
+    poster={item.poster ? withBasePath(item.poster) : undefined}
+    controls
+    preload="metadata"
+    aria-label={accessibleTitle}
+    class={frameClasses}
+  />
+)}
+
+{url && resolved?.embedUrl && (
+  <div class={`${frameClasses} aspect-video`}>
+    <iframe
+      src={resolved.embedUrl}
+      title={accessibleTitle}
+      class="h-full w-full border-0"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      sandbox="allow-scripts allow-same-origin allow-popups allow-presentation allow-forms"
+      allow="encrypted-media; picture-in-picture"
+    />
+  </div>
+)}
+
+{url && item.type !== 'image' && item.type !== 'video' && !resolved?.embedUrl && (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={`${frameClasses} flex flex-col items-center gap-3 p-12 text-center text-cyan-700 hover:bg-cyan-50/60 dark:text-cyan-300 dark:hover:bg-cyan-500/5`}
+  >
+    <span class="material-symbols-outlined text-4xl">open_in_new</span>
+    <span class="font-semibold">{accessibleTitle}</span>
+  </a>
+)}

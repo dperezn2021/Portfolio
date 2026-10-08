@@ -27,7 +27,7 @@ Cuando quieras actualizar algo, intenta hacerlo desde el origen del dato:
 
 - texto visible → `src/data/translations.ts`
 - perfil y datos personales → `src/data/settings.ts`
-- proyectos → `src/data/projects.ts`
+- proyectos → `src/data/projects/`
 - menú → `src/data/navigation.ts`
 
 ## Recomendación importante

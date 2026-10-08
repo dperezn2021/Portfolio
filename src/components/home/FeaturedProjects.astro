@@ -1,10 +1,8 @@
 ---
 // src/components/home/FeaturedProjects.astro
 import SectionTitle from '../common/SectionTitle.astro';
-import { projects } from '../../data/projects';
+import { publicProjects } from '../../data/projects';
 import ProjectCard from '../projects/ProjectCard.astro';
-import { DISCIPLINE_MAP } from '../../data/projects';
-import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 import { withBasePath } from '../../utils/paths';
 
@@ -14,7 +12,7 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 
-const featuredProjects = projects.filter((project) => project.featured);
+const featuredProjects = publicProjects.filter((project) => project.featured);
 ---
 
 <section class="py-16 transition-colors duration-300 md:py-20" id="projects">
@@ -40,9 +38,14 @@ const featuredProjects = projects.filter((project) => project.featured);
           slug={project.slug}
           title={project.title}
           description={project.description}
-          coverImage={project.coverImage}
+          coverImage={project.coverImage ?? ''}
           tags={project.tags}
           disciplines={project.disciplines}
+          context={project.context}
+          academicYear={project.academicYear}
+          year={project.year}
+          subjects={project.subjects}
+          technologies={(project.technologies ?? []).map((tech) => tech.name)}
           type={project.type}
           lang={lang}
         />

@@ -1,5 +1,5 @@
 ---
-import { projects } from '../../data/projects';
+import { publicProjects } from '../../data/projects';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 
@@ -9,7 +9,7 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 
-const completedProjects = projects.filter((project) => project.status === 'completado').length;
+const completedProjects = publicProjects.filter((project) => project.status === 'completado').length;
 const stats = [
   { value: completedProjects.toString(), labelKey: 'stats.projects' },
   { value: '3+', labelKey: 'stats.experience' },

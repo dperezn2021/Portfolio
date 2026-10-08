@@ -16,7 +16,7 @@ const { lang = 'es' } = Astro.props;
       slug={project.slug}
       title={project.title}
       description={project.description}
-      coverImage={project.cover}
+      coverImage={project.cover ?? ''}
       tags={project.tags}
       disciplines={project.disciplines}
       context={project.context}
