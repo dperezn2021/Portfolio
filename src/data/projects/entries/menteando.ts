@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const BASE = '/images/projects/2025-26/tfg/menteando';
+
 export const menteando: ProjectInput = {
     slug: 'menteando',
     year: 2026,
@@ -9,93 +11,96 @@ export const menteando: ProjectInput = {
     context: 'grado',
     type: 'Trabajo de Fin de Grado',
     title: 'Menteando',
-    description: 'Desarrollo de una web interactiva para fomentar el desarrollo cognitivo en adultos mediante ejercicios gamificados. Combina psicología cognitiva con gamificación para estimular la memoria, atención y razonamiento.',
-    challenges: 'Diseñar ejercicios cognitivos efectivos en formato digital. Crear una experiencia gamificada que mantenga la motivación del usuario. Equilibrar la dificultad para diferentes niveles cognitivos. Aprender herramientas como LocalStorage, TailwindCSS o EmailJS.',
-    solution: 'Investigué evidencia científica sobre desarrollo cognitivo. Implementé un sistema de progresión adaptativa con gamificación para mantener la motivación. Desarrollé una aplicación web completa con HTML, CSS, JavaScript, TailwindCSS y LocalStorage para el progreso del usuario.',
+    description: 'Trabajo de Fin de Grado individual, todavía en desarrollo: una plataforma web de entrenamiento cognitivo para adultos con tests, juegos, métricas de progreso, gamificación y un coach con IA.',
+    challenges: 'Combinar la investigación sobre cognición con el desarrollo completo de la plataforma. De momento el progreso se guarda en el navegador con localStorage; el backend y la base de datos están planificados.',
+    solution: 'Una web con perfiles, métricas por capacidad (atención, memoria, control y reflejos), medallas, rachas, exportación de datos y comentarios, con tests y juegos propios. Usa Tailwind, localStorage, EmailJS y Cloudflare Workers, además de Unity y C#.',
     highlights: [
-      localizedText('🧠 Ejercicios cognitivos basados en ciencia', '🧠 Science-based cognitive exercises'),
-      localizedText('🎮 Sistema de gamificación con recompensas', '🎮 Gamification system with rewards'),
-      localizedText('📊 Progresión adaptativa según el usuario', '📊 Adaptive progression based on the user'),
-      localizedText('📱 Diseño responsive y accesible', '📱 Responsive and accessible design'),
+      localizedText('🧪 Tests cognitivos y batería de juegos', '🧪 Cognitive tests and game battery'),
+      localizedText('📊 Métricas por capacidad: atención, memoria, control y reflejos', '📊 Metrics per ability: attention, memory, control and reflexes'),
+      localizedText('🏅 Medallas, rachas y puntos', '🏅 Badges, streaks and points'),
+      localizedText('📱 Versión web usable también en el móvil', '📱 Web version that also works on mobile'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Trabajo de Fin de Grado. El objetivo era desarrollar una herramienta digital que ayudara a adultos a mantener y mejorar sus capacidades cognitivas mediante ejercicios gamificados, combinando psicología cognitiva con tecnologías web.',
-          'Final Degree Project. The goal was to develop a digital tool to help adults maintain and improve their cognitive abilities through gamified exercises, combining cognitive psychology with web technologies.'
+          'Trabajo de Fin de Grado individual (2025-26), todavía en desarrollo. La idea parte de la investigación sobre entrenamiento cognitivo en adultos.',
+          'Individual Final Degree Project (2025-26), still in development. The idea comes from research on cognitive training in adults.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Crear una aplicación web interactiva con ejercicios cognitivos efectivos, sistema de gamificación que mantenga la motivación, progresión adaptativa al nivel del usuario y diseño responsive y accesible para todos los públicos.',
-          'Create an interactive web application with effective cognitive exercises, a gamification system that maintains motivation, adaptive progression to the user level and responsive and accessible design for all audiences.'
+          'Construir una plataforma web de entrenamiento cognitivo para adultos que combine tests, juegos, métricas de progreso, gamificación y un coach con IA.',
+          'Build a web cognitive-training platform for adults combining tests, games, progress metrics, gamification and an AI coach.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Desarrollé una aplicación web completa con HTML, CSS y JavaScript. Utilicé TailwindCSS para el diseño, LocalStorage para guardar el progreso del usuario, y EmailJS para el envío de correos. Aprendí sobre SEO, dominios y validación con usuarios reales.',
-          'I developed a complete web application with HTML, CSS and JavaScript. I used TailwindCSS for design, LocalStorage for user progress tracking, and EmailJS for email sending. I learned about SEO, domains and validation with real users.'
+          'Todo el trabajo es individual: investigación, arquitectura, frontend, juegos, tests e integración. La web usa HTML, CSS, JavaScript y Tailwind, guarda el progreso en localStorage y emplea EmailJS y Cloudflare Workers, además de Unity y C#. Incluye perfiles, métricas, comentarios y exportación de datos.',
+          'All the work is individual: research, architecture, frontend, games, tests and integration. The site uses HTML, CSS, JavaScript and Tailwind, stores progress in localStorage and uses EmailJS and Cloudflare Workers, as well as Unity and C#. It includes profiles, metrics, comments and data export.'
         ),
       },
       {
         kind: 'learning',
         icon: 'bolt',
         text: localizedText(
-          'Este proyecto me enseñó a seguir un plan de trabajo estructurado, profundizar en tecnologías web y aprender otras nuevas como LocalStorage, TailwindCSS, EmailJS y Cloudflare. Comprendí la importancia del SEO, la validación con usuarios reales y el valor de un dominio propio.',
-          'This project taught me to follow a structured work plan, deepen web technologies and learn new ones like LocalStorage, TailwindCSS, EmailJS and Cloudflare. I understood the importance of SEO, validation with real users and the value of a custom domain.'
+          'Lo más difícil ha sido la investigación sobre cognición y desarrollar la plataforma completa por mi cuenta. El proyecto sigue en marcha: el backend y la base de datos son el siguiente paso.',
+          'The hardest parts have been researching cognition and building the whole platform on my own. The project is ongoing: the backend and database are the next step.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Desarrollo web full stack', 'Full stack web development'),
-      localizedText('TailwindCSS', 'TailwindCSS'),
-      localizedText('LocalStorage y progresión de usuario', 'LocalStorage and user progression'),
-      localizedText('SEO y validación con usuarios', 'SEO and user validation'),
-      localizedText('Gamificación y psicología cognitiva', 'Gamification and cognitive psychology'),
+      localizedText('Desarrollo web con HTML, CSS, JavaScript y Tailwind', 'Web development with HTML, CSS, JavaScript and Tailwind'),
+      localizedText('Persistencia en el navegador con localStorage', 'Browser persistence with localStorage'),
+      localizedText('Diseño de tests y juegos cognitivos', 'Design of cognitive tests and games'),
+      localizedText('Integración de EmailJS y Cloudflare Workers', 'EmailJS and Cloudflare Workers integration'),
     ],
     tags: ['Desarrollo Cognitivo', 'Gamificación', 'Web'],
     subjects: [],
-    coverImage: '/images/projects/2025-26/tfg/menteando/menteando_portada.png',
-    galleryImages: [
-      '/images/projects/2025-26/tfg/menteando/menteando1.png',
-      '/images/projects/2025-26/tfg/menteando/menteando2.png',
-      '/images/projects/2025-26/tfg/menteando/menteando3.png',
-      '/images/projects/2025-26/tfg/menteando/menteando4.png',
-      '/images/projects/2025-26/tfg/menteando/menteando5.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando6.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando7.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando8.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando9.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando10.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando11.jpeg',
-      '/images/projects/2025-26/tfg/menteando/menteando12.png',
-      '/images/projects/2025-26/tfg/menteando/menteando13.png',
-      '/images/projects/2025-26/tfg/menteando/menteando14.png',
-      '/images/projects/2025-26/tfg/menteando/menteando15.png',
-      '/images/projects/2025-26/tfg/menteando/menteando16.png',
-      '/images/projects/2025-26/tfg/menteando/menteando17.png',
-      '/images/projects/2025-26/tfg/menteando/menteando18.png',
-      '/images/projects/2025-26/tfg/menteando/menteando19.png',
-      '/images/projects/2025-26/tfg/menteando/menteando20.png',
-      '/images/projects/2025-26/tfg/menteando/menteando21.png',
-    ],
-    galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: true,
-    role: 'Desarrollador Full Stack',
-    team: 'Trabajo de Fin de Grado - Proyecto individual',
-    duration: '8 meses',
-    learnings: 'Desarrollo de una aplicación web completa desde cero. Aprendí a integrar principios de psicología cognitiva en el diseño de ejercicios. Mejoré mis habilidades en desarrollo web y aprendí a utilizar herramientas como LocalStorage, TailwindCSS y EmailJS.',
-    status: 'completado',
+    disciplines: ['videojuegos', 'desarrollo-web', 'ux-ui'],
     technologies: [
       { name: 'HTML', level: 'principal' },
+      { name: 'CSS', level: 'principal' },
       { name: 'JavaScript', level: 'principal' },
       { name: 'Tailwind CSS', level: 'secundaria' },
+      { name: 'Unity', level: 'secundaria' },
+      { name: 'C#', level: 'secundaria' },
+      { name: 'EmailJS', level: 'secundaria' },
+      { name: 'Cloudflare Workers', level: 'secundaria' },
     ],
-    disciplines: ['videojuegos', 'desarrollo-web', 'ux-ui'],
+    featured: true,
+    status: 'en-desarrollo',
+    coverImage: `${BASE}/menteando_portada.png`,
+    gallery: [
+      { type: 'image', src: `${BASE}/menteando16.png`, alt: 'Página de inicio de Menteando: «Mantén tu mente activa y joven»' },
+      { type: 'image', src: `${BASE}/menteando1.png`, alt: 'Sección de la web que explica qué se entrena y cómo funciona, en versión móvil' },
+      { type: 'image', src: `${BASE}/menteando15.png`, alt: 'Juegos destacados de Menteando en modo oscuro: Reflejos Cruzados, Eco Visual y Doble Canal' },
+      { type: 'image', src: `${BASE}/menteando14.png`, alt: 'Catálogo de juegos filtrable por capacidad, con Operaciones Encadenadas y Eco Visual' },
+      { type: 'image', src: `${BASE}/menteando13.png`, alt: 'Ficha del juego Doble Canal con su descripción y cómo se juega' },
+      { type: 'image', src: `${BASE}/menteando19.png`, alt: 'Juego Misión Orbital con sus instrucciones y el área de juego' },
+      { type: 'image', src: `${BASE}/menteando18.png`, alt: 'Misión Orbital en modo oscuro, con las habilidades cognitivas que evalúa' },
+      { type: 'image', src: `${BASE}/menteando4.png`, alt: 'Test Digit Span de memoria de trabajo en una partida' },
+      { type: 'image', src: `${BASE}/menteando10.jpeg`, alt: 'Cuadrícula de un test de memoria en el móvil' },
+      { type: 'image', src: `${BASE}/menteando11.jpeg`, alt: 'Test tipo Stroop en el móvil: elegir el color de la tinta, no la palabra' },
+      { type: 'image', src: `${BASE}/menteando6.jpeg`, alt: 'Juego Operaciones Encadenadas en el móvil, con una calculadora en pixel art' },
+      { type: 'image', src: `${BASE}/menteando7.jpeg`, alt: 'Juego Reflejos Cruzados en el móvil, ambientado en un saloon del oeste' },
+      { type: 'image', src: `${BASE}/menteando17.png`, alt: 'Pantalla de ajustes de música y efectos de un juego espacial' },
+      { type: 'image', src: `${BASE}/menteando20.png`, alt: 'Perfil de usuario con capacidades cognitivas, puntos, rachas y tests recomendados' },
+      { type: 'image', src: `${BASE}/menteando3.png`, alt: 'Perfil de usuario en modo oscuro con medallas y capacidades cognitivas' },
+      { type: 'image', src: `${BASE}/menteando21.png`, alt: 'Medallas, misión actual, últimas sesiones y estadísticas por tipo de habilidad' },
+      { type: 'image', src: `${BASE}/menteando9.jpeg`, alt: 'Capacidades cognitivas y métricas de sesiones en el móvil' },
+      { type: 'image', src: `${BASE}/menteando8.jpeg`, alt: 'Perfil de usuario en el móvil con el coach cognitivo desactivado' },
+      { type: 'image', src: `${BASE}/menteando2.png`, alt: 'Aviso de perfil actualizado correctamente sobre la pantalla de perfil' },
+      { type: 'image', src: `${BASE}/menteando5.jpeg`, alt: 'Menú de navegación de Menteando abierto en el móvil' },
+    ],
+    galleryConfig: { columns: 4, layout: 'masonry' },
+    role: 'Autor y desarrollador (investigación, arquitectura, frontend, juegos y tests)',
+    team: 'Trabajo de Fin de Grado - Proyecto individual',
+    duration: '8 meses',
+    learnings: 'Investigar la parte cognitiva y desarrollar la plataforma completa por mi cuenta ha sido lo más difícil. El proyecto sigue en desarrollo.',
   };

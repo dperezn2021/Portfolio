@@ -20,6 +20,8 @@ export interface GalleryItem {
   src?: string;
   url?: string;
   title?: string;
+  /** Título en inglés (se muestra como pie de los vídeos de la galería al cambiar de idioma). */
+  titleEn?: string;
   description?: string;
   alt?: string;
   /** Miniatura para vídeos (galería y contenido principal). */

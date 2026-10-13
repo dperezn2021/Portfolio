@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const media = '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury';
+
 export const astrofury: ProjectInput = {
     slug: 'astrofury',
     year: 2025,
@@ -9,82 +11,83 @@ export const astrofury: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Astrofury',
-    description: 'Sobrevive a oleadas de enemigos espaciales mientras el equipo de ingeniería te ayuda en tu aventura. Implementa patrones de diseño como State, Object Pooling, Flyweight, Singleton y Observer, entre otros.',
-    challenges: 'Implementar correctamente múltiples patrones de diseño en un proyecto cohesionado. Balancear la dificultad de las oleadas de enemigos.',
-    solution: 'Organizamos el proyecto en módulos independientes y aplicamos los patrones de diseño de forma progresiva.',
+    description: 'Shooter espacial por oleadas hecho en equipo con Unity y C#: hay que sobrevivir, sumar puntos y gastarlos en una tienda de objetos y mejoras. Mi parte fueron las interfaces, la implementación de los objetos, la integración y las pruebas.',
+    challenges: 'Aplicar varios patrones de diseño en un mismo juego y coordinar los sistemas entre sí dentro de Unity.',
+    solution: 'El equipo organizó el juego con prefabs y ScriptableObjects y con los patrones Singleton, State, Object Pooling, Flyweight y Observer. Yo me encargué de las interfaces y de implementar los objetos, y de integrar y probar el resultado.',
     highlights: [
-      localizedText('🧠 Uso aplicado de patrones de diseño', '🧠 Applied use of design patterns'),
-      localizedText('⚔️ Sistema de oleadas con dificultad progresiva', '⚔️ Wave system with progressive difficulty'),
-      localizedText('🔫 Sistema de armas y mejoras', '🔫 Weapons and upgrades system'),
+      localizedText('🌊 Supervivencia por oleadas con sistema de puntuación', '🌊 Wave-based survival with a scoring system'),
+      localizedText('🛒 Tienda con objetos y mejoras', '🛒 Shop with items and upgrades'),
+      localizedText('🧠 Patrones Singleton, State, Object Pooling, Flyweight y Observer', '🧠 Singleton, State, Object Pooling, Flyweight and Observer patterns'),
+      localizedText('🧩 Prefabs y ScriptableObjects en Unity', '🧩 Prefabs and ScriptableObjects in Unity'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Proyecto desarrollado para la asignatura Ingeniería de Videojuegos, orientado a construir un videojuego final en el que los patrones de diseño vistos en clase no fueran teoría, sino decisiones reales de arquitectura.',
-          'Project developed for the Video Game Engineering course, focused on building a final game where the design patterns studied in class were not just theory, but real architectural decisions.'
+          'Proyecto en equipo de cuatro personas para la asignatura Ingeniería de Videojuegos, orientado a usar en un juego completo los patrones de diseño vistos en clase.',
+          'Four-person team project for the Video Game Engineering course, aimed at using the design patterns studied in class in a complete game.'
         ),
       },
       {
         kind: 'objective',
         icon: 'target',
         text: localizedText(
-          'El desafío principal era entregar un producto jugable y ordenado en el que varios patrones de diseño convivieran con sentido y mejoraran tanto estructura como rendimiento.',
-          'The main challenge was to deliver a playable and well-structured product in which several design patterns worked together meaningfully and improved both structure and performance.'
+          'Entregar un shooter espacial jugable en el que sobrevivir a oleadas de enemigos, acumular puntuación y comprar objetos y mejoras en una tienda.',
+          'Deliver a playable space shooter in which you survive waves of enemies, build up a score and buy items and upgrades in a shop.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'hub',
         text: localizedText(
-          'Aplicamos patrones como State, Object Pooling y Observer, entre otros, para separar responsabilidades, controlar estados del juego y optimizar la reutilización de objetos durante las oleadas y el combate.',
-          'We applied patterns such as State, Object Pooling, and Observer, among others, to separate responsibilities, control game states, and optimize object reuse during waves and combat.'
+          'Juego desarrollado en Unity con C#, con prefabs y ScriptableObjects y con los patrones Singleton, State, Object Pooling, Flyweight y Observer. Mi contribución fueron las interfaces y la implementación de los objetos, además de la integración de las partes del equipo y las pruebas.',
+          'Game developed in Unity with C#, using prefabs and ScriptableObjects and the Singleton, State, Object Pooling, Flyweight and Observer patterns. My contribution was the interfaces and the implementation of the items, plus integrating the team\'s parts and testing.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Aprendí que modularizar bien el código facilita mantener scripts claros, escalar mecánicas y mejorar rendimiento. También entendí cómo implementar patrones ya definidos produce resultados más sólidos en un videojuego real.',
-          'I learned that strong code modularization makes scripts easier to maintain, mechanics easier to scale, and performance easier to optimize. I also saw how implementing established patterns leads to more solid results in a real game.'
+          'Lo más exigente fue dominar los patrones de diseño y lograr que los distintos sistemas del juego funcionaran coordinados dentro de Unity.',
+          'The most demanding parts were getting to grips with the design patterns and making the game\'s different systems work together in Unity.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Patrones de diseño en gameplay', 'Design patterns in gameplay'),
-      localizedText('Modularización de código', 'Code modularization'),
-      localizedText('Optimización con object pooling', 'Optimization with object pooling'),
-      localizedText('Arquitectura de sistemas en Unity', 'Systems architecture in Unity'),
+      localizedText('Patrones de diseño en un juego completo', 'Design patterns in a complete game'),
+      localizedText('Interfaces y objetos en Unity', 'UI and items in Unity'),
+      localizedText('Integración de sistemas en equipo', 'Team systems integration'),
+      localizedText('Pruebas de juego', 'Game testing'),
     ],
     tags: ['Unity', 'C#', 'Patrones de diseño'],
     subjects: ['Ingeniería de Videojuegos'],
-    coverImage: '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury_portada.png',
-    galleryImages: [
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury1.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury2.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury3.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury4.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury5.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury6.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury7.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury8.png',
-      '/images/projects/2023-24/ingenieria-de-videojuegos/astrofury/astrofury9.png',
-    ],
-    galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: false,
-    links: [
-      { label: 'Jugar', url: 'https://tokpary.itch.io/astrofury' }
-    ],
-    role: 'Programador y diseñador de sistemas',
-    team: 'EquipoT - 4 personas',
-    duration: '4 meses',
-    learnings: 'Aprendí a implementar patrones de diseño como State, Object Pooling y Observer. Mejoré mis habilidades en Unity y C#. Descubrí la importancia de la optimización de rendimiento.',
-    status: 'completado',
+    disciplines: ['videojuegos', 'devops'],
     technologies: [
       { name: 'Unity', level: 'principal' },
       { name: 'C#', level: 'principal' },
       { name: 'itch.io', level: 'secundaria' },
     ],
-    disciplines: ['videojuegos', 'devops'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${media}/astrofury_portada.png`,
+    gallery: [
+      { type: 'image', src: `${media}/astrofury1.png`, alt: 'Captura de Astrofury (1)' },
+      { type: 'image', src: `${media}/astrofury2.png`, alt: 'Captura de Astrofury (2)' },
+      { type: 'image', src: `${media}/astrofury3.png`, alt: 'Captura de Astrofury (3)' },
+      { type: 'image', src: `${media}/astrofury4.png`, alt: 'Captura de Astrofury (4)' },
+      { type: 'image', src: `${media}/astrofury5.png`, alt: 'Captura de Astrofury (5)' },
+      { type: 'image', src: `${media}/astrofury6.png`, alt: 'Captura de Astrofury (6)' },
+      { type: 'image', src: `${media}/astrofury7.png`, alt: 'Captura de Astrofury (7)' },
+      { type: 'image', src: `${media}/astrofury8.png`, alt: 'Captura de Astrofury (8)' },
+      { type: 'image', src: `${media}/astrofury9.png`, alt: 'Captura de Astrofury (9)' },
+    ],
+    galleryConfig: { columns: 3, layout: 'masonry' },
+    resources: [
+      { type: 'link', url: 'https://tokpary.itch.io/astrofury', title: 'Jugar' },
+    ],
+    role: 'Programador (interfaces, objetos e integración)',
+    team: 'EquipoT - 4 personas',
+    duration: '4 meses',
+    learnings: 'Lo más exigente fue dominar los patrones de diseño y coordinar los sistemas del juego dentro de Unity.',
   };

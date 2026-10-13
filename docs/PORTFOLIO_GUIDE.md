@@ -117,6 +117,8 @@ Edita:
 Aquí se controlan los textos visibles del sitio y la internacionalización.
 
 ### Añadir o editar proyectos
+Chuleta con el orden de campos y ejemplos: `docs/PROJECT_CHEATSHEET.md`.
+
 Edita (o crea) su archivo en:
 
 - `src/data/projects/entries/<slug>.ts`, y regístralo en `src/data/projects/index.ts`

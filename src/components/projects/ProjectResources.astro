@@ -54,6 +54,7 @@ function toCard(item: GalleryItem): Card | null {
   return { kind: resolved.kind, label, url, embedUrl: resolved.embedUrl };
 }
 
+// Los PDF locales se incrustan sin `sandbox`: el visor de PDF de Chrome no funciona dentro de un iframe con sandbox.
 const cards: Card[] = resources.map(toCard).filter((c): c is Card => c !== null);
 
 const kindConfig: Record<Card['kind'], { icon: string; labelKey: string }> = {
@@ -68,7 +69,7 @@ const kindConfig: Record<Card['kind'], { icon: string; labelKey: string }> = {
 ---
 
 {cards.length > 0 && (
-  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+  <div class={`grid gap-6 ${cards.length === 1 ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
     {cards.map((card) => {
       const config = kindConfig[card.kind];
       const linkKey = getProjectLinkTranslationKey(card.label);
@@ -110,7 +111,7 @@ const kindConfig: Record<Card['kind'], { icon: string; labelKey: string }> = {
                 class="h-full w-full border-0"
                 loading="lazy"
                 referrerpolicy="no-referrer"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                sandbox={card.kind === 'pdf' && /\.pdf($|\?)/i.test(card.embedUrl) ? undefined : 'allow-scripts allow-same-origin allow-popups allow-forms'}
               />
             </div>
           )}

@@ -24,3 +24,6 @@ Thumbs.db
 logs/
 *.log
 npm-debug.log*
+
+# Material fuente local (vídeos originales, memorias con datos privados): no se versiona
+Contenido_Porfolio/

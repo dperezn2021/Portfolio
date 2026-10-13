@@ -20,6 +20,9 @@ const TAG_KEYS: Record<string, string> = {
   'Animación 3D': 'project.tag.3d_animation',
   'Personajes': 'project.tag.characters',
   'Game Design': 'project.tag.game_design',
+  'Videojuegos web': 'project.tag.web_games',
+  'Desarrollo con IA': 'project.tag.ai_assisted',
+  'Simulación física': 'project.tag.physics_simulation',
 };
 
 const LINK_KEYS: Record<string, string> = {
@@ -31,6 +34,11 @@ const LINK_KEYS: Record<string, string> = {
   'Ir a la web': 'project.link.visit_website',
   'Descargar Video Demo': 'project.link.demo_video',
   'Descargar Memoria PDF': 'project.link.report_pdf',
+  'Código en GitHub': 'project.link.codigo_en_github',
+  'Concept art de escenario (PDF)': 'project.link.concept_art_de_escenario_pdf',
+  'Concept art de personaje (PDF)': 'project.link.concept_art_de_personaje_pdf',
+  'GitHub': 'project.link.github',
+  'Colección BONK en itch.io': 'project.link.bonk_itch',
 };
 
 export function getProjectTypeTranslationKey(type: string): string | undefined {

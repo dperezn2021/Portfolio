@@ -1,0 +1,21 @@
+---
+// Texto bilingüe: se pinta en español y public/scripts/language.js lo cambia a
+// inglés mediante data-i18n-es / data-i18n-en.
+import type { LocalizedText } from '../../data/projects/types';
+
+interface Props {
+  text: LocalizedText;
+  as?: 'span' | 'p' | 'div';
+  class?: string;
+}
+
+const { text, as = 'span', class: className } = Astro.props;
+---
+
+{as === 'p' ? (
+  <p class={className} data-i18n-es={text.es} data-i18n-en={text.en}>{text.es}</p>
+) : as === 'div' ? (
+  <div class={className} data-i18n-es={text.es} data-i18n-en={text.en}>{text.es}</div>
+) : (
+  <span class={className} data-i18n-es={text.es} data-i18n-en={text.en}>{text.es}</span>
+)}

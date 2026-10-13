@@ -9,70 +9,70 @@ export const yumala: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Yumala',
-    description: 'Carátula para PS4. Concept art de un MOBA en tercera persona que combina magia, mitología y elementos modernos. Collage creado con Photoshop.',
-    challenges: 'Fusionar elementos antiguos y modernos en una composición visual coherente. Crear una carátula que capture la esencia del juego y llame la atención en el mercado.',
-    solution: 'Realicé un collage digital combinando elementos mitológicos con diseños modernos. Utilicé técnicas de composición y color para lograr un equilibrio visual que transmite la fusión de mundos del juego.',
+    description: 'Carátula de PS4 para Yumala, un videojuego conceptual (MOBA en tercera persona que mezcla magia, mitología y elementos modernos). Composición por capas en Photoshop a partir de bocetos, con título y logotipo hechos con recursos gráficos externos.',
+    challenges: 'Fusionar elementos antiguos y modernos en una composición visual coherente.',
+    solution: 'Partí de bocetos y monté la carátula por capas en Photoshop, combinando elementos mitológicos y modernos y añadiendo el título y el logotipo. Mi trabajo fue la composición y el montaje; parte de los recursos gráficos son externos.',
     highlights: [
-      localizedText('🎨 Carátula para PS4', '🎨 PS4 cover art'),
-      localizedText('🔄 Fusión de magia, mitología y modernidad', '🔄 Fusion of magic, mythology, and modernity'),
-      localizedText('🖼️ Técnica de collage digital', '🖼️ Digital collage technique'),
-      localizedText('🎯 Composición visual equilibrada', '🎯 Balanced visual composition'),
+      localizedText('🎨 Carátula final de PS4', '🎨 Final PS4 cover'),
+      localizedText('🔄 Mezcla de magia, mitología y modernidad', '🔄 Mix of magic, mythology and modernity'),
+      localizedText('🖼️ Composición por capas en Photoshop', '🖼️ Layered composition in Photoshop'),
+      localizedText('🔤 Título y logotipo con recursos gráficos externos', '🔤 Title and logo built with external graphic resources'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Proyecto de la asignatura Diseño 2D. El objetivo era crear una carátula para una consola de la época usando técnicas de collage digital. Elegí PS4 y diseñé Yumala, un concepto de MOBA en tercera persona que combina magia, mitología y elementos modernos.',
-          'Project for the 2D Design course. The goal was to create a cover for a console of the era using digital collage techniques. I chose PS4 and designed Yumala, a third-person MOBA concept combining magic, mythology and modern elements.'
+          'Proyecto de la asignatura Diseño Digital 2D. Consistía en diseñar la carátula de un videojuego para una consola de la época; elegí PS4.',
+          'Project for the 2D Digital Design course. It consisted of designing the cover of a video game for a console of the era; I chose PS4.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Crear una carátula impactante para PS4 que fusionara elementos antiguos y modernos, capturando la esencia de un juego MOBA en tercera persona con temática de magia y mitología.',
-          'Create an impactful PS4 cover that merged ancient and modern elements, capturing the essence of a third-person MOBA game with magic and mythology themes.'
+          'Crear la carátula de Yumala, un MOBA conceptual en tercera persona con magia, mitología y elementos modernos, de forma que la composición resultara coherente.',
+          'Create the cover of Yumala, a conceptual third-person MOBA with magic, mythology and modern elements, so that the composition felt coherent.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Utilicé técnicas de collage digital en Photoshop para combinar elementos mitológicos con diseños modernos. Apliqué técnicas de composición y color para lograr un equilibrio visual que transmitiera la fusión de mundos del juego.',
-          'I used digital collage techniques in Photoshop to combine mythological elements with modern designs. I applied composition and color techniques to achieve a visual balance that conveyed the fusion of game worlds.'
+          'Hice bocetos y compuse la carátula por capas en Photoshop. El título y el logotipo los monté con recursos gráficos externos, por lo que mi aportación es la composición y el montaje, no la ilustración original de todos los elementos.',
+          'I made sketches and composed the cover in layers in Photoshop. I built the title and logo with external graphic resources, so my contribution is the composition and assembly, not original illustration of every element.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Aprendí a fusionar elementos antiguos y modernos en una composición visual coherente. Mejoré mis habilidades de collage digital y descubrí cómo crear una carátula que capture la esencia de un juego y llame la atención en el mercado.',
-          'I learned to merge ancient and modern elements into a coherent visual composition. I improved my digital collage skills and discovered how to create a cover that captures the essence of a game and stands out in the market.'
+          'Fue mi primer trabajo con Photoshop: aprendí lo básico de trabajar con capas y de componer una imagen, sin dificultades destacables.',
+          'It was my first piece of work in Photoshop: I learned the basics of working with layers and composing an image, with no major difficulties.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Collage digital en Photoshop', 'Digital collage in Photoshop'),
-      localizedText('Composición y color', 'Composition and color'),
+      localizedText('Composición por capas en Photoshop', 'Layered composition in Photoshop'),
+      localizedText('Collage digital', 'Digital collage'),
       localizedText('Diseño de carátulas', 'Cover design'),
-      localizedText('Concept art de MOBA', 'MOBA concept art'),
     ],
     tags: ['Collage', 'Photoshop', 'Diseño Gráfico'],
     subjects: ['Diseño Digital 2D'],
-    coverImage: '/images/projects/2021-22/diseno-digital-2d/yumala/yumala_portada.png',
-    galleryImages: [
-      '/images/projects/2021-22/diseno-digital-2d/yumala/yumala1.png',
-    ],
-    galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: false,
-    role: 'Ilustrador y diseñador',
-    team: 'Proyecto académico personal - Individual',
-    duration: '3 semanas',
-    learnings: 'Aprendí a fusionar elementos antiguos y modernos en una composición visual. Mejoré mis habilidades de collage digital. Descubrí cómo crear una carátula que capture la esencia de un juego.',
-    status: 'completado',
+    disciplines: ['diseño-2d', 'ilustracion'],
     technologies: [
       { name: 'Photoshop', level: 'principal' },
     ],
-    disciplines: ['diseño-2d', 'ilustracion'],
+    featured: false,
+    status: 'completado',
+    coverImage: '/images/projects/2021-22/diseno-digital-2d/yumala/yumala_portada.png',
+    gallery: [],
+    galleryConfig: { columns: 4, layout: 'masonry' },
+    resources: [
+      { type: 'pdf', url: '/images/projects/2021-22/diseno-digital-2d/yumala/memoria.pdf', title: 'Memoria PDF' },
+    ],
+    role: 'Diseñador gráfico (composición y montaje)',
+    team: 'Proyecto académico personal - Individual',
+    duration: '3 semanas',
+    learnings: 'Primer contacto con Photoshop: bocetos, trabajo por capas y composición de una carátula.',
   };

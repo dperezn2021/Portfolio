@@ -82,6 +82,9 @@ const gapClasses: Record<GapSize, string> = {
           {item.type === 'video' && !embed?.embedUrl && (
             <video src={item.src} poster={item.poster} controls preload="metadata" class="w-full" aria-label={item.title || `${alt} ${index + 1}`} />
           )}
+          {item.type === 'video' && item.title && (
+            <p class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n-es={item.title} data-i18n-en={item.titleEn ?? item.title}>{item.title}</p>
+          )}
         </div>
       ))}
     </div>

@@ -27,8 +27,8 @@ function initFilters() {
 
   if (!filterBtns.length || !projectCards.length) return;
 
-  const INITIAL_VISIBLE = 12;
-  const LOAD_MORE = 6;
+  const INITIAL_VISIBLE = 15;
+  const LOAD_MORE = 9;
   let visibleCount = INITIAL_VISIBLE;
   const activeFilters = new Map();
   let searchTerm = '';

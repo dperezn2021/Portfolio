@@ -14,7 +14,7 @@ export const bingo: ProjectInput = {
   description: 'Práctica final de la asignatura Programación Visual: un Bingo desarrollado en Java.',
   tags: [],
   subjects: ["Programación Visual"],
+  disciplines: ["aplicaciones"],
   publicable: false,
   featured: false,
-  disciplines: ["aplicaciones"],
 };

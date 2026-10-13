@@ -60,6 +60,12 @@ export const redesSociales: ProjectInput = {
     ],
     tags: ['Canva', 'Marketing', 'Diseño Gráfico'],
     subjects: [],
+    disciplines: ['diseño-2d'],
+    technologies: [
+      { name: 'Canva', level: 'principal' },
+    ],
+    featured: false,
+    status: 'completado',
     coverImage: '/images/projects/2024-25/freelance/redes-sociales/rrss_portada.png',
     galleryImages: [
       '/images/projects/2024-25/freelance/redes-sociales/rrss1.png',
@@ -74,14 +80,8 @@ export const redesSociales: ProjectInput = {
       '/images/projects/2024-25/freelance/redes-sociales/rrss10.png',
     ],
     galleryConfig: { columns: 2, layout: 'masonry' },
-    featured: false,
     role: 'Diseñador Gráfico',
     team: 'Proyecto personal - Individual',
     duration: '0.5 mes',
     learnings: 'Aprendí a diseñar para diferentes formatos y plataformas. Mejoré mis habilidades de branding y marketing deportivo. Descubrí cómo crear plantillas versátiles y adaptables.',
-    status: 'completado',
-    technologies: [
-      { name: 'Canva', level: 'principal' },
-    ],
-    disciplines: ['diseño-2d'],
   };

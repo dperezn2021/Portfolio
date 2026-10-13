@@ -2,6 +2,9 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const media = '/images/projects/2023-24/juegos-en-red/hit-and-ufo';
+const shot = (n: number, alt: string) => ({ type: 'image' as const, src: `${media}/hittandufo${n}.png`, alt });
+
 export const hitAndUfo: ProjectInput = {
     slug: 'hit-and-ufo',
     year: 2024,
@@ -9,90 +12,96 @@ export const hitAndUfo: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'HittAndUfo',
-    description: 'Juego competitivo en red inspirado en la rivalidad entre fuerza e inteligencia. Versión local en navegador y versión en línea con arquitectura cliente-servidor. Primer contacto con juegos en red.',
-    challenges: 'Implementar comunicación en tiempo real entre clientes. Sincronizar el estado del juego entre jugadores en un proyecto de iniciación a juegos en red.',
-    solution: 'Implementé un sistema de comunicación basado en eventos que permite la sincronización entre clientes. Utilicé Phaser3 para el frontend y Socket.io para la comunicación en tiempo real.',
+    description: 'Carrera de plataformas 2D en red entre Hitt, fuerte pero lento, y un UFO pequeño y ágil. Cliente en Phaser 3 y servidor en Java con Spring Boot. Yo diseñé y programé el nivel y el tutorial e integré los assets.',
+    challenges: 'Sincronizar el movimiento y los power-ups entre jugadores y definir un flujo claro de login y lobby.',
+    solution: 'Mi parte fue el diseño y la programación del nivel y del tutorial, y la integración de los assets. Las cuentas y el lobby funcionaban; la sincronización de movimientos y power-ups no llegó a funcionar correctamente.',
     highlights: [
-      localizedText('⚔️ Competitivo 1vs1 en tiempo real', '⚔️ Real-time 1v1 competitive mode'),
-      localizedText('🏠 Versión local en navegador', '🏠 Local browser version'),
-      localizedText('🌐 Versión online con arquitectura cliente-servidor', '🌐 Online version with client-server architecture'),
-      localizedText('📚 Primer contacto con juegos en red', '📚 First contact with networked games'),
+      localizedText('🏁 Carrera de plataformas 2D entre dos personajes con rasgos opuestos', '🏁 2D platformer race between two characters with opposite traits'),
+      localizedText('🗺️ Diseño y programación del nivel y del tutorial', '🗺️ Level and tutorial design and programming'),
+      localizedText('🔐 Cuentas de usuario y lobby funcionando', '🔐 Working user accounts and lobby'),
+      localizedText('🌐 Cliente Phaser 3 y servidor Java con Spring Boot', '🌐 Phaser 3 client and Java Spring Boot server'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Primer proyecto de la asignatura Juegos en Red. Fue mi primer contacto con el desarrollo de videojuegos multijugador, donde aprendí los fundamentos de Phaser3 y Socket.io.',
-          'First project of the Network Games course. It was my first contact with multiplayer video game development, where I learned the fundamentals of Phaser3 and Socket.io.'
+          'Primer proyecto de la asignatura Juegos en Red, en equipo de cuatro personas (GG Team) y mi primer contacto con un juego multijugador.',
+          'First project of the Network Games course, in a four-person team (GG Team) and my first contact with a multiplayer game.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Crear un juego competitivo 1vs1 funcional, primero en local y después migrarlo a una versión online con arquitectura cliente-servidor, entendiendo los fundamentos de la comunicación en red.',
-          'Create a functional 1v1 competitive game, first locally and then migrate it to an online version with client-server architecture, understanding the fundamentals of network communication.'
+          'Crear una carrera de plataformas 2D entre Hitt, un personaje fuerte pero lento, y un UFO pequeño y ágil, con cuentas de usuario y lobby para jugar en red.',
+          'Create a 2D platformer race between Hitt, a strong but slow character, and a small, agile UFO, with user accounts and a lobby for online play.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Desarrollé el juego usando Phaser3 para el frontend y Socket.io para la comunicación en tiempo real. Implementé un sistema de eventos que permite la sincronización del estado del juego entre clientes.',
-          'I developed the game using Phaser3 for the frontend and Socket.io for real-time communication. I implemented an event-based system that allows game state synchronization between clients.'
+          'El cliente está hecho con Phaser 3, JavaScript y HTML, y el servidor con Java y Spring Boot. Las cuentas y el lobby funcionaban, pero la sincronización de movimientos y power-ups seguía fallando. Yo diseñé y programé el nivel y el tutorial e integré los assets en el juego.',
+          'The client is built with Phaser 3, JavaScript and HTML, and the server with Java and Spring Boot. Accounts and the lobby worked, but movement and power-up synchronization kept failing. I designed and programmed the level and the tutorial and integrated the assets into the game.'
         ),
       },
       {
         kind: 'learning',
         icon: 'bolt',
         text: localizedText(
-          'Este proyecto sentó las bases para mi desarrollo en juegos en red. Aprendí los fundamentos de Phaser3, Socket.io y la arquitectura cliente-servidor, que luego aplicaría en proyectos más avanzados como AlienRush.',
-          'This project laid the foundations for my development in networked games. I learned the fundamentals of Phaser3, Socket.io and client-server architecture, which I would later apply in more advanced projects like AlienRush.'
+          'Las mayores dificultades fueron la sincronización entre jugadores y un flujo de login y lobby que no estaba bien definido desde el principio.',
+          'The biggest difficulties were synchronization between players and a login and lobby flow that was not well defined from the start.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Phaser3 (fundamentos)', 'Phaser3 (fundamentals)'),
-      localizedText('Socket.io', 'Socket.io'),
-      localizedText('Arquitectura cliente-servidor básica', 'Basic client-server architecture'),
-      localizedText('Comunicación en tiempo real', 'Real-time communication'),
+      localizedText('Phaser 3 y JavaScript', 'Phaser 3 and JavaScript'),
+      localizedText('Diseño y programación de niveles y tutoriales', 'Level and tutorial design and programming'),
+      localizedText('Integración de assets', 'Asset integration'),
+      localizedText('Primer contacto con arquitectura cliente-servidor', 'First contact with client-server architecture'),
     ],
-    tags: ['JS', 'Phaser3', 'Socket.io'],
+    tags: ['JS', 'Phaser3', 'Spring Boot'],
     subjects: ['Juegos en Red'],
-    coverImage: '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo_portada.png',
-    galleryImages: [
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo1.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo2.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo4.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo5.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo6.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo7.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo8.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo9.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo10.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo11.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo12.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo13.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo14.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo15.png',
-      '/images/projects/2023-24/juegos-en-red/hit-and-ufo/hittandufo16.png',
-    ],
-    galleryConfig: { columns: 4, gap: 'small', imageSize: 'small', aspectRatio: 'auto', layout: 'masonry' },
-    featured: false,
-    links: [
-      { label: 'Jugar', url: 'https://gg-team.itch.io/hitt-and-ufo' },
-      { label: 'GitHub', url: 'https://github.com/dperezn2021/HittAndUfo' },
-    ],
-    role: 'Desarrollador Full Stack',
-    team: 'GG Team - 4 personas',
-    duration: '3 meses',
-    learnings: 'Mejoré mis habilidades en comunicación en tiempo real. Aprendí a gestionar el estado del juego entre múltiples clientes. Descubrí los desafíos del desarrollo de juegos competitivos.',
-    status: 'completado',
+    disciplines: ['videojuegos', 'red'],
     technologies: [
       { name: 'JavaScript', level: 'principal' },
       { name: 'Phaser3', level: 'principal' },
-      { name: 'Socket', level: 'secundaria' },
+      { name: 'Java / Spring Boot', level: 'secundaria' },
     ],
-    disciplines: ['videojuegos', 'red'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${media}/hittandufo_portada.png`,
+    featuredMedia: {
+      type: 'video',
+      src: `${media}/demo-multijugador.mp4`,
+      poster: `${media}/demo-multijugador-poster.jpg`,
+      title: 'Demo con dos clientes en red local',
+    },
+    gallery: [
+      shot(1, 'Captura de HittAndUfo (1)'),
+      shot(2, 'Captura de HittAndUfo (2)'),
+      shot(4, 'Captura de HittAndUfo (4)'),
+      shot(5, 'Captura de HittAndUfo (5)'),
+      shot(6, 'Captura de HittAndUfo (6)'),
+      shot(7, 'Captura de HittAndUfo (7)'),
+      shot(8, 'Captura de HittAndUfo (8)'),
+      shot(9, 'Captura de HittAndUfo (9)'),
+      shot(10, 'Captura de HittAndUfo (10)'),
+      shot(11, 'Captura de HittAndUfo (11)'),
+      shot(12, 'Captura de HittAndUfo (12)'),
+      shot(13, 'Captura de HittAndUfo (13)'),
+      shot(14, 'Captura de HittAndUfo (14)'),
+      shot(15, 'Captura de HittAndUfo (15)'),
+      shot(16, 'Captura de HittAndUfo (16)'),
+    ],
+    galleryConfig: { columns: 4, gap: 'small', imageSize: 'small', aspectRatio: 'auto', layout: 'masonry' },
+    resources: [
+      { type: 'link', url: 'https://gg-team.itch.io/hitt-and-ufo', title: 'Jugar' },
+      { type: 'link', url: 'https://github.com/dperezn2021/HittAndUfo', title: 'GitHub' },
+    ],
+    role: 'Programador y diseñador de niveles',
+    team: 'GG Team - 4 personas',
+    duration: '3 meses',
+    learnings: 'La sincronización entre jugadores y un flujo de login y lobby poco definido fueron las mayores dificultades del proyecto.',
   };

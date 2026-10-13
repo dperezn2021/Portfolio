@@ -14,7 +14,7 @@ export const storyboardEscenaLiteraria: ProjectInput = {
   description: 'Storyboard de una escena basada en un libro, desarrollado para la asignatura Lenguaje Audiovisual y Medios Interactivos.',
   tags: [],
   subjects: ["Lenguaje Audiovisual y Medios Interactivos"],
+  disciplines: ["ilustracion"],
   publicable: false,
   featured: false,
-  disciplines: ["ilustracion"],
 };

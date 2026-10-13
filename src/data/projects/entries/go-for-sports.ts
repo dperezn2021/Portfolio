@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const media = '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports';
+
 export const goForSports: ProjectInput = {
     slug: 'go-for-sports',
     year: 2024,
@@ -9,81 +11,99 @@ export const goForSports: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Go For Sports',
-    description: 'Videojuego de preguntas sobre deportes creado con Figma. Diseñado con enfoque en accesibilidad y usabilidad, basado en entrevistas y pruebas con usuarios reales.',
-    challenges: 'Diseñar una experiencia accesible para diferentes perfiles de usuario. Implementar un sistema de preguntas dinámico y atractivo que combine aprendizaje y evaluación.',
-    solution: 'Realicé entrevistas y pruebas con usuarios de diferentes edades y niveles de conocimiento. Diseñé un sistema de preguntas con dos modos de juego: "Chut a portería" y "Cuarto de partido", garantizando accesibilidad en todo momento.',
+    description: 'Prototipo individual en Figma de un juego educativo de preguntas sobre deportes. Combina un apartado de teoría con dos modos de juego, "Chut a portería" y "Cuarto de partido", y se diseñó a partir de entrevistas y pruebas con seis usuarios.',
+    challenges: 'Diseñar una experiencia accesible y fácil de seguir para perfiles de usuario distintos, con feedback claro al acertar y al fallar.',
+    solution: 'Entrevisté y probé el prototipo con seis usuarios y usé sus respuestas para tomar decisiones de diseño. Construí dos modos de juego con navegación interactiva, reintentos tras cada fallo y transiciones entre pantallas.',
     highlights: [
-      localizedText('🎨 Prototipado en Figma con testing real', '🎨 Figma prototyping with real user testing'),
-      localizedText('📱 Diseño responsive para móvil y escritorio', '📱 Responsive design for mobile and desktop'),
-      localizedText('🎯 Dos modos de juego: Chut y Cuarto', '🎯 Two game modes: Shot and Quarter'),
-      localizedText('♿ Enfoque en accesibilidad y usabilidad', '♿ Focus on accessibility and usability'),
+      localizedText('🎨 Prototipo interactivo completo en Figma', '🎨 Complete interactive prototype in Figma'),
+      localizedText('👥 Entrevistas y pruebas con seis usuarios', '👥 Interviews and testing with six users'),
+      localizedText('🎯 Dos modos de juego: "Chut a portería" y "Cuarto de partido"', '🎯 Two game modes: "Shot on goal" and "Game quarter"'),
+      localizedText('📚 Apartado de teoría previo a las preguntas', '📚 Theory section before the questions'),
+      localizedText('♿ Opciones de volumen, brillo y modo oscuro', '♿ Volume, brightness and dark mode options'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Proyecto para la asignatura Interacción Persona-Máquina y Usabilidad. La idea era crear un prototipo de aplicación tipo quiz con enfoque en accesibilidad. Tras suspender en ordinaria, lo desarrollé en individual para extraordinaria.',
-          'Project for the Human-Computer Interaction and Usability course. The idea was to create a quiz-style application prototype with a focus on accessibility. After failing the regular exam, I developed it individually for the extraordinary exam.'
+          'Práctica extraordinaria de Interacción Persona-Máquina y Usabilidad, realizada en solitario. Consistía en diseñar y prototipar una aplicación centrada en el usuario, y fue mi primer trabajo con Figma.',
+          'Retake assignment for the Human-Computer Interaction and Usability course, done on my own. It consisted of designing and prototyping a user-centered application, and it was my first project with Figma.'
         ),
       },
       {
         kind: 'objective',
         icon: 'target',
         text: localizedText(
-          'Crear un videojuego de preguntas sobre deportes que fuera accesible para todos los públicos, con un sistema de aprendizaje previo a la evaluación. Diseñar dos modos de juego dinámicos y atractivos.',
-          'Create a sports quiz video game that was accessible to all audiences, with a learning system prior to evaluation. Design two dynamic and engaging game modes.'
+          'Crear un juego de preguntas sobre deportes que ayudara a ampliar el conocimiento deportivo, con una parte de teoría previa a las preguntas y una interfaz comprensible para distintos perfiles de usuario.',
+          'Create a sports quiz game that helps users expand their sports knowledge, with a theory section before the questions and an interface understandable to different user profiles.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Diseñé el prototipo en Figma, realicé pruebas con usuarios y apliqué principios de usabilidad. Desarrollé dos modos de juego: "Chut a portería" (preguntas con 4 opciones) y "Cuarto de partido" (contrarreloj con tiros a canasta).',
-          'I designed the prototype in Figma, conducted user testing and applied usability principles. I developed two game modes: "Shot on goal" (4-option questions) and "Game quarter" (timed with basketball shots).'
+          'Preparé unos apuntes de deportes que sirvieron de base para la teoría y las preguntas, y diseñé en Figma todas las pantallas y las interacciones. En "Chut a portería" se responde entre cuatro opciones frente a una portería; en "Cuarto de partido" hay que acertar entre dos opciones en un tiempo limitado lanzando a canasta. Entrevisté y probé el prototipo con seis usuarios y recogí todo el proceso en una memoria de más de 80 páginas.',
+          'I prepared sports notes that served as the basis for the theory and the questions, and designed all the screens and interactions in Figma. In "Shot on goal" you answer among four options in front of a goal; in "Game quarter" you must pick between two options within a time limit by shooting at a basket. I interviewed and tested the prototype with six users and documented the whole process in a report of more than 80 pages.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Aprendí a realizar investigación de usuarios y a aplicar principios de accesibilidad. Mejoré mis habilidades en Figma y prototipado. Descubrí la importancia del diseño centrado en el usuario y cómo adaptar una experiencia a diferentes perfiles.',
-          'I learned to conduct user research and apply accessibility principles. I improved my Figma and prototyping skills. I discovered the importance of user-centered design and how to adapt an experience to different profiles.'
+          'Al ser mi primer proyecto con Figma, tuve que aprender desde cero el prototipado interactivo, el uso de plugins y la exportación de recursos.',
+          'As my first project with Figma, I had to learn interactive prototyping, plugin usage and asset export from scratch.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Investigación de usuarios', 'User research'),
-      localizedText('Diseño en Figma', 'Figma design'),
-      localizedText('Principios de accesibilidad', 'Accessibility principles'),
-      localizedText('Prototipado interactivo', 'Interactive prototyping'),
+      localizedText('Prototipado interactivo en Figma', 'Interactive prototyping in Figma'),
+      localizedText('Plugins y exportación de recursos en Figma', 'Figma plugins and asset export'),
+      localizedText('Entrevistas y pruebas con usuarios', 'User interviews and testing'),
+      localizedText('Principios de usabilidad y accesibilidad', 'Usability and accessibility principles'),
     ],
     tags: ['UX', 'UI', 'Figma'],
     subjects: ['Interacción Persona-Máquina y Usabilidad'],
-    coverImage: '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports_portada.png',
-    galleryImages: [
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports1.png',
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports2.png',
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports3.png',
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports4.png',
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports5.png',
-      '/images/projects/2023-24/interaccion-persona-maquina-y-usabilidad/go-for-sports/goforsports6.png',
-    ],
-    galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: false,
-    links: [
-      { label: 'Prototipo', url: 'https://www.figma.com/proto/DNh3kjMxe65IOn76iNjAn7/GoForSports-IPM-V2.0?page-id=0%3A1&node-id=13-24&starting-point-node-id=13%3A24&t=PuG1OyKWfUUYBTge-1' },
-      { label: 'Memoria PDF', url: 'https://drive.google.com/uc?export=download&id=1vPIxjVVV_J-wlNxr6CigIUlY7ocMf11r' },
-    ],
-    role: 'Diseñador UX/UI',
-    team: 'Proyecto académico personal - Individual',
-    duration: '3 meses',
-    learnings: 'Aprendí a realizar investigación de usuarios y a aplicar principios de accesibilidad. Mejoré mis habilidades en Figma y prototipado. Descubrí la importancia del diseño centrado en el usuario.',
-    status: 'completado',
+    disciplines: ['ux-ui', 'videojuegos'],
     technologies: [
       { name: 'Figma', level: 'principal' },
       { name: 'UX Research', level: 'secundaria' },
       { name: 'Prototyping', level: 'secundaria' },
     ],
-    disciplines: ['ux-ui', 'videojuegos'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${media}/goforsports_portada.png`,
+    gallery: [
+      { type: 'image', src: `${media}/goforsports1.png`, alt: 'Menú principal de Go For Sports con las opciones Jugar, Teoría, Conócenos y Salir' },
+      { type: 'image', src: `${media}/goforsports2.png`, alt: 'Selección de modo de juego: Chut a portería o Cuarto de partido' },
+      { type: 'image', src: `${media}/goforsports3.png`, alt: 'Pantalla para elegir tema: deportes clásicos u otros deportes' },
+      { type: 'image', src: `${media}/deportes-clasicos.png`, alt: 'Pantalla de la categoría de deportes clásicos' },
+      { type: 'image', src: `${media}/deportes-poco-comunes.png`, alt: 'Pantalla de la categoría de deportes poco comunes' },
+      { type: 'image', src: `${media}/aprendizaje.png`, alt: 'Pantalla del apartado de aprendizaje' },
+      { type: 'image', src: `${media}/teoria-baloncesto.png`, alt: 'Ficha de teoría de baloncesto' },
+      { type: 'image', src: `${media}/teoria-boxeo.png`, alt: 'Ficha de teoría de boxeo' },
+      { type: 'image', src: `${media}/teoria-karate.png`, alt: 'Ficha de teoría de kárate' },
+      { type: 'image', src: `${media}/teoria-natacion.png`, alt: 'Ficha de teoría de natación' },
+      { type: 'image', src: `${media}/chut-a-porteria-info.png`, alt: 'Pantalla informativa con las reglas del modo Chut a portería' },
+      { type: 'image', src: `${media}/goforsports6.png`, alt: 'Pregunta con cuatro opciones frente a la portería en el modo Chut a portería' },
+      { type: 'image', src: `${media}/juego-r1-1.png`, alt: 'El portero detiene el balón en el modo Chut a portería' },
+      { type: 'image', src: `${media}/juego-p1-rm-1.png`, alt: 'Mensaje de ánimo para reintentar la pregunta tras un fallo' },
+      { type: 'image', src: `${media}/cuarto-de-partido-info.png`, alt: 'Pantalla informativa con las reglas del modo Cuarto de partido' },
+      { type: 'image', src: `${media}/goforsports5.png`, alt: 'Pregunta con dos canastas y marcador en el modo Cuarto de partido, con el balón entrando en la canasta' },
+      { type: 'image', src: `${media}/juego-e1.png`, alt: 'Fallo en Cuarto de partido: el balón no entra y el marcador indica error' },
+      { type: 'image', src: `${media}/juego-c1.png`, alt: 'Mensaje de acierto con acceso a una explicación en Cuarto de partido' },
+      { type: 'image', src: `${media}/evaluacion.png`, alt: 'Pantalla de evaluación' },
+      { type: 'image', src: `${media}/fueradetiempo.png`, alt: 'Pantalla de tiempo agotado' },
+      { type: 'image', src: `${media}/goforsports4.png`, alt: 'Menú de opciones con volumen, anotaciones, modo oscuro y brillo' },
+      { type: 'image', src: `${media}/desktop---1.png`, alt: 'Ajuste de volumen con cuatro niveles, incluido silencio' },
+      { type: 'image', src: `${media}/opciones-brillo.png`, alt: 'Ajuste del brillo de la aplicación' },
+      { type: 'image', src: `${media}/opciones-noche.png`, alt: 'Opciones con el modo oscuro activado' },
+    ],
+    galleryConfig: { columns: 3, layout: 'masonry' },
+    resources: [
+      { type: 'link', url: 'https://www.figma.com/proto/DNh3kjMxe65IOn76iNjAn7/GoForSports-IPM-V2.0?page-id=0%3A1&node-id=13-24&starting-point-node-id=13%3A24&t=PuG1OyKWfUUYBTge-1', title: 'Prototipo' },
+    ],
+    role: 'Diseñador UX/UI',
+    team: 'Proyecto académico personal - Individual',
+    duration: '3 meses',
+    learnings: 'Fue mi primer proyecto con Figma: aprendí a prototipar interacciones, usar plugins y exportar recursos. También entrevisté y probé el prototipo con seis usuarios.',
   };

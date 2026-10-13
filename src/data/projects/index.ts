@@ -22,6 +22,8 @@ import { redesSociales } from './entries/redes-sociales';
 import { siSenorOscuro } from './entries/si-senor-oscuro';
 import { whispersOfShadows } from './entries/whispers-of-shadows';
 import { yumala } from './entries/yumala';
+import { bonk } from './entries/bonk';
+import { simulacionFisicasUnity } from './entries/simulacion-fisicas-unity';
 
 // Proyectos pendientes (publicable: false): identificados en el catálogo
 // académico (docs/ACADEMIC_PROJECTS.md) pero sin material suficiente aún.
@@ -70,6 +72,9 @@ const rawProjects: ProjectInput[] = [
   siSenorOscuro,
   whispersOfShadows,
   yumala,
+  // Publicados en la integración de BONK y la simulación de físicas
+  bonk,
+  simulacionFisicasUnity,
   // Pendientes (publicable: false)
   flyFumigator,
   willyFog,

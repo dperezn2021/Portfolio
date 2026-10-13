@@ -6,11 +6,15 @@ import Footer from "../../components/layout/Footer.astro";
 import ProjectGallery from "../../components/projects/ProjectGallery.astro";
 import ProjectResources from "../../components/projects/ProjectResources.astro";
 import FeaturedMedia from "../../components/projects/FeaturedMedia.astro";
+import CollectionGrid from "../../components/projects/CollectionGrid.astro";
+import { getPublicItems } from "../../data/collections";
 import { publicProjects, DISCIPLINE_MAP, getDisciplineLabel, getProjectTagTranslationKey, getProjectTypeTranslationKey } from "../../data/projects";
 import { t } from "../../data/translations";
 import type { LocalizedText, Project, ProjectStoryStep } from "../../data/projects";
 import type { Language } from "../../utils/url";
 import { withBasePath } from '../../utils/paths';
+import { getRelatedProjects } from '../../utils/related-projects';
+import ProjectCard from '../../components/projects/ProjectCard.astro';
 
 export async function getStaticPaths() {
   return publicProjects.map((project) => ({
@@ -26,7 +30,9 @@ interface Props {
 
 const { project, lang = 'es' } = Astro.props;
 const galleryConfig = project.galleryConfig || {};
+const collectionItems = getPublicItems(project.slug);
 const isEs = lang === 'es';
+const relatedProjects = getRelatedProjects(project, publicProjects, 3);
 
 // Contenido principal: usa `featuredMedia` si el proyecto lo define; si no,
 // la portada (`cover`) sigue haciendo de contenido principal como siempre.
@@ -38,7 +44,11 @@ const featuredItem = project.featuredMedia ?? (project.cover ? { type: 'image' a
 const galleryMedia = project.gallery
   .filter((item) => (item.type === 'image' || item.type === 'video') && Boolean(item.src))
   .filter((item) => !featuredItem || item.src !== featuredItem.src)
-  .map((item) => ({ ...item, src: item.src ? withBasePath(item.src) : undefined }));
+  .map((item) => ({
+    ...item,
+    src: item.src ? withBasePath(item.src) : undefined,
+    poster: item.poster ? withBasePath(item.poster) : undefined,
+  }));
 
 // Helper para obtener texto traducido del proyecto
 const projectText = (field: keyof Pick<Project, 'title' | 'description' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings'>, fallback: string) => {
@@ -119,7 +129,14 @@ const stepConfig: Record<string, {
 };
 ---
 
-<MainLayout title={`${translatedTitle} | Daniel Pérez Navarro`}>
+<MainLayout
+  title={`${translatedTitle} | Daniel Pérez Navarro`}
+  description={translatedDescription}
+  ogTitle={translatedTitle}
+  ogDescription={translatedDescription}
+  ogImage={project.cover ? withBasePath(project.cover) : undefined}
+  ogUrl={withBasePath(`/proyectos/${project.slug}`)}
+>
   <Header currentPage="/proyectos" lang={lang} />
 
   <main class="pt-24">
@@ -217,6 +234,21 @@ const stepConfig: Record<string, {
       {galleryMedia.length > 0 && (
         <section class="mb-16">
           <ProjectGallery items={galleryMedia} alt={translatedTitle} altTranslationKey={titleKey} config={galleryConfig} />
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 4b. ELEMENTOS DE LA COLECCIÓN (p. ej. los juegos de BONK) -->
+      <!-- ============================================ -->
+      {collectionItems.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-2xl">🎮</span>
+            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="collection.games_title">
+              {t(lang, 'collection.games_title')}
+            </h2>
+          </div>
+          <CollectionGrid projectSlug={project.slug} items={collectionItems} lang={lang} />
         </section>
       )}
 
@@ -415,6 +447,48 @@ const stepConfig: Record<string, {
                 </div>
               );
             })}
+          </div>
+        </section>
+      )}
+
+      <!-- ============================================ -->
+      <!-- 9b. PROYECTOS RELACIONADOS -->
+      <!-- ============================================ -->
+      {relatedProjects.length > 0 && (
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-2xl">🔗</span>
+            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.related_title">
+              {t(lang, 'project.related_title')}
+            </h2>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedProjects.map((item) => (
+              <div class="flex flex-col">
+                <div class="h-full">
+                  <ProjectCard
+                  slug={item.project.slug}
+                  title={item.project.title}
+                  description={item.project.description}
+                  coverImage={item.project.cover}
+                  tags={item.project.tags}
+                  disciplines={item.project.disciplines}
+                  context={item.project.context}
+                  academicYear={item.project.academicYear}
+                  year={item.project.year}
+                  subjects={item.project.subjects}
+                  technologies={item.project.technologies}
+                  type={item.project.type}
+                  lang={lang}
+                  />
+                </div>
+                <div class="mt-2">
+                  <span class="inline-flex items-center rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-800 dark:bg-cyan-400/20 dark:text-cyan-300">
+                    {item.reason}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       )}

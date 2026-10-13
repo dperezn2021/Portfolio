@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const BASE = '/images/projects/2021-22/diseno-3d/raki';
+
 export const raki: ProjectInput = {
     slug: 'raki',
     year: 2023,
@@ -9,76 +11,77 @@ export const raki: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Raki',
-    description: 'Modelado de un personaje estilo elfo guerrero y su espada para videojuego. Técnicas en 3dsMax con turn around, unwrapping y texturizado en Substance Painter.',
-    challenges: 'Crear un personaje estilizado con personalidad. Texturizar de forma que transmita la esencia del personaje. Realizar el turn around (vistas frontal y de perfil) para guiar el modelado.',
-    solution: 'Diseñé el turn around del personaje para guiar el modelado en 3ds Max. Modelé armadura, guantes, cuerpo, ojos, cara y pelo, después hice unwrapping y texturizado en Substance Painter.',
+    description: 'Elfo guerrero con espada diseñado como personaje de videojuego e integrado en la escena de Fantasy Island. Proyecto individual: turnaround en Photoshop, modelado en 3ds Max, texturas en Substance Painter y renders.',
+    challenges: 'Unir polígonos, mantener simetrías, trabajar con modificadores y evitar caras ocultas sin recurrir a arreglos improvisados.',
+    solution: 'Dibujé el turnaround (vistas frontal y de perfil) para guiar el modelado en 3ds Max. Modelé armadura, guantes, cuerpo, ojos, cara, pelo y espada; después hice el unwrapping y texturicé en Substance Painter.',
     highlights: [
-      localizedText('🧑‍🎨 Personaje digital detallado', '🧑‍🎨 Detailed digital character'),
-      localizedText('🎨 Texturizado PBR con Substance Painter', '🎨 PBR texturing with Substance Painter'),
-      localizedText('📐 Modelado optimizado para videojuegos', '📐 Game-optimized modeling'),
-      localizedText('🔄 Turn around para guiar el modelado', '🔄 Turn around to guide modeling'),
+      localizedText('🧝 Elfo guerrero con espada, modelado completo', '🧝 Warrior elf with sword, fully modeled'),
+      localizedText('🔄 Turnaround en Photoshop para guiar el modelado', '🔄 Photoshop turnaround to guide the modeling'),
+      localizedText('🎨 Texturizado en Substance Painter', '🎨 Texturing in Substance Painter'),
+      localizedText('🏝️ Integración en la escena de Fantasy Island', '🏝️ Integration into the Fantasy Island scene'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Segundo proyecto de la asignatura Diseño 3D. Después de modelar un escenario, el siguiente paso fue incluir un personaje. Diseñé Raki, un elfo guerrero, realizando su turn around (vistas frontal y de perfil) para guiar el modelado en 3D.',
-          'Second project of the 3D Design course. After modeling a scenario, the next step was to include a character. I designed Raki, a warrior elf, creating his turn around (front and profile views) to guide the 3D modeling.'
+          'Segundo proyecto de la asignatura Diseño 3D. Tras modelar el escenario de Fantasy Island, el siguiente paso fue crear un personaje para esa misma escena.',
+          'Second project of the 3D Design course. After modeling the Fantasy Island environment, the next step was to create a character for that same scene.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Crear un personaje completo en 3D, incluyendo su arma, con técnicas profesionales de modelado, unwrapping y texturizado PBR. El personaje debía tener personalidad y estar optimizado para videojuegos.',
-          'Create a complete 3D character, including his weapon, with professional modeling, unwrapping and PBR texturing techniques. The character had to have personality and be optimized for video games.'
+          'Diseñar y construir en 3D un elfo guerrero con su espada, pensado como personaje de videojuego, y colocarlo en la escena de Fantasy Island.',
+          'Design and build a 3D warrior elf with his sword, conceived as a video game character, and place him in the Fantasy Island scene.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Realicé el turn around del personaje en 2D para guiar el modelado. Modelé en 3ds Max todos los elementos: armadura, guantes, cuerpo, ojos, cara y pelo, y la espada. Después hice unwrapping y texturizado en Substance Painter para lograr un acabado profesional.',
-          'I created the character turn around in 2D to guide the modeling. I modeled in 3ds Max all elements: armor, gloves, body, eyes, face and hair, and the sword. Then I did unwrapping and texturing in Substance Painter for a professional finish.'
+          'Dibujé el turnaround en Photoshop y modelé en 3ds Max la armadura, los guantes, el cuerpo, los ojos, la cara, el pelo y la espada. Hice el unwrapping, texturicé en Substance Painter, integré el personaje en la escena y generé los renders.',
+          'I drew the turnaround in Photoshop and modeled the armor, gloves, body, eyes, face, hair and sword in 3ds Max. I did the unwrapping, textured in Substance Painter, integrated the character into the scene and produced the renders.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Mejoré mis habilidades de modelado en 3ds Max y aprendí a texturizar con Substance Painter. Descubrí cómo transmitir personalidad a través del diseño de personajes y la importancia del turn around para guiar el proceso de modelado.',
-          'I improved my 3ds Max modeling skills and learned to texture with Substance Painter. I discovered how to convey personality through character design and the importance of turn around to guide the modeling process.'
+          'Lo más costoso fue el modelado: unir polígonos, respetar las simetrías, usar bien los modificadores y evitar caras ocultas, que me llevaron a veces a arreglos improvisados.',
+          'The hardest part was the modeling: joining polygons, keeping symmetries, using modifiers properly and avoiding hidden faces, which sometimes led me to improvised fixes.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Modelado en 3ds Max', '3ds Max modeling'),
-      localizedText('Texturizado PBR en Substance Painter', 'PBR texturing in Substance Painter'),
-      localizedText('Turn around de personajes', 'Character turn around'),
-      localizedText('Optimización para videojuegos', 'Video game optimization'),
+      localizedText('Modelado de personajes en 3ds Max', 'Character modeling in 3ds Max'),
+      localizedText('Texturizado en Substance Painter', 'Texturing in Substance Painter'),
+      localizedText('Turnaround de personajes', 'Character turnaround'),
+      localizedText('Integración de un personaje en una escena', 'Integrating a character into a scene'),
     ],
     tags: ['3ds Max', 'Substance Painter', 'Modelado 3D', 'Personajes'],
     subjects: ['Diseño 3D'],
-    coverImage: '/images/projects/2021-22/diseno-3d/raki/raki_portada.png',
-    galleryImages: [
-      '/images/projects/2021-22/diseno-3d/raki/raki1.png',
-      '/images/projects/2021-22/diseno-3d/raki/raki2.png',
-      '/images/projects/2021-22/diseno-3d/raki/raki3.png',
-      '/images/projects/2021-22/diseno-3d/raki/raki4.png',
-      '/images/projects/2021-22/diseno-3d/raki/raki5.png',
-      '/images/projects/2021-22/diseno-3d/raki/raki6.png',
-    ],
-    galleryConfig: { columns: 2, gap: 'small', imageSize: 'medium', aspectRatio: 'video', layout: 'masonry' },
-    featured: false,
-    role: 'Artista 3D',
-    team: 'Proyecto académico personal - Individual',
-    duration: '3 meses',
-    learnings: 'Mejoré mis habilidades de modelado en 3ds Max. Aprendí a texturizar con Substance Painter. Descubrí cómo transmitir personalidad a través del diseño de personajes.',
-    status: 'completado',
+    disciplines: ['modelado-3d'],
     technologies: [
       { name: '3ds Max', level: 'principal' },
       { name: 'Substance Painter', level: 'principal' },
+      { name: 'Photoshop', level: 'secundaria' },
     ],
-    disciplines: ['modelado-3d'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${BASE}/raki_portada.png`,
+    gallery: [
+      { type: 'image', src: `${BASE}/raki1.png`, alt: 'Raki, elfo guerrero con espada: imagen 1 del proyecto' },
+      { type: 'image', src: `${BASE}/raki2.png`, alt: 'Raki, elfo guerrero con espada: imagen 2 del proyecto' },
+      { type: 'image', src: `${BASE}/raki3.png`, alt: 'Raki, elfo guerrero con espada: imagen 3 del proyecto' },
+      { type: 'image', src: `${BASE}/raki4.png`, alt: 'Raki, elfo guerrero con espada: imagen 4 del proyecto' },
+      { type: 'image', src: `${BASE}/raki5.png`, alt: 'Raki, elfo guerrero con espada: imagen 5 del proyecto' },
+      { type: 'image', src: `${BASE}/raki6.png`, alt: 'Raki, elfo guerrero con espada: imagen 6 del proyecto' },
+    ],
+    galleryConfig: { columns: 2, gap: 'small', imageSize: 'medium', aspectRatio: 'video', layout: 'masonry' },
+    role: 'Artista 3D',
+    team: 'Proyecto académico personal - Individual',
+    duration: '3 meses',
+    learnings: 'El modelado en 3ds Max fue lo más exigente: unir polígonos, respetar simetrías, usar modificadores y evitar caras ocultas. También aprendí a texturizar un personaje en Substance Painter.',
   };

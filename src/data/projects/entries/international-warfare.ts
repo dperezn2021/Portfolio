@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const BASE = '/images/projects/2021-22/fundamentos-del-diseno-y-la-jugabilidad/international-warfare';
+
 export const internationalWarfare: ProjectInput = {
     slug: 'international-warfare',
     year: 2022,
@@ -9,75 +11,77 @@ export const internationalWarfare: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'International Warfare',
-    description: 'Simulación de campaña de financiación para un videojuego. Proyecto para aprender diseño y desarrollo web, concepto art, redes sociales y el proceso completo de lanzamiento de un videojuego.',
-    challenges: 'Diseñar una web profesional que simule una campaña de crowdfunding. Transmitir confianza y profesionalidad en todos los aspectos del proyecto: web, redes sociales, trailer y documento de diseño.',
-    solution: 'Diseñé una interfaz limpia y profesional con secciones claras para la campaña. Creé el concept art, el trailer, la música, las redes sociales y el GDD completo para simular el lanzamiento de un videojuego.',
+    description: 'Concepto de un videojuego ficticio con documento de diseño (GDD) y simulación de una campaña de financiación. Mi parte fue el diseño gráfico (armas, carátulas e imágenes promocionales), la página web en HTML y CSS y parte del marketing.',
+    challenges: 'Era mi primera página web: ajustar márgenes, padding, títulos y bloques me llevó muchas horas.',
+    solution: 'Diseñé las armas, las carátulas y las imágenes promocionales, y maqueté la web de la campaña en HTML y CSS con VS Code.',
     highlights: [
-      localizedText('💰 Simulación de campaña de crowdfunding', '💰 Crowdfunding campaign simulation'),
-      localizedText('📊 Sistema de seguimiento de progreso', '📊 Progress tracking system'),
-      localizedText('🎨 Diseño web profesional y limpio', '🎨 Clean and professional web design'),
-      localizedText('🎬 Trailer y música original', '🎬 Trailer and original music'),
-      localizedText('📱 Estrategia en redes sociales', '📱 Social media strategy'),
+      localizedText('💰 Simulación de campaña de financiación', '💰 Funding campaign simulation'),
+      localizedText('🔫 Diseño de armas, carátulas e imágenes promocionales', '🔫 Weapon, cover and promotional image design'),
+      localizedText('🌐 Primera página web en HTML y CSS', '🌐 First web page in HTML and CSS'),
+      localizedText('📣 Participación en el marketing del proyecto', '📣 Part of the project marketing'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Proyecto desarrollado para la asignatura Multimedia, Fundamentos del Diseño y Jugabilidad. El objetivo era crear un proyecto completo de lanzamiento de un videojuego, incluyendo concept art, web, redes sociales, trailer y campaña de crowdfunding.',
-          'Project developed for the Multimedia, Design Fundamentals and Gameplay course. The goal was to create a complete video game launch project, including concept art, website, social media, trailer and crowdfunding campaign.'
+          'Proyecto de las asignaturas Fundamentos del Diseño y la Jugabilidad y Multimedia, en primer curso. Se trataba de presentar un videojuego ficticio como si fuera a salir adelante con una campaña de financiación.',
+          'Project for the Design and Gameplay Fundamentals and Multimedia courses, in the first year. The task was to present a fictional video game as if it were going to be launched through a funding campaign.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Simular el lanzamiento profesional de un videojuego, creando todos los activos necesarios: web con campaña de crowdfunding, presencia en redes sociales, trailer con música original, GDD y estrategia de marketing.',
-          'Simulate the professional launch of a video game, creating all necessary assets: website with crowdfunding campaign, social media presence, trailer with original music, GDD and marketing strategy.'
+          'Reunir el material de un videojuego ficticio: su documento de diseño (GDD), el material gráfico y una web que simulara la campaña de financiación.',
+          'Put together the material for a fictional video game: its design document (GDD), the graphic material and a website simulating the funding campaign.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Diseñé y desarrollé una web profesional con sistema de simulación de donaciones y seguimiento de progreso. Creé el concept art del juego, un trailer con música original, gestioné redes sociales y elaboré el documento de diseño del juego (GDD) completo.',
-          'I designed and developed a professional website with donation simulation and progress tracking. I created the game concept art, a trailer with original music, managed social media and prepared the complete Game Design Document (GDD).'
+          'Me encargué del diseño gráfico (armas, carátulas e imágenes promocionales) con Photoshop, de la página web en HTML y CSS con VS Code y de parte del marketing.',
+          'I handled the graphic design (weapons, covers and promotional images) with Photoshop, the website in HTML and CSS with VS Code, and part of the marketing.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Aprendí todo el proceso de lanzamiento de un videojuego: desde el concepto hasta la campaña de financiación. Me familiaricé con el desarrollo web, el marketing digital y la importancia de una presencia profesional en redes sociales.',
-          'I learned the entire video game launch process: from concept to funding campaign. I became familiar with web development, digital marketing and the importance of a professional social media presence.'
+          'Fue mi primera web, y ajustar márgenes, padding, títulos y bloques me llevó muchas horas.',
+          'It was my first website, and adjusting margins, padding, titles and blocks took me many hours.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Desarrollo web (HTML, CSS, JS)', 'Web development (HTML, CSS, JS)'),
-      localizedText('Concept art y diseño visual', 'Concept art and visual design'),
-      localizedText('Estrategia de marketing digital', 'Digital marketing strategy'),
-      localizedText('Documentación de diseño de juegos', 'Game design documentation'),
+      localizedText('Maquetación web con HTML y CSS', 'Web layout with HTML and CSS'),
+      localizedText('Diseño gráfico y material promocional', 'Graphic design and promotional material'),
+      localizedText('Documentación de diseño de juegos (GDD)', 'Game design documentation (GDD)'),
     ],
     tags: ['Crowdfunding', 'Web', 'Marketing', 'GDD'],
     subjects: ['Fundamentos del Diseño y la Jugabilidad', 'Multimedia'],
-    coverImage: '/images/projects/2021-22/fundamentos-del-diseno-y-la-jugabilidad/international-warfare/internationalwarfare_portada.png',
-    galleryImages: [
-      '/images/projects/2021-22/fundamentos-del-diseno-y-la-jugabilidad/international-warfare/internationalwarfare1.png',
-      '/images/projects/2021-22/fundamentos-del-diseno-y-la-jugabilidad/international-warfare/internationalwarfare2.png',
-    ],
-    galleryConfig: { columns: 4, layout: 'masonry' },
-    featured: false,
-    links: [{ label: 'Ir a la web', url: 'https://interwarfare2022.github.io/InterWarfare.github.io/' }],
-    role: 'Desarrollador Web y Diseñador',
-    team: 'Proyecto académico grupal - 5 personas',
-    duration: '3 meses',
-    learnings: 'Aprendí conceptos sobre desarrollo web, marketing digital y financiación de videojuegos. Me familiaricé con el proceso completo de lanzamiento de un videojuego.',
-    status: 'completado',
+    disciplines: ['desarrollo-web', 'ilustracion'],
     technologies: [
+      { name: 'Photoshop', level: 'principal' },
       { name: 'HTML', level: 'principal' },
       { name: 'CSS', level: 'principal' },
-      { name: 'JavaScript', level: 'secundaria' },
+      { name: 'VS Code', level: 'secundaria' },
     ],
-    disciplines: ['desarrollo-web', 'ilustracion'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${BASE}/internationalwarfare_portada.png`,
+    gallery: [
+      { type: 'image', src: `${BASE}/internationalwarfare1.png`, alt: 'Material gráfico de International Warfare, imagen 1' },
+      { type: 'image', src: `${BASE}/internationalwarfare2.png`, alt: 'Material gráfico de International Warfare, imagen 2' },
+      { type: 'image', src: `${BASE}/caratula1.png`, alt: 'Carátula de International Warfare, versión 1' },
+      { type: 'image', src: `${BASE}/caratula2.png`, alt: 'Carátula de International Warfare, versión 2' },
+      { type: 'video', src: `${BASE}/gameplay.mp4`, poster: `${BASE}/gameplay-poster.jpg`, title: 'Vídeo del proyecto', titleEn: 'Project video' },
+    ],
+    galleryConfig: { columns: 2, gap: 'small', layout: 'masonry' },
+    resources: [{ type: 'link', url: 'https://interwarfare2022.github.io/InterWarfare.github.io/', title: 'Ir a la web' }],
+    role: 'Diseñador gráfico y desarrollador web',
+    team: 'Proyecto académico grupal - 5 personas',
+    duration: '3 meses',
+    learnings: 'Mi primera web en HTML y CSS: ajustar márgenes, padding, títulos y bloques me llevó muchas horas.',
   };

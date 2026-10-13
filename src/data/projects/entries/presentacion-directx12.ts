@@ -14,7 +14,7 @@ export const presentacionDirectx12: ProjectInput = {
   description: 'Presentación sobre DirectX 12 para la asignatura Procesadores Gráficos Avanzados.',
   tags: [],
   subjects: ["Procesadores Gráficos Avanzados"],
+  disciplines: ["documentacion"],
   publicable: false,
   featured: false,
-  disciplines: ["documentacion"],
 };

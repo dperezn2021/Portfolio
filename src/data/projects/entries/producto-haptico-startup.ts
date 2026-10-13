@@ -14,7 +14,7 @@ export const productoHapticoStartup: ProjectInput = {
   description: 'Proyecto de startup de la asignatura Empresa y Videojuegos sobre un producto háptico, con presentaciones y triggers asociados.',
   tags: [],
   subjects: ["Empresa y Videojuegos"],
+  disciplines: ["aplicaciones"],
   publicable: false,
   featured: false,
-  disciplines: ["aplicaciones"],
 };

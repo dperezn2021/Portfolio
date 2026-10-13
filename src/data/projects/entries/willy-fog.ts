@@ -1,8 +1,8 @@
 // src/data/projects/entries/willy-fog.ts
-// Proyecto pendiente: identificado a partir del catálogo académico, pero sin
-// material (imágenes, enlaces, descripción detallada) suficiente todavía.
-// Oculto hasta completarlo. No inventar portada, galería ni recursos.
+import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
+
+const BASE = '/images/projects/2021-22/diseno-digital-2d/willy-fog';
 
 export const willyFog: ProjectInput = {
   slug: 'willy-fog',
@@ -11,52 +11,71 @@ export const willyFog: ProjectInput = {
   context: 'grado',
   type: 'Proyecto de la Universidad',
   title: 'Willy Fog',
-  description: 'Animación 2D de un personaje caminando, desarrollada para la asignatura Diseño Digital 2D. Pensada principalmente como contenido en vídeo; pendiente de recuperar el material.',
-  tags: [],
-  subjects: ["Diseño Digital 2D"],
-  featuredMedia: { type: 'video', src: '/images/projects/2021-22/diseño-digital-2d/willy-fog/willy-fog.mp4' },
+  description: 'Animación 2D individual de Willy Fog caminando, con un giro adicional del gorro. Fondo y personaje dibujados en Photoshop y animados por fotogramas clave en Adobe Animate.',
+  challenges: 'Las manos se quedaban fijas durante el paso y las rodillas se doblaban de forma poco natural.',
+  solution: 'Dibujé el personaje separado en cabeza, torso, brazos, manos, piernas, pies y gorro para poder animar cada pieza por separado con fotogramas clave.',
+  highlights: [
+    localizedText('🚶 Ciclo de caminar de Willy Fog', '🚶 Willy Fog walk cycle'),
+    localizedText('🎩 Giro adicional del gorro', '🎩 Extra hat spin'),
+    localizedText('✂️ Personaje dividido en piezas para animarlo', '✂️ Character split into pieces for animation'),
+    localizedText('🖌️ Fondo y personaje dibujados por mí', '🖌️ Background and character drawn by me'),
+  ],
   story: [
     {
       kind: 'context',
       icon: 'school',
-      text: {
-        es: 'Proyecto de la asignatura Diseño Digital 2D. El objetivo era crear una animación 2D de un personaje caminando, aplicando principios de animación y técnicas de diseño digital.',
-        en: 'Project for the 2D Digital Design course. The goal was to create a 2D animation of a character walking, applying animation principles and digital design techniques.',
-      },
+      text: localizedText(
+        'Trabajo individual de la asignatura Diseño Digital 2D: mi primera animación 2D.',
+        'Individual work for the 2D Digital Design course: my first 2D animation.'
+      ),
     },
     {
       kind: 'objective',
       icon: 'flag',
-      text: {
-        es: 'Crear una animación fluida y expresiva de un personaje caminando, demostrando habilidades en diseño digital y animación 2D.',
-        en: 'Create a smooth and expressive animation of a character walking, demonstrating skills in digital design and 2D animation.',
-      },
+      text: localizedText(
+        'Animar a Willy Fog caminando e incluir un giro adicional del gorro.',
+        'Animate Willy Fog walking and add an extra hat spin.'
+      ),
     },
     {
       kind: 'implementation',
       icon: 'deployed_code',
-      text: {
-        es: 'Utilicé software de animación 2D para diseñar y animar al personaje, aplicando principios de animación como anticipación, acción y reacción, y manteniendo consistencia en el estilo visual.',
-        en: 'I used 2D animation software to design and animate the character, applying animation principles such as anticipation, action and reaction, and maintaining consistency in the visual style.',
-      },
+      text: localizedText(
+        'Dibujé el fondo y el personaje en Photoshop, separé cabeza, torso, brazos, manos, piernas, pies y gorro, y los animé por fotogramas clave en Adobe Animate.',
+        'I drew the background and the character in Photoshop, split the head, torso, arms, hands, legs, feet and hat, and animated them with keyframes in Adobe Animate.'
+      ),
     },
     {
       kind: 'learning',
       icon: 'insights',
-      text: {
-        es: 'Aprendí a aplicar principios de animación en un proyecto práctico, mejorando mis habilidades en diseño digital y comprensión del movimiento y la expresión en personajes animados.',
-        en: 'I learned to apply animation principles in a practical project, improving my skills in digital design and understanding of movement and expression in animated characters.',
-      },
+      text: localizedText(
+        'Al ser mi primera animación 2D, tuve que corregir manos que se quedaban fijas y rodillas que se doblaban mal.',
+        'As it was my first 2D animation, I had to fix hands that stayed fixed and knees that bent badly.'
+      ),
     },
   ],
   skillGains: [
-    { es: 'Animación 2D', en: '2D Animation' },
-    { es: 'Diseño digital', en: 'Digital Design' },
-    { es: 'Principios de animación', en: 'Animation Principles' },
+    localizedText('Animación 2D por fotogramas clave', 'Keyframe 2D animation'),
+    localizedText('Preparación de personajes por piezas', 'Preparing characters as separate pieces'),
+    localizedText('Dibujo digital en Photoshop', 'Digital drawing in Photoshop'),
   ],
-  coverImage: '/images/projects/2021-22/diseño-digital-2d/willy-fog/willy-fog01.png',
- 
+  tags: ['Animación 2D', 'Photoshop', 'Adobe Animate'],
+  subjects: ['Diseño Digital 2D'],
+  disciplines: ['animacion-2d', 'ilustracion', 'diseño-2d'],
+  technologies: [
+    { name: 'Adobe Animate', level: 'principal' },
+    { name: 'Photoshop', level: 'principal' },
+  ],
   publicable: true,
   featured: false,
-  disciplines: ["diseño-2d", "animacion-2d"],
+  status: 'completado',
+  coverImage: `${BASE}/poster.jpg`,
+  featuredMedia: {
+    type: 'video',
+    src: `${BASE}/animacionWillyFog.mp4`,
+    poster: `${BASE}/poster.jpg`,
+    title: 'Animación de Willy Fog caminando',
+  },
+  role: 'Dibujo y animación',
+  team: 'Proyecto académico personal - Individual',
 };

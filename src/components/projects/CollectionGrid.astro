@@ -1,0 +1,64 @@
+---
+// Cuadrícula de los elementos de una colección (p. ej. los siete juegos de BONK).
+// Cada tarjeta enlaza a su página propia y ofrece un botón externo para jugar.
+import Localized from '../common/Localized.astro';
+import { t } from '../../data/translations';
+import { withBasePath } from '../../utils/paths';
+import { ACCENT_GRADIENTS } from '../../utils/collection-accents';
+import type { CollectionItem } from '../../data/collections';
+import type { Language } from '../../utils/url';
+
+interface Props {
+  projectSlug: string;
+  items: CollectionItem[];
+  lang?: Language;
+}
+
+const { projectSlug, items, lang = 'es' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {items.map((item, index) => {
+      const isLastAndAlone = index === items.length - 1 && items.length % 3 === 1 && items.length > 3;
+      return (
+      <article class={`group relative flex flex-col overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:border-white/10 dark:bg-zinc-900/40`}>
+        <div class="relative aspect-video overflow-hidden">
+          {item.cover ? (
+            <img src={withBasePath(item.cover)} alt={item.title} class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          ) : (
+            <div class={`flex h-full w-full items-center justify-center bg-linear-to-br ${ACCENT_GRADIENTS[item.accent]}`} aria-hidden="true">
+              <span class="material-symbols-outlined text-white/90" style="font-size: 4rem;">{item.icon}</span>
+            </div>
+          )}
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <Localized text={item.genre} class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" />
+          <h3 class="mt-1 font-grotesk text-xl font-bold text-black dark:text-white">
+            <a
+              href={withBasePath(`/proyectos/${projectSlug}/${item.slug}`)}
+              class="after:absolute after:inset-0 after:content-[''] hover:text-cyan-600 dark:hover:text-cyan-400"
+            >{item.title}</a>
+          </h3>
+          <Localized text={item.summary} as="p" class="mt-2 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-300" />
+          <div class="relative z-10 mt-4 flex flex-wrap items-center gap-3">
+            <a
+              href={item.playUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-full bg-cyan-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-cyan-600 dark:bg-cyan-500 dark:text-zinc-950 dark:hover:bg-cyan-400"
+            >
+              <span class="material-symbols-outlined text-base">play_arrow</span>
+              <span data-i18n="collection.play">{t(lang, 'collection.play')}</span>
+            </a>
+            <span class="inline-flex items-center gap-1 text-sm font-medium text-cyan-700 dark:text-cyan-300">
+              <span data-i18n="collection.details">{t(lang, 'collection.details')}</span>
+              <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </span>
+          </div>
+        </div>
+      </article>
+    );
+    })}
+  </div>
+)}

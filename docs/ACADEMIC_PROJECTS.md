@@ -21,14 +21,14 @@ Los datos reales de cada proyecto (título, descripción, imágenes, enlaces...)
 
 ## Selección definitiva (cierre de selección académica)
 
-### 1. Proyectos publicados (16)
-Ya en la web, con `publicable: true`: `alien-rush`, `astrofury`, `fantasy-island`, `flappy-chef`, `go-for-sports`, `gorobeia`, `histeria`, `hit-and-ufo`, `international-warfare`, `menteando`, `raki`, `raki-animacion`, `redes-sociales`, `si-senor-oscuro`, `whispers-of-shadows`, `yumala`.
+### 1. Proyectos publicados (22)
+Ya en la web, con `publicable: true`: `alien-rush`, `astrofury`, `fantasy-island`, `flappy-chef`, `go-for-sports`, `gorobeia`, `histeria`, `hit-and-ufo`, `international-warfare`, `menteando`, `raki`, `raki-animacion`, `redes-sociales`, `si-senor-oscuro`, `whispers-of-shadows`, `yumala` (los 16 originales) y, publicados en la integración multimedia de 2026-10-13, `willy-fog`, `michael-soffield-the-rescue`, `terra-trolls` y `zombierush`; después, `simulacion-fisicas-unity` (Animación 3D) y `bonk` (colección personal, ver `docs/PROJECT_CHEATSHEET.md`).
 
-### 2. Proyectos seleccionados pero ocultos, pendientes de contenido (19)
-Tienen archivo `.ts` (`publicable: false`) **y carpeta de assets ya creada** en `public/images/projects/{curso}/{asignatura}/{slug}/`, lista para que guardes material:
+### 2. Proyectos seleccionados pero ocultos, pendientes de contenido (15)
+Tienen archivo `.ts` (`publicable: false`) **y carpeta de assets ya creada** en `public/images/projects/{curso}/{asignatura}/{slug}/`, lista para que guardes material. Su texto ya está redactado a partir de las fichas de `docs/project-context/`; solo les falta material visual:
 
-- **Primero**: `fly-fumigator`, `willy-fog`, `michael-soffield-the-rescue`
-- **Segundo**: `retrato-de-carla`, `terra-trolls`, `animales-y-plantas-fantasticos`, `figura-femenina-con-armadura`, `investigacion-ratchet-and-clank`, `juego-de-la-vida`, `fabrica`, `rompecubos`, `zombierush`
+- **Primero**: `fly-fumigator`
+- **Segundo**: `retrato-de-carla`, `animales-y-plantas-fantasticos`, `figura-femenina-con-armadura`, `investigacion-ratchet-and-clank`, `juego-de-la-vida`, `fabrica`, `rompecubos`
 - **Tercero**: `practica-a-estrella`, `entrenamiento-q-learning`, `entornos-multijugador`, `proyecto-valorant-datos`
 - **Cuarto**: `personaje-dj-autonomo`, `quest`, `wordle`
 
@@ -51,10 +51,10 @@ Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar un
 
 | Asignatura | Proyecto(s) | Estado | Observaciones |
 |---|---|---|---|
-| Diseño Digital 2D | `yumala` (publicado), `fly-fumigator`, `willy-fog` (seleccionados, ocultos) | incompleto | Animación de pelota botando = ejercicio genérico, sin archivo propio |
+| Diseño Digital 2D | `yumala`, `willy-fog` (publicados), `fly-fumigator` (oculto) | incompleto | Animación de pelota botando = ejercicio genérico, sin archivo propio |
 | Física para Videojuegos | — | sin-proyecto | Ejercicios de muelles, circuitos lógicos y cañón |
 | Matemática Discreta | — | sin-proyecto | Ejercicios de matrices |
-| Narración, Guion y Storyboard | `michael-soffield-the-rescue` (seleccionado, oculto) | incompleto | + candidato de investigación aparte: colección de análisis de videojuegos (ver tabla de candidatos) |
+| Narración, Guion y Storyboard | `michael-soffield-the-rescue` (publicado) | documentado | + candidato de investigación aparte: colección de análisis de videojuegos (ver tabla de candidatos) |
 | Programación Visual | `bingo` (oculto, **no incluido en la selección**) | incompleto | Prácticas Java genéricas sin proyecto propio |
 | Diseño Digital 3D | `fantasy-island`, `raki` (publicados) | documentado | |
 | Estructuras de Datos | — | sin-proyecto | |
@@ -68,11 +68,11 @@ Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar un
 | Asignatura | Proyecto(s) | Estado | Observaciones |
 |---|---|---|---|
 | Bases de Datos | — | sin-proyecto | Ejercicios SQL / BD relacional y no relacional |
-| Dibujo Artístico | `retrato-de-carla`, `terra-trolls`, `animales-y-plantas-fantasticos`, `figura-femenina-con-armadura`, `investigacion-ratchet-and-clank` (seleccionados, ocultos) | incompleto | Estudios anatómicos genéricos sin identidad propia siguen sin proyecto |
+| Dibujo Artístico | `terra-trolls` (publicado); `retrato-de-carla`, `animales-y-plantas-fantasticos`, `figura-femenina-con-armadura`, `investigacion-ratchet-and-clank` (ocultos) | incompleto | Estudios anatómicos genéricos sin identidad propia siguen sin proyecto |
 | Estadística | — | candidato-investigacion | Posibles prácticas con R |
 | Fundamentos de Tecnología de Videojuegos | `juego-de-la-vida`, `fabrica`, `rompecubos` (seleccionados, ocultos) | incompleto | Tecnología (HTML/CSS/JS/¿Phaser3?) sin confirmar |
 | Informática Gráfica | — | candidato-investigacion | Programación gráfica, gráficos 3D y APIs, pendientes de identificar |
-| Programación Avanzada | `zombierush` (seleccionado, oculto) | incompleto | Herencia/polimorfismo/modelos 3D = observación |
+| Programación Avanzada | `zombierush` (publicado) | documentado | Herencia/polimorfismo/modelos 3D = observación |
 | Arquitecturas Gráficas | — | sin-proyecto | Prácticas de ensamblador y lógica |
 | Empresa y Videojuegos | `producto-haptico-startup` (oculto, **no incluido en la selección**) | incompleto | |
 | Introducción a los Métodos Matemáticos y Numéricos | — | sin-proyecto | Prácticas MATLAB sin identificar |
@@ -82,6 +82,7 @@ Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar un
 
 | Asignatura | Proyecto(s) | Estado | Observaciones |
 |---|---|---|---|
+| Animación 3D | `raki-animacion`, `simulacion-fisicas-unity` (publicados) | documentado | Dos trabajos independientes de la misma asignatura |
 | Desarrollo de Juegos con Inteligencia Artificial | `practica-a-estrella`, `entrenamiento-q-learning` (seleccionados, ocultos) | incompleto | |
 | Ingeniería de Videojuegos | `astrofury` (publicado) | documentado | |
 | Interacción Persona-Máquina y Usabilidad | `go-for-sports` (publicado) | documentado | |
@@ -108,10 +109,13 @@ Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar un
 
 - `menteando` — Trabajo de Fin de Grado (2025-26), no asociado a ninguna asignatura.
 - `redes-sociales` — proyecto freelance (2024-25), no asociado a ninguna asignatura.
+- `bonk` — colección personal (2026) de siete juegos web hechos con IA; los juegos son páginas hijas, no proyectos.
 
 ---
 
 ## Cómo mantener esto al día
+
+Chuleta completa de campos, orden canónico y multimedia: `docs/PROJECT_CHEATSHEET.md`.
 
 ### Añadir un proyecto nuevo
 1. Crea `src/data/projects/entries/<slug>.ts` exportando un `ProjectInput` (mira cualquier archivo existente como plantilla).
@@ -124,6 +128,9 @@ Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar un
 ### Promocionar un candidato de investigación a proyecto
 Ver `public/images/pendientes-investigacion/README.md`.
 
+### Textos traducidos (importante)
+El texto que muestra la página de un proyecto sale de `src/data/translations.ts` cuando existen las claves `project.<slug>.{title,desc,challenges,solution,role,team,duration,learnings}` (bloques ES y EN); los campos del `.ts` del proyecto solo se usan como respaldo. Si cambias `description`, `role`, `team`... en un proyecto, actualiza también esas claves en los dos idiomas. `story`, `highlights` y `skillGains` son bilingües dentro del propio `.ts`. Los títulos de enlaces/recursos nuevos se traducen añadiéndolos a `LINK_KEYS` en `src/data/projects/translation-maps.ts` y al diccionario.
+
 ### Añadir imágenes
 1. Guarda los ficheros en `public/images/projects/{curso}/{asignatura-principal}/{slug}/` (nombres en minúsculas, sin tildes, con guiones; no renombres imágenes ya subidas). Las carpetas de los 19 proyectos seleccionados ya existen y están vacías (con `.gitkeep`) — guarda directamente ahí, sin subcarpetas por tipo de archivo.
 2. En el archivo del proyecto, añade `coverImage` (portada) y `galleryImages` (o `gallery` con items `{ type: 'image', src: '...' }` si quieres más control, p.ej. mezclarlas con vídeos).
@@ -134,7 +141,7 @@ Ver `public/images/pendientes-investigacion/README.md`.
 - **Vídeo como recurso aparte**: añádelo a `resources` como `{ type: 'video', url: '...', title: 'Vídeo explicativo' }`. `resources` es un **array**: si lo defines explícito, sustituye por completo a los enlaces derivados de `links`/`externalLinks`, así que incluye ahí también los demás enlaces que quieras conservar.
 
 ### Añadir PDFs
-Añade un item a `resources`: `{ type: 'pdf', url: '...', title: 'Memoria' }`. Si la URL es un enlace de descarga de Google Drive (`...?id=XXXX`), se detecta automáticamente y se muestra como vista previa incrustada; para forzar solo enlace externo añade `display: 'link'` al item.
+Antes de publicar un PDF comprueba que no contiene datos personales de terceros (nombres, edades, contacto) ni credenciales. Añade un item a `resources` (los PDF locales se incrustan además en la página): `{ type: 'pdf', url: '...', title: 'Memoria' }`. Si la URL es un enlace de descarga de Google Drive (`...?id=XXXX`), se detecta automáticamente y se muestra como vista previa incrustada; para forzar solo enlace externo añade `display: 'link'` al item.
 
 ### Añadir enlaces (GitHub, itch.io, demo, web...)
 Añádelos a `resources` como `{ type: 'link', url: '...', title: '...' }`. El tipo de tarjeta (GitHub, juego, web...) se detecta automáticamente por la URL.

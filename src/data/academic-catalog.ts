@@ -32,7 +32,7 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
     degreeYear: 'Primero', academicYear: '2021-22', subject: 'Diseño Digital 2D',
     projectSlugs: ['yumala', 'fly-fumigator', 'willy-fog'],
     status: 'incompleto',
-    notes: 'Yumala documentado y publicado. Fly Fumigator y Willy Fog seleccionados y ocultos (sin material/tecnología confirmada). La práctica de animación de una pelota botando es un ejercicio genérico y no tiene archivo de proyecto propio.',
+    notes: 'Yumala y Willy Fog documentados y publicados. Fly Fumigator sigue oculto (sin material). La práctica de animación de una pelota botando es un ejercicio genérico y no tiene archivo de proyecto propio.',
   },
   {
     degreeYear: 'Primero', academicYear: '2021-22', subject: 'Física para Videojuegos',
@@ -46,8 +46,8 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
   {
     degreeYear: 'Primero', academicYear: '2021-22', subject: 'Narración, Guion y Storyboard',
     projectSlugs: ['michael-soffield-the-rescue'],
-    status: 'incompleto',
-    notes: 'Michael Soffield: The Rescue seleccionado y oculto. Además, la colección de análisis de videojuegos realizados durante la asignatura es un candidato de investigación aparte (no es un proyecto): material provisional en researchFolder.',
+    status: 'documentado',
+    notes: 'Michael Scofield: The Rescue publicado (vídeo de juego). Además, la colección de análisis de videojuegos realizados durante la asignatura es un candidato de investigación aparte (no es un proyecto): material provisional en researchFolder.',
     researchFolder: 'public/images/pendientes-investigacion/2021-22/narracion-guion-storyboard',
   },
   {
@@ -92,7 +92,7 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
     degreeYear: 'Segundo', academicYear: '2022-23', subject: 'Dibujo Artístico',
     projectSlugs: ['retrato-de-carla', 'terra-trolls', 'animales-y-plantas-fantasticos', 'figura-femenina-con-armadura', 'investigacion-ratchet-and-clank'],
     status: 'incompleto',
-    notes: 'Cinco trabajos seleccionados y ocultos, pendientes de contenido. Los estudios anatómicos genéricos (sin identidad propia) siguen sin proyecto.',
+    notes: 'Terra Trolls publicado (solo mis escenarios). Los otros cuatro trabajos siguen ocultos, pendientes de contenido. Los estudios anatómicos genéricos (sin identidad propia) siguen sin proyecto.',
   },
   {
     degreeYear: 'Segundo', academicYear: '2022-23', subject: 'Estadística',
@@ -115,8 +115,8 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
   {
     degreeYear: 'Segundo', academicYear: '2022-23', subject: 'Programación Avanzada',
     projectSlugs: ['zombierush'],
-    status: 'incompleto',
-    notes: 'ZombieRush (C++, POO) seleccionado y oculto. Otras prácticas de herencia, polimorfismo y modelos 3D quedan como observación.',
+    status: 'documentado',
+    notes: 'ZombieRush (C++, POO) publicado con vídeo de juego. Otras prácticas de herencia, polimorfismo y modelos 3D quedan como observación.',
   },
   {
     degreeYear: 'Segundo', academicYear: '2022-23', subject: 'Arquitecturas Gráficas',
@@ -137,6 +137,11 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
   },
 
   // ============================== TERCERO (2023-24) ==============================
+  {
+    degreeYear: 'Tercero', academicYear: '2023-24', subject: 'Animación 3D',
+    projectSlugs: ['raki-animacion', 'simulacion-fisicas-unity'], status: 'documentado',
+    notes: 'Raki Animación (primera parte) y Simulación de físicas en Unity (segunda parte) son trabajos independientes.',
+  },
   {
     degreeYear: 'Tercero', academicYear: '2023-24', subject: 'Desarrollo de Juegos con Inteligencia Artificial',
     projectSlugs: ['practica-a-estrella', 'entrenamiento-q-learning'], status: 'incompleto',
@@ -214,4 +219,5 @@ export const ACADEMIC_CATALOG: AcademicSubjectEntry[] = [
 export const NON_ACADEMIC_PROJECTS: { slug: string; note: string }[] = [
   { slug: 'menteando', note: 'Trabajo de Fin de Grado (2025-26), no asociado a una asignatura.' },
   { slug: 'redes-sociales', note: 'Proyecto freelance (2024-25), no asociado a una asignatura.' },
+  { slug: 'bonk', note: 'Colección personal (2026) de siete juegos web hechos con IA. Es un proyecto con elementos hijos: los juegos viven en src/data/collections/bonk.ts.' },
 ];

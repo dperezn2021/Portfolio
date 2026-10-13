@@ -2,6 +2,14 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const BASE = '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria';
+
+const shot = (n: number, alt = 'Captura de Histeria: Los Fragmentos de la Mente') => ({
+  type: 'image' as const,
+  src: `${BASE}/histeria${n}.png`,
+  alt,
+});
+
 export const histeria: ProjectInput = {
     slug: 'histeria',
     year: 2025,
@@ -9,97 +17,81 @@ export const histeria: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Histeria: Los Fragmentos de la Mente',
-    description: 'Roguelike narrativo pixel 2D que busca concienciar sobre la salud mental. Explora la mente fragmentada de Eli, una chica de 18 años que lucha contra sus emociones en forma de enemigos.',
-    challenges: 'Crear una narrativa sensible sobre salud mental manteniendo la jugabilidad roguelike atractiva. Lograr que el pixel art transmita emociones complejas y el juego funcione como herramienta de sensibilización.',
-    solution: 'Diseñamos una narrativa que se desarrolla a través de fragmentos de memoria. Usamos pixel art para transmitir emociones de forma sutil, con mecánicas roguelike donde los enemigos representan emociones negativas. Las recompensas son narrativas y emocionales.',
+    description: 'Roguelike narrativo en pixel art, desarrollado en equipo (SealyStudio), sobre una niña que afronta el duelo tras la muerte de su madre. Hecho con Unity y C#; yo me encargué de la programación, los niveles, los objetos en Unity, la publicación en itch.io y parte de la gestión.',
+    challenges: 'Coordinar a un equipo de cinco personas, cumplir los plazos e integrar el trabajo de todos en un único juego, tratando un tema delicado con respeto.',
+    solution: 'Planificación del proyecto con presupuestos y fases, y un juego en Unity con dash, lágrimas, puñetazo, objetos con sonido y diálogos. Publicamos el juego en itch.io.',
     highlights: [
-      localizedText('🧠 Narrativa sobre salud mental con enfoque sensible', '🧠 Sensitive mental health narrative'),
-      localizedText('🎮 Mecánicas roguelike con progresión narrativa', '🎮 Roguelike mechanics with narrative progression'),
-      localizedText('🖼️ Sistema de diálogos y fragmentos de memoria', '🖼️ Dialogue and memory fragments system'),
-      localizedText('🎨 Pixel art emocional y atmosférico', '🎨 Emotional and atmospheric pixel art'),
+      localizedText('🎮 Roguelike narrativo en pixel art 2D', '🎮 Narrative roguelike in 2D pixel art'),
+      localizedText('⚔️ Dash, lágrimas, puñetazo y objetos con audio', '⚔️ Dash, tears, punch and objects with audio'),
+      localizedText('💬 Sistema de diálogos', '💬 Dialogue system'),
+      localizedText('🚀 Publicado en itch.io', '🚀 Released on itch.io'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Proyecto desarrollado en equipo para las asignaturas Gestión y Dirección de Proyectos y Juegos para Web y Redes Sociales. Aprendimos flujo de trabajo con diagramas Gantt y PERT, presupuestos, fases de proyecto, y desarrollamos un juego completo en equipo sobre salud mental.',
-          'Team project developed for Project Management and Web/Social Games courses. We learned workflow with Gantt and PERT diagrams, budgets, project phases, and developed a complete team game about mental health.'
+          'Proyecto de equipo (SealyStudio, 5 personas) para las asignaturas Juegos para Web y Redes Sociales y Gestión y Dirección de Proyectos (2024-25). Además del juego, incluyó la planificación y los presupuestos del proyecto.',
+          'Team project (SealyStudio, 5 people) for the Web and Social Network Games and Project Management and Direction courses (2024-25). Besides the game, it included project planning and budgets.'
         ),
       },
       {
         kind: 'objective',
         icon: 'flag',
         text: localizedText(
-          'Crear un roguelike narrativo en pixel art 2D que sirva como herramienta de sensibilización sobre salud mental. El jugador explora la mente fragmentada de Eli, enfrentándose a versiones simbólicas de emociones negativas mientras recupera recuerdos reprimidos.',
-          'Create a narrative roguelike in 2D pixel art that serves as a mental health awareness tool. The player explores Eli fragmented mind, facing symbolic versions of negative emotions while recovering repressed memories.'
+          'Crear un roguelike narrativo sobre una niña que afronta el duelo tras la muerte de su madre, y publicarlo para que se pueda jugar desde el navegador.',
+          'Create a narrative roguelike about a girl coping with grief after her mother\'s death, and release it so it can be played in the browser.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Desarrollamos el juego en Unity con C#. Implementamos mecánicas de movimiento 2D en 8 direcciones, sistema de combate contra emociones (miedo, ira, tristeza), sistema de diálogos y progresión narrativa donde las recompensas son fragmentos de memoria que desbloquean nuevas áreas y habilidades emocionales.',
-          'We developed the game in Unity with C#. We implemented 2D 8-direction movement, combat system against emotions (fear, anger, sadness), dialogue system and narrative progression where rewards are memory fragments that unlock new areas and emotional abilities.'
+          'El juego se desarrolló en Unity con C#, con sprites hechos en Photoshop, un dash, lágrimas, un puñetazo, objetos con audio y diálogos. Yo programé, diseñé niveles, preparé objetos en Unity, publiqué el juego en itch.io y participé en la gestión del proyecto.',
+          'The game was built in Unity with C#, with sprites made in Photoshop, a dash, tears, a punch, objects with audio and dialogues. I programmed, designed levels, set up objects in Unity, released the game on itch.io and took part in project management.'
         ),
       },
       {
         kind: 'learning',
         icon: 'bolt',
         text: localizedText(
-          'Aprendí a gestionar un proyecto en equipo con metodologías ágiles, a desarrollar un roguelike narrativo y a transmitir emociones complejas a través del pixel art. Descubrí cómo el diseño de videojuegos puede ser una herramienta de sensibilización social.',
-          'I learned to manage a team project with agile methodologies, to develop a narrative roguelike and to convey complex emotions through pixel art. I discovered how video game design can be a tool for social awareness.'
+          'Lo más difícil fue la coordinación del equipo, el cumplimiento de los plazos y la integración de las partes. El resultado final me dejó satisfecho.',
+          'The hardest parts were team coordination, meeting deadlines and integrating the different parts. I was happy with the final result.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Gestión de proyectos (Gantt, PERT)', 'Project management (Gantt, PERT)'),
-      localizedText('Desarrollo en Unity con C#', 'Unity development with C#'),
-      localizedText('Pixel art emocional', 'Emotional pixel art'),
-      localizedText('Narrativa en videojuegos', 'Video game narrative'),
-      localizedText('Trabajo en equipo y metodologías ágiles', 'Teamwork and agile methodologies'),
+      localizedText('Programación de gameplay en Unity con C#', 'Gameplay programming in Unity with C#'),
+      localizedText('Diseño de niveles', 'Level design'),
+      localizedText('Planificación y presupuestos de proyecto', 'Project planning and budgeting'),
+      localizedText('Publicación de juegos en itch.io', 'Publishing games on itch.io'),
     ],
     tags: ['Unity', 'C#', 'Pixel Art', 'Narrativa'],
     subjects: ['Juegos para Web y Redes Sociales', 'Gestión y Dirección de Proyectos'],
-    coverImage: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria_portada.png',
-    gallery: [
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria1.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria2.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria3.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria4.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria5.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria6.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria7.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria8.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria11.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria12.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria13.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria14.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria15.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria17.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria18.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria20.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria21.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria22.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria23.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria24.png' },
-      { type: 'image', src: '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria/histeria25.png' },
-    ],
-    galleryConfig: { columns: 3, layout: 'masonry' },
-    featured: true,
-    links: [
-      { label: 'Jugar', url: 'https://sealystudio.itch.io/histeria-fragmentos-de-la-mente' },
-      { label: 'Web Sealy Studio', url: 'https://linktr.ee/sealy.studio' },
-    ],
-    role: 'Programador y diseñador de narrativa',
-    team: 'SealyStudio - 5 personas',
-    duration: '6 meses',
-    learnings: 'Aprendí a realizar videojuegos de temática roguelike. Descubrí cómo el pixel art puede transmitir emociones complejas con recursos limitados. Mejoré mis habilidades de trabajo en equipo y gestión de proyectos.',
-    status: 'completado',
+    disciplines: ['videojuegos', 'ilustracion'],
     technologies: [
       { name: 'Unity', level: 'principal' },
       { name: 'C#', level: 'principal' },
+      { name: 'Photoshop', level: 'secundaria' },
       { name: 'itch.io', level: 'secundaria' },
     ],
-    disciplines: ['videojuegos', 'ilustracion'],
+    featured: false,
+    status: 'completado',
+    coverImage: `${BASE}/histeria_portada.png`,
+    gallery: [
+      shot(1, 'Escena en pixel art de una habitación oscura con una chimenea, un sillón y una ventana'),
+      shot(2), shot(3), shot(4), shot(5), shot(6), shot(7), shot(8),
+      shot(11), shot(12), shot(13), shot(14),
+      shot(15, 'Diálogo con una versión corrupta de Eli sobre una pared de ladrillo, con corazones y contadores en pantalla'),
+      shot(17), shot(18), shot(20), shot(21), shot(22), shot(23), shot(24), shot(25),
+    ],
+    galleryConfig: { columns: 3, layout: 'masonry' },
+    resources: [
+      { type: 'link', url: 'https://sealystudio.itch.io/histeria-fragmentos-de-la-mente', title: 'Jugar' },
+      { type: 'link', url: 'https://linktr.ee/sealy.studio', title: 'Web Sealy Studio' },
+    ],
+    role: 'Programador, diseñador de niveles y gestión',
+    team: 'SealyStudio - 5 personas',
+    duration: '6 meses',
+    learnings: 'La coordinación del equipo, los plazos y la integración fueron lo más difícil. Quedé satisfecho con el resultado.',
   };

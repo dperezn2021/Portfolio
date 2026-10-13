@@ -48,14 +48,20 @@ const safeDescription = translatedDescription === descKey ? description : transl
   data-project-technologies={JSON.stringify(technologies)}
 >
   <div class="relative aspect-video overflow-hidden">
-    <img
-      src={withBasePath(coverImage)}
-      alt={safeTitle}
-      data-i18n-alt-key={titleKey}
-      class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-      loading="lazy"
-      decoding="async"
-    />
+    {coverImage ? (
+      <img
+        src={withBasePath(coverImage)}
+        alt={safeTitle}
+        data-i18n-alt-key={titleKey}
+        class="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div class="flex h-full w-full items-center justify-center bg-linear-to-br from-cyan-600 to-sky-800 text-6xl transition duration-700 group-hover:scale-110" aria-hidden="true">
+        {DISCIPLINE_MAP[disciplines[0] as keyof typeof DISCIPLINE_MAP]?.emoji ?? '📁'}
+      </div>
+    )}
     <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
     <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
       {tags.slice(0, 2).map((tag) => (

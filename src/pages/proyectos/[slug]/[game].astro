@@ -1,0 +1,167 @@
+---
+// src/pages/proyectos/[slug]/[game].astro
+// Página individual de un elemento de colección (p. ej. un juego de BONK).
+// No es un proyecto independiente: no aparece en el listado, los filtros ni las estadísticas.
+import MainLayout from "../../../layouts/MainLayout.astro";
+import Header from "../../../components/layout/Header.astro";
+import Footer from "../../../components/layout/Footer.astro";
+import Localized from "../../../components/common/Localized.astro";
+import FeaturedMedia from "../../../components/projects/FeaturedMedia.astro";
+import ProjectGallery from "../../../components/projects/ProjectGallery.astro";
+import { collectionPaths, getPublicItems } from "../../../data/collections";
+import type { CollectionItem } from "../../../data/collections";
+import { projects } from "../../../data/projects";
+import { t } from "../../../data/translations";
+import { withBasePath } from "../../../utils/paths";
+import { ACCENT_GRADIENTS } from "../../../utils/collection-accents";
+import type { Language } from "../../../utils/url";
+
+export async function getStaticPaths() {
+  return collectionPaths.map(({ collection, item }) => ({
+    params: { slug: collection.projectSlug, game: item.slug },
+    props: { projectSlug: collection.projectSlug, item },
+  }));
+}
+
+interface Props {
+  projectSlug: string;
+  item: CollectionItem;
+}
+
+const { projectSlug, item } = Astro.props;
+const lang: Language = 'es';
+const parent = projects.find((project) => project.slug === projectSlug);
+const parentTitle = parent?.title ?? projectSlug;
+const parentUrl = withBasePath(`/proyectos/${projectSlug}`);
+const otherItems = getPublicItems(projectSlug).filter((other) => other.slug !== item.slug);
+
+const media = (item.gallery ?? [])
+  .filter((entry) => (entry.type === 'image' || entry.type === 'video') && entry.src)
+  .filter((entry) => !item.featuredMedia || entry.src !== item.featuredMedia.src)
+  .map((entry) => ({
+    ...entry,
+    src: entry.src ? withBasePath(entry.src) : undefined,
+    poster: entry.poster ? withBasePath(entry.poster) : undefined,
+  }));
+
+const lists = [
+  { key: 'collection.how_to_play', icon: 'touch_app', entries: item.controls },
+  { key: 'collection.mechanics', icon: 'settings', entries: item.mechanics },
+  { key: 'collection.power_ups', icon: 'bolt', entries: item.powerUps ?? [] },
+  { key: 'collection.upgrades', icon: 'upgrade', entries: item.upgrades ?? [] },
+  { key: 'collection.highlights', icon: 'star', entries: item.highlights },
+].filter((list) => list.entries.length > 0);
+
+const cardClass = 'rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40';
+---
+
+<MainLayout
+  title={`${item.title} | ${parentTitle} | Daniel Pérez Navarro`}
+  description={item.description.es}
+  ogTitle={item.title}
+  ogDescription={item.description.es}
+  ogImage={item.featuredMedia?.src ? withBasePath(item.featuredMedia.src) : undefined}
+  ogUrl={withBasePath(`/proyectos/${projectSlug}/${item.slug}`)}
+>
+  <Header currentPage="/proyectos" lang={lang} />
+
+  <main class="pt-24">
+    <article class="mx-auto max-w-5xl px-4 sm:px-6 py-12 md:py-20">
+      <div class="mb-8">
+        <a href={parentUrl} class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400 group">
+          <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+          <span><span data-i18n="collection.back_to">{t(lang, 'collection.back_to')}</span> {parentTitle}</span>
+        </a>
+      </div>
+
+      <header class="mb-12">
+        <div class={`mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br ${ACCENT_GRADIENTS[item.accent]} text-white shadow-lg`} aria-hidden="true">
+          <span class="material-symbols-outlined" style="font-size: 2.75rem;">{item.icon}</span>
+        </div>
+        <Localized text={item.genre} class="text-sm font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" />
+        <h1 class="mt-1 font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl">{item.title}</h1>
+        <Localized text={item.description} as="p" class="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-300" />
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            href={item.playUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full bg-cyan-700 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-cyan-700/20 transition-colors hover:bg-cyan-600 dark:bg-cyan-500 dark:text-zinc-950 dark:hover:bg-cyan-400"
+          >
+            <span class="material-symbols-outlined">play_arrow</span>
+            <span data-i18n="collection.play">{t(lang, 'collection.play')}</span>
+            <span class="material-symbols-outlined text-base">open_in_new</span>
+          </a>
+          <span class="text-sm text-gray-500 dark:text-gray-400" data-i18n="collection.opens_itch">{t(lang, 'collection.opens_itch')}</span>
+        </div>
+      </header>
+
+      {item.featuredMedia && (
+        <section class="mb-12">
+          <FeaturedMedia item={item.featuredMedia} title={item.title} />
+        </section>
+      )}
+
+      {media.length > 0 && (
+        <section class="mb-12">
+          <ProjectGallery items={media} alt={item.title} config={{ columns: 2, layout: 'masonry' }} />
+        </section>
+      )}
+
+      <section class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {lists.map((list) => (
+          <div class={cardClass}>
+            <div class="mb-4 flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+              <span class="material-symbols-outlined text-sm">{list.icon}</span>
+              <h2 class="text-sm font-bold uppercase tracking-wider" data-i18n={list.key}>{t(lang, list.key)}</h2>
+            </div>
+            <ul class="space-y-2.5">
+              {list.entries.map((entry) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" aria-hidden="true"></span>
+                  <Localized text={entry} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      <section class={`mb-12 ${cardClass}`}>
+        <div class="mb-4 flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+          <span class="material-symbols-outlined text-sm">code</span>
+          <h2 class="text-sm font-bold uppercase tracking-wider" data-i18n="collection.technologies">{t(lang, 'collection.technologies')}</h2>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {item.technologies.map((tech) => (
+            <span class="rounded-full border border-cyan-300 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300">{tech}</span>
+          ))}
+        </div>
+        <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+          <span data-i18n="collection.ai_note">{t(lang, 'collection.ai_note')}</span>
+          {' '}<a href={parentUrl} class="font-medium text-cyan-600 hover:underline dark:text-cyan-400" data-i18n="collection.ai_note_link">{t(lang, 'collection.ai_note_link')}</a>
+        </p>
+      </section>
+
+      {otherItems.length > 0 && (
+        <nav class="mb-4" aria-label="BONK">
+          <h2 class="mb-4 text-sm font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400" data-i18n="collection.other_games">{t(lang, 'collection.other_games')}</h2>
+          <div class="flex flex-wrap gap-2">
+            {otherItems.map((other) => (
+              <a
+                href={withBasePath(`/proyectos/${projectSlug}/${other.slug}`)}
+                class="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white px-4 py-2 text-sm font-medium text-cyan-800 transition-all hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/30 dark:bg-zinc-900 dark:text-cyan-300 dark:hover:bg-cyan-950/30"
+              >
+                <span class="material-symbols-outlined text-base">{other.icon}</span>
+                {other.title}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
+    </article>
+  </main>
+
+  <Footer lang={lang} />
+</MainLayout>

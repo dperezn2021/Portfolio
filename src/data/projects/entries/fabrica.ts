@@ -1,7 +1,5 @@
 // src/data/projects/entries/fabrica.ts
-// Proyecto pendiente: identificado a partir del catálogo académico, pero sin
-// material (imágenes, enlaces, descripción detallada) suficiente todavía.
-// Oculto hasta completarlo. No inventar portada, galería ni recursos.
+// Oculto: material pendiente de recuperar. Funcionamiento exacto y autoría técnica sin confirmar.
 import type { ProjectInput } from '../types';
 
 export const fabrica: ProjectInput = {
@@ -11,10 +9,16 @@ export const fabrica: ProjectInput = {
   context: 'grado',
   type: 'Proyecto de la Universidad',
   title: 'Fábrica',
-  description: 'Práctica de la asignatura Fundamentos de Tecnología de Videojuegos: proyecto Fábrica.',
-  tags: [],
-  subjects: ["Fundamentos de Tecnología de Videojuegos"],
+  description: 'Práctica individual sencilla de Fundamentos de Tecnología de Videojuegos sobre una fábrica.',
+  tags: ['JavaScript'],
+  subjects: ['Fundamentos de Tecnología de Videojuegos'],
+  disciplines: ['videojuegos'],
+  technologies: [
+    { name: 'HTML' },
+    { name: 'CSS' },
+    { name: 'JavaScript' },
+  ],
   publicable: false,
   featured: false,
-  disciplines: ["videojuegos"],
+  team: 'Proyecto académico individual',
 };

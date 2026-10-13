@@ -1,7 +1,6 @@
 // src/data/projects/entries/quest.ts
-// Proyecto pendiente: identificado a partir del catálogo académico, pero sin
-// material (imágenes, enlaces, descripción detallada) suficiente todavía.
-// Oculto hasta completarlo. No inventar portada, galería ni recursos.
+// Oculto hasta recuperar material visual. No inventar portada, galería ni recursos.
+import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
 export const quest: ProjectInput = {
@@ -11,10 +10,46 @@ export const quest: ProjectInput = {
   context: 'grado',
   type: 'Proyecto de la Universidad',
   title: 'Quest',
-  description: 'Aplicación móvil Quest desarrollada para la asignatura Desarrollo de Aplicaciones para Dispositivos Móviles.',
-  tags: [],
-  subjects: ["Desarrollo de Aplicaciones para Dispositivos Móviles"],
+  description: 'Primera aplicación Android grupal: una app de preguntas de cultura general desarrollada con Flutter y Android Studio. Me encargué de la programación y el diseño.',
+  story: [
+    {
+      kind: 'context',
+      icon: 'school',
+      text: localizedText(
+        'Primera aplicación Android del grado, realizada en grupo para la asignatura Desarrollo de Aplicaciones para Dispositivos Móviles.',
+        'First Android app of the degree, built as a group for the Mobile Device Application Development course.'
+      ),
+    },
+    {
+      kind: 'implementation',
+      icon: 'deployed_code',
+      text: localizedText(
+        'App de preguntas de cultura general desarrollada con Flutter y Android Studio. Participé en la programación y en el diseño de la aplicación.',
+        'General-knowledge quiz app built with Flutter and Android Studio. I worked on both the programming and the design of the app.'
+      ),
+    },
+    {
+      kind: 'learning',
+      icon: 'insights',
+      text: localizedText(
+        'Lo más costoso fue configurar Android Studio, Flutter y el emulador antes de poder empezar a desarrollar.',
+        'The most time-consuming part was setting up Android Studio, Flutter and the emulator before development could start.'
+      ),
+    },
+  ],
+  skillGains: [
+    localizedText('Desarrollo de apps con Flutter', 'App development with Flutter'),
+    localizedText('Configuración del entorno Android', 'Android environment setup'),
+  ],
+  tags: ['Android', 'Flutter', 'App móvil'],
+  subjects: ['Desarrollo de Aplicaciones para Dispositivos Móviles'],
+  disciplines: ['aplicaciones'],
+  technologies: [
+    { name: 'Flutter', level: 'principal' },
+    { name: 'Android Studio', level: 'principal' },
+  ],
   publicable: false,
   featured: false,
-  disciplines: ["aplicaciones"],
+  role: 'Programador y diseñador',
+  team: 'Proyecto académico grupal',
 };

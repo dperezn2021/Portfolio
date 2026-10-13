@@ -2,6 +2,8 @@
 import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
+const BASE = '/images/projects/2021-22/diseno-3d/fantasy-island';
+
 export const fantasyIsland: ProjectInput = {
     slug: 'fantasy-island',
     year: 2023,
@@ -9,78 +11,82 @@ export const fantasyIsland: ProjectInput = {
     context: 'grado',
     type: 'Proyecto de la Universidad',
     title: 'Fantasy Island',
-    description: 'Modelado y texturizado de un escenario 3D para videojuego. Desarrollo completo desde cero utilizando Sketchup y 3dsMax, con texturizado profesional.',
-    challenges: 'Crear un escenario 3D completo y coherente desde cero.',
-    solution: 'Desarrollar el escenario completo, modelándolo a medida en Sketchup y exportándolo a 3ds Max para unir todas las piezas, texturizar con imágenes propias o de Google, iluminar y renderizar.',
+    description: 'Isla flotante fantástica para un videojuego, con montañas, un riachuelo con cascadas laterales, una torre, un poblado abandonado y un castillo. Proyecto individual: bocetos en Photoshop, modelado en SketchUp, ensamblaje y texturizado en 3ds Max y renders finales.',
+    challenges: 'Mantener una escala consistente entre elementos muy distintos (terreno, torre, poblado y castillo) en un trabajo que exigió muchas horas.',
+    solution: 'Partí de bocetos en Photoshop, modelé cada elemento en SketchUp y los exporté a 3ds Max para ensamblar la escena, texturizar con imágenes propias o de internet, iluminar y renderizar.',
     highlights: [
-      localizedText('🏰 Escenario completo modelado desde cero', '🏰 Full environment modeled from scratch'),
-      localizedText('🎨 Texturizado en 3dsMax', '🎨 Texturing in 3ds Max'),
-      localizedText('⚡ Optimización de polígonos para videojuegos', '⚡ Polygon optimization for games'),
-      localizedText('💡 Iluminación avanzada con 3ds Max', '💡 Advanced lighting with 3ds Max'),
+      localizedText('🏝️ Isla flotante con montañas, cascadas, torre, poblado y castillo', '🏝️ Floating island with mountains, waterfalls, tower, village and castle'),
+      localizedText('📐 Modelado en SketchUp y ensamblaje en 3ds Max', '📐 SketchUp modeling and 3ds Max assembly'),
+      localizedText('🎨 Texturizado de toda la escena', '🎨 Texturing of the whole scene'),
+      localizedText('📷 Renders desde ocho cámaras', '📷 Renders from eight cameras'),
     ],
     story: [
       {
         kind: 'context',
         icon: 'school',
         text: localizedText(
-          'Primer proyecto de la asignatura Diseño 3D. El objetivo era modelar un escenario posible para un videojuego, aprendiendo herramientas como Sketchup y 3ds Max desde cero.',
-          'First project of the 3D Design course. The goal was to model a possible scenario for a video game, learning tools like Sketchup and 3ds Max from scratch.'
+          'Primer proyecto de la asignatura Diseño 3D, en primer curso. El encargo era diseñar y modelar un posible escenario de videojuego.',
+          'First project of the 3D Design course, in the first year. The brief was to design and model a possible video game environment.'
         ),
       },
       {
         kind: 'objective',
         icon: 'target',
         text: localizedText(
-          'Diseñar modelos en Sketchup o 3ds Max, exportarlos a 3ds Max para unificar el concepto, texturizar con imágenes propias o de Google, iluminar y renderizar la escena final.',
-          'Design models in Sketchup or 3ds Max, export them to 3ds Max to unify the concept, texture with custom or Google images, light and render the final scene.'
+          'Construir una isla flotante fantástica completa, con montañas, un riachuelo con cascadas laterales, una torre, un poblado abandonado y un castillo, y presentarla con renders finales.',
+          'Build a complete fantasy floating island with mountains, a stream with side waterfalls, a tower, an abandoned village and a castle, and present it with final renders.'
         ),
       },
       {
         kind: 'implementation',
         icon: 'deployed_code',
         text: localizedText(
-          'Modelé cada elemento del escenario por separado, los exporté a 3ds Max para montar la escena completa, apliqué texturizado profesional y configuré la iluminación para dar vida al entorno.',
-          'I modeled each element of the scenario separately, exported them to 3ds Max to assemble the complete scene, applied professional texturing and configured lighting to bring the environment to life.'
+          'Hice bocetos en Photoshop, modelé los elementos en SketchUp y los exporté a 3ds Max, donde monté la escena completa, apliqué las texturas, configuré la iluminación y generé los renders.',
+          'I made sketches in Photoshop, modeled the elements in SketchUp and exported them to 3ds Max, where I assembled the full scene, applied textures, set up lighting and produced the renders.'
         ),
       },
       {
         kind: 'learning',
         icon: 'insights',
         text: localizedText(
-          'Este proyecto sentó mis bases en modelado 3D, texturizado y optimización de assets. Aprendí la importancia de la iluminación en la ambientación y cómo preparar escenarios para motores de videojuegos.',
-          'This project laid my foundations in 3D modeling, texturing and asset optimization. I learned the importance of lighting in atmosphere creation and how to prepare scenarios for game engines.'
+          'La mayor dificultad fue mantener una escala consistente entre todos los elementos de la isla. El proyecto fue largo y requirió muchas horas de trabajo.',
+          'The main difficulty was keeping a consistent scale across all the elements of the island. The project was long and took many hours of work.'
         ),
       },
     ],
     skillGains: [
-      localizedText('Modelado 3D con Sketchup', '3D Modeling with Sketchup'),
-      localizedText('Texturizado profesional', 'Professional texturing'),
-      localizedText('Iluminación en 3ds Max', 'Lighting in 3ds Max'),
-      localizedText('Optimización de polígonos', 'Polygon optimization'),
+      localizedText('Modelado 3D en SketchUp', 'SketchUp 3D modeling'),
+      localizedText('Ensamblaje y texturizado en 3ds Max', 'Scene assembly and texturing in 3ds Max'),
+      localizedText('Iluminación y renderizado de escenas', 'Scene lighting and rendering'),
+      localizedText('Bocetos de escenarios en Photoshop', 'Environment sketching in Photoshop'),
     ],
     tags: ['Modelado 3D', 'Exportación', 'Texturización'],
     subjects: ['Diseño 3D'],
-    coverImage: '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland_portada.png',
-    galleryImages: [
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland1.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland2.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland3.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland4.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland5.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland6.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland7.png',
-      '/images/projects/2021-22/diseno-3d/fantasy-island/fantasyisland8.png',
+    disciplines: ['modelado-3d'],
+    technologies: [
+      { name: 'SketchUp', level: 'principal' },
+      { name: '3ds Max', level: 'principal' },
+      { name: 'Photoshop', level: 'secundaria' },
+    ],
+    featured: false,
+    status: 'completado',
+    coverImage: `${BASE}/fantasyisland_portada.png`,
+    gallery: [
+      { type: 'image', src: `${BASE}/fantasyisland1.png`, alt: 'Escenario de Fantasy Island, imagen 1' },
+      { type: 'image', src: `${BASE}/fantasyisland2.png`, alt: 'Escenario de Fantasy Island, imagen 2' },
+      { type: 'image', src: `${BASE}/fantasyisland3.png`, alt: 'Escenario de Fantasy Island, imagen 3' },
+      { type: 'image', src: `${BASE}/fantasyisland4.png`, alt: 'Escenario de Fantasy Island, imagen 4' },
+      { type: 'image', src: `${BASE}/fantasyisland5.png`, alt: 'Escenario de Fantasy Island, imagen 5' },
+      { type: 'image', src: `${BASE}/fantasyisland6.png`, alt: 'Escenario de Fantasy Island, imagen 6' },
+      { type: 'image', src: `${BASE}/fantasyisland7.png`, alt: 'Escenario de Fantasy Island, imagen 7' },
+      { type: 'image', src: `${BASE}/fantasyisland8.png`, alt: 'Escenario de Fantasy Island, imagen 8' },
     ],
     galleryConfig: { columns: 2, gap: 'small', layout: 'masonry' },
-    featured: false,
+    resources: [
+      { type: 'pdf', url: `${BASE}/fantasyislanddiseno3d.pdf`, title: 'Memoria PDF' },
+    ],
     role: 'Artista 3D, Modelador y Texturizador',
     team: 'Proyecto académico personal - Individual',
     duration: '4 meses',
-    learnings: 'Perfeccioné mis habilidades en modelado 3D y texturizado. Aprendí a optimizar assets para motores de videojuegos. Descubrí la importancia de la iluminación en la ambientación.',
-    status: 'completado',
-    technologies: [
-      { name: 'Sketchup', level: 'principal' },
-      { name: '3ds Max', level: 'principal' },
-    ],
-    disciplines: ['modelado-3d'],
+    learnings: 'Mantener una escala consistente entre todos los elementos de una escena grande fue lo más difícil. El proyecto me exigió muchas horas de modelado, ensamblaje y texturizado.',
   };
