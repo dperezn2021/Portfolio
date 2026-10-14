@@ -1,154 +1,100 @@
 ---
-// src/components/about/ToolsGrid.astro
+// src/components/about/ToolsGrid.astro — herramientas principales por finalidad + lenguajes y tecnologías
+import Localized from '../common/Localized.astro';
+import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
-import { currentLearning } from '../../data/learning';
+import { languages, mainToolGroups, otherLanguages, otherTools, toolSlug } from '../../data/tools';
 
 interface Props {
   lang?: Language;
 }
 
 const { lang = 'es' } = Astro.props;
-const isEs = lang === 'es';
-
-// ✅ HERRAMIENTAS BASADAS EN TUS PROYECTOS REALES
-const tools = {
-  mainApps: [
-    { name: '3ds Max', icon: '3d_rotation' },        // Fantasy Island, Raki, Raki Animación, Whispers of Shadows
-    { name: 'Unity', icon: 'sports_esports' },        // Astrofury, Histeria, Raki Animación
-    { name: 'Visual Studio Code', icon: 'code' },       // Go For Sports
-    { name: 'Photoshop', icon: 'brush' },             // Gorobeia, Sí Señor Oscuro, Yumala
-    { name: 'Figma', icon: 'design_services' },       // Go For Sports
-    { name: 'Github', icon: 'terminal' },       // Go For Sports
-    { name: 'Canva', icon: 'brush' },       // Go For Sports
-    { name: 'DBeaver', icon: 'storage' },       // Go For Sports
-    { name: 'Jira', icon: 'assignment' },       // Go For Sports
-    { name: 'Microsoft Visual 2022', icon: 'terminal' },       // Go For Sports
-  ],
-  otherApps: [
-    { name: 'Sketchup', icon: '3d_rotation' },        // Fantasy Island
-    { name: 'Android Studio', icon: 'android' },      // Flappy Chef
-    { name: 'CMS', icon: 'web' },
-    { name: 'WinSCP', icon: 'sync_alt' },
-    { name: 'MOBA', icon: 'business_center' },
-    { name: 'Maya', icon: '3d_rotation' },     // Raki
-    { name: 'Substance Painter', icon: 'brush' },     // Raki
-    { name: 'Davinci Resolve', icon: 'video_library' },     // Raki
-    { name: 'Miro', icon: 'groups' },     // Raki
-    { name: 'Blender', icon: '3d_rotation' },     // Raki
-    { name: 'Robo-3T', icon: 'storage' },     // Raki
-    { name: 'Springboot', icon: 'terminal' },     // Raki
-    { name: 'Postman', icon: 'assignment' },     // Raki
-    { name: 'CompassDB', icon: 'storage' },     // Raki
-    { name: 'IntelliJ IDEA', icon: 'terminal' },     // Raki
-
-  ],
-  languages: [
-    { name: 'HTML5', icon: 'html' },                  // Menteando, International Warfare
-    { name: 'CSS3', icon: 'css' },                    // Menteando, International Warfare
-    { name: 'JavaScript', icon: 'javascript' },       // AlienRush, HitAndUfo, Menteando
-    { name: 'C++', icon: 'data_array' },       // Menteando
-    { name: 'C#', icon: 'code' },                     // Astrofury, Histeria
-    { name: 'SQL', icon: 'database' },                // (lo tienes en skills)
-  ],
-  otherLanguages: [
-    { name: 'Python', icon: 'terminal' },             // (lo tienes en skills)
-    { name: 'Kotlin', icon: 'android' },              // Flappy Chef
-    { name: 'Astro', icon: 'code' },                     // (lo tienes en skills)
-    { name: 'Java', icon: 'data_array' },                 // Flappy Chef (secundario)
-  ],
-};
 ---
 
-<section class="bg-white py-16 transition-colors duration-300 md:py-20 dark:bg-zinc-900/30">
+<section id="herramientas" class="scroll-mt-20 bg-white py-16 transition-colors duration-300 md:py-20 dark:bg-zinc-900/30">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
-    <!-- Aplicaciones que uso -->
+    <!-- Herramientas principales -->
     <h2 class="section-title text-center" data-i18n="about.tools_title">
-      {isEs ? 'Aplicaciones que manejo' : 'Tools I use'}
+      {t(lang, 'about.tools_title')}
     </h2>
     <p class="section-subtitle text-center" data-i18n="about.tools_subtitle">
-      {isEs ? 'Software y tecnologías en mi stack' : 'Software and technologies in my stack'}
+      {t(lang, 'about.tools_subtitle')}
     </p>
 
-    <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {tools.mainApps.map((tool) => (
-        <div class="flex flex-col items-center rounded-xl border border-cyan-100 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-          <span class="material-symbols-outlined text-4xl text-cyan-600 dark:text-cyan-400">
-            {tool.icon}
-          </span>
-          <span class="mt-2 font-medium text-gray-800 dark:text-gray-200">{tool.name}</span>
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {mainToolGroups.map((group) => (
+        <div class="rounded-xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+            <Localized text={group.label} />
+          </h3>
+          <div class="mt-3 grid grid-cols-1 gap-2">
+            {group.tools.map((tool) => (
+              <div id={`tool-${toolSlug(tool.name)}`} tabindex="-1" class="scroll-mt-28 flex items-center gap-3 rounded-lg border border-cyan-100/60 bg-white px-3 py-2 outline-none transition-all duration-300 hover:-translate-y-0.5 dark:border-white/10 dark:bg-zinc-900/30">
+                <span class="material-symbols-outlined text-2xl text-cyan-600 dark:text-cyan-400">{tool.icon}</span>
+                <span class="font-medium text-gray-800 dark:text-gray-200">{tool.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
 
-    <!-- Separador -->
-    <div class="my-12 flex items-center gap-4">
-      <div class="h-px flex-1 bg-cyan-100 dark:bg-white/10"></div>
-      <span class="text-sm font-medium text-gray-500 dark:text-gray-400" data-i18n="about.tools_other_title">
-        {isEs ? 'Otras herramientas' : 'Other tools'}
-      </span>
-      <div class="h-px flex-1 bg-cyan-100 dark:bg-white/10"></div>
-    </div>
+    <!-- Otras herramientas -->
+    <details id="otras-herramientas" class="scroll-mt-28 mt-6 rounded-xl border border-cyan-100 bg-white p-4 dark:border-white/10 dark:bg-zinc-900/40">
+      <summary class="flex cursor-pointer list-none items-center gap-2">
+        <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400">build</span>
+        <span class="font-semibold text-gray-800 dark:text-gray-200" data-i18n="about.tools_other_title">
+          {t(lang, 'about.tools_other_title')}
+        </span>
+        <span class="ml-auto material-symbols-outlined text-gray-500 dark:text-gray-400">expand_more</span>
+      </summary>
+      <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {otherTools.map((tool) => (
+          <div id={`tool-${toolSlug(tool.name)}`} tabindex="-1" class="scroll-mt-28 flex items-center gap-2 rounded-lg border border-cyan-100/60 bg-white px-3 py-2 opacity-80 outline-none dark:border-white/10 dark:bg-zinc-900/30">
+            <span class="material-symbols-outlined text-xl text-cyan-500/70 dark:text-cyan-400/70">{tool.icon}</span>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{tool.name}</span>
+          </div>
+        ))}
+      </div>
+    </details>
 
-    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {tools.otherApps.map((tool) => (
-        <div class="flex flex-col items-center rounded-xl border border-cyan-100 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 opacity-80 hover:opacity-100 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-          <span class="material-symbols-outlined text-3xl text-cyan-500/70 dark:text-cyan-400/70">
-            {tool.icon}
-          </span>
-          <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">{tool.name}</span>
-        </div>
-      ))}
-    </div>
-
-    <!-- Lenguajes de programación -->
-    <div class="mt-16">
+    <!-- Lenguajes y tecnologías -->
+    <div id="lenguajes" class="scroll-mt-28 mt-16">
       <h2 class="section-title text-center" data-i18n="about.languages_title">
-        {isEs ? 'Lenguajes de Programación' : 'Programming Languages'}
+        {t(lang, 'about.languages_title')}
       </h2>
       <p class="section-subtitle text-center" data-i18n="about.languages_subtitle">
-        {isEs ? 'Lenguajes que domino' : 'Languages I master'}
+        {t(lang, 'about.languages_subtitle')}
       </p>
 
       <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {tools.languages.map((langItem) => (
-          <div class="flex items-center gap-3 rounded-xl border border-cyan-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-            <span class="material-symbols-outlined text-2xl text-cyan-600 dark:text-cyan-400">
-              {langItem.icon}
-            </span>
-            <span class="font-medium text-gray-800 dark:text-gray-200">{langItem.name}</span>
+        {languages.map((item) => (
+          <div id={`tool-${toolSlug(item.name)}`} tabindex="-1" class="scroll-mt-28 flex items-center gap-3 rounded-xl border border-cyan-100 bg-white p-4 shadow-sm outline-none transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+            <span class="material-symbols-outlined text-2xl text-cyan-600 dark:text-cyan-400">{item.icon}</span>
+            <span class="font-medium text-gray-800 dark:text-gray-200">{item.name}</span>
           </div>
         ))}
       </div>
 
-      <!-- Otros lenguajes -->
       <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-        {tools.otherLanguages.map((langItem) => (
-          <div class="flex items-center gap-3 rounded-xl border border-cyan-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-2 opacity-70 hover:opacity-100 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
-            <span class="material-symbols-outlined text-xl text-cyan-500/60 dark:text-cyan-400/60">
-              {langItem.icon}
-            </span>
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{langItem.name}</span>
+        {otherLanguages.map((item) => (
+          <div id={`tool-${toolSlug(item.name)}`} tabindex="-1" class="scroll-mt-28 flex items-center gap-3 rounded-xl border border-cyan-100 bg-white p-3 shadow-sm outline-none transition-all duration-300 hover:-translate-y-2 opacity-70 hover:opacity-100 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none">
+            <span class="material-symbols-outlined text-xl text-cyan-500/60 dark:text-cyan-400/60">{item.icon}</span>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{item.name}</span>
           </div>
         ))}
       </div>
-    </div>
 
-    <div class="mt-16 border-t border-cyan-100 pt-10 dark:border-white/10">
-      <h2 class="font-grotesk text-2xl font-bold text-gray-900 dark:text-white" data-i18n="about.learning.current_title">
-        {isEs ? 'En formación actualmente' : 'Currently learning'}
-      </h2>
-      <p class="mt-2 max-w-2xl text-gray-700 dark:text-gray-300" data-i18n="about.learning.current_description">
-        {isEs
-          ? 'Estoy ampliando mis conocimientos en desarrollo web moderno y herramientas para crear productos digitales.'
-          : 'I am expanding my knowledge of modern web development and tools for building digital products.'}
+      <p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400" data-i18n="about.languages_note">
+        {t(lang, 'about.languages_note')}
       </p>
-      <div class="mt-4 flex flex-wrap gap-2">
-        {currentLearning.map((item) => (
-          <span class="rounded-full border border-cyan-200 bg-white px-3 py-1 text-sm text-cyan-800 dark:border-cyan-400/30 dark:bg-zinc-900 dark:text-cyan-300">
-            {item}
-          </span>
-        ))}
-      </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { focusHashTarget } from '../../utils/focus-hash';
+  focusHashTarget();
+  window.addEventListener('hashchange', focusHashTarget);
+</script>

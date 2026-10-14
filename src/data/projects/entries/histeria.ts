@@ -75,7 +75,6 @@ export const histeria: ProjectInput = {
       { name: 'Photoshop', level: 'secundaria' },
       { name: 'itch.io', level: 'secundaria' },
     ],
-    featured: false,
     status: 'completado',
     coverImage: `${BASE}/histeria_portada.png`,
     gallery: [

@@ -32,7 +32,7 @@ const featuredProjects = publicProjects.filter((project) => project.featured);
     </div>
 
     <!-- ✅ 3 proyectos en la misma fila -->
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3" style="grid-auto-rows: 1fr;">
       {featuredProjects.map((project) => (
         <ProjectCard
           slug={project.slug}

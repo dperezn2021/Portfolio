@@ -4,5 +4,5 @@ export const site = {
   email: 'd.pereznavarro15@gmail.com',
   location: 'Madrid, España',
   description:
-    'Creando experiencias inmersivas mediante diseño, programación y arte digital.',
+    'Combino creatividad, diseño y tecnología para desarrollar videojuegos, aplicaciones y experiencias digitales, explorando nuevas herramientas y formas de convertir ideas en proyectos reales.',
 };

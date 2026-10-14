@@ -1,5 +1,6 @@
 ---
 import { publicProjects } from '../../data/projects';
+import { skills } from '../../data/skills';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 
@@ -13,7 +14,7 @@ const completedProjects = publicProjects.filter((project) => project.status === 
 const stats = [
   { value: completedProjects.toString(), labelKey: 'stats.projects' },
   { value: '3+', labelKey: 'stats.experience' },
-  { value: '100%', labelKey: 'stats.passion' },
+  { value: skills.length.toString(), labelKey: 'stats.areas' },
 ];
 ---
 

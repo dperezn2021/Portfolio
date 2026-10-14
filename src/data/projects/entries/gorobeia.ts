@@ -66,7 +66,6 @@ export const gorobeia: ProjectInput = {
     technologies: [
       { name: 'Photoshop', level: 'principal' },
       { name: 'Tableta Huion', level: 'secundaria' },
-      { name: 'Photopea', level: 'secundaria' },
     ],
     featured: false,
     status: 'completado',

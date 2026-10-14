@@ -14,7 +14,7 @@
   body {
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;
-    background-color: #ffffff;
+    background-color: #f8fafc;
     color: #0a0a0a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -59,11 +59,13 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e8f0;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 14px rgba(15, 23, 42, 0.06);
   transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 html.dark #top-nav {
+  box-shadow: none;
   background: rgba(10, 10, 10, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -94,8 +96,8 @@ html.dark #mobile-menu {
    FOOTER
    ============================================ */
 footer {
-  background: rgba(255, 255, 255, 0.8);
-  border-top: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #eef0f3 0%, #e3e6ea 100%);
+  border-top: 1px solid rgba(100, 116, 139, 0.2);
 }
 
 html.dark footer {
@@ -155,7 +157,7 @@ html.dark .glass-card:hover {
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   font-weight: 700;
-  color: #0a0a0a;
+  color: #ffffff;
   transition: all 0.2s ease;
   cursor: pointer;
 }
@@ -403,11 +405,11 @@ html.dark .bg-gray-100 {
 
 /* Bordes */
 .border-cyan-100 {
-  border-color: #e2e8f0 !important;
+  border-color: #a5d8dd !important;
 }
 
 html.dark .border-cyan-100 {
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Sombras */
@@ -568,4 +570,28 @@ html.dark .contact-section .text-gray-800 {
 
 html.dark .contact-section .text-sm {
   color: #94a3b8 !important;
+}
+
+/* ============================================
+   MODO CLARO: SECCIONES DIFERENCIADAS
+   Sin bordes ni cortes: las secciones pares tienen un velo gris que se
+   difumina arriba y abajo, así se distinguen sin verse como cajas.
+   ============================================ */
+html:not(.dark) body {
+  background: linear-gradient(180deg, #fafbfc 0%, #f4f5f7 50%, #fafbfc 100%);
+  background-attachment: fixed;
+}
+
+html:not(.dark) main > section:nth-of-type(even) {
+  background: linear-gradient(
+    180deg,
+    rgba(100, 116, 139, 0) 0%,
+    rgba(100, 116, 139, 0.09) 22%,
+    rgba(100, 116, 139, 0.09) 78%,
+    rgba(100, 116, 139, 0) 100%
+  );
+}
+
+html:not(.dark) main > section.border-y {
+  border-color: transparent;
 }

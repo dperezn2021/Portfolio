@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import Hero from '../components/home/Hero.astro';
+import GlobalSearch from '../components/home/GlobalSearch.astro';
 import Stats from '../components/home/Stats.astro';
 import Services from '../components/home/Services.astro';
 import FeaturedProjects from '../components/home/FeaturedProjects.astro';
@@ -23,6 +24,7 @@ const isEs = lang === 'es';
   
   <main>
     <Hero lang={lang} />
+    <GlobalSearch lang={lang} />
     <Stats lang={lang} />
     <Services lang={lang} />
     <FeaturedProjects lang={lang} />

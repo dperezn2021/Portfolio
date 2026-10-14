@@ -3,6 +3,7 @@ import { site } from '../../data/settings';
 import { navigation } from '../../data/navigation';
 import type { Language } from '../../utils/url';
 import { withBasePath } from '../../utils/paths';
+import { t } from '../../data/translations';
 import ThemeToggle from '../common/ThemeToggle.astro';
 import LanguageToggle from '../common/LanguageToggle.astro';
 
@@ -45,6 +46,15 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
     </nav>
 
     <div class="flex shrink-0 items-center gap-2 sm:gap-4">
+      <a
+        id="header-search"
+        href={withBasePath('/#buscador')}
+        class="hidden h-10 w-10 items-center justify-center rounded-full min-[400px]:flex border border-gray-200 bg-white p-0 shadow-sm transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 dark:border-white/10 dark:bg-transparent dark:shadow-none dark:hover:bg-white/10"
+        aria-label={t(lang, 'search.open')}
+        data-i18n-aria="search.open"
+      >
+        <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400" aria-hidden="true">search</span>
+      </a>
       <LanguageToggle lang={lang} />
       <ThemeToggle />
       
@@ -83,6 +93,15 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
             </a>
           </li>
         ))}
+        <li class="min-[400px]:hidden">
+          <a
+            href={withBasePath('/#buscador')}
+            class="block py-2 text-sm font-bold uppercase tracking-widest text-gray-700 transition-colors duration-300 hover:text-cyan-600 dark:text-black dark:hover:text-cyan-400"
+            data-i18n="search.menu"
+          >
+            {t(lang, 'search.menu')}
+          </a>
+        </li>
       </ul>
     </nav>
   </div>
@@ -113,4 +132,50 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
       });
     });
   });
+</script>
+
+<script>
+  type TranslationMap = Record<string, Record<string, string>>;
+
+  const syncSearchLabel = () => {
+    const link = document.getElementById('header-search');
+    if (!(link instanceof HTMLAnchorElement)) return;
+    const lang = localStorage.getItem('lang') === 'en' ? 'en' : 'es';
+    const label = (window as unknown as { translations?: TranslationMap }).translations?.[lang]?.['search.open'];
+    if (label) {
+      link.setAttribute('aria-label', label);
+    }
+  };
+
+  const onSearchClick = (event: MouseEvent) => {
+    const link = event.currentTarget;
+    if (!(link instanceof HTMLAnchorElement)) return;
+
+    const isHomePage =
+      new URL(link.href).pathname.replace(/\/$/, '') === location.pathname.replace(/\/$/, '');
+    if (!isHomePage) return;
+
+    event.preventDefault();
+
+    document.getElementById('buscador')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const menu = document.getElementById('mobile-menu');
+    if (menu && !menu.classList.contains('hidden')) {
+      menu.classList.add('hidden');
+      const toggleIcon = document.querySelector('#menu-toggle .material-symbols-outlined');
+      if (toggleIcon) {
+        toggleIcon.textContent = 'menu';
+      }
+    }
+
+    window.setTimeout(() => {
+      document.getElementById('global-search-input')?.focus({ preventScroll: true });
+    }, 400);
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('header-search')?.addEventListener('click', onSearchClick);
+    syncSearchLabel();
+  });
+  window.addEventListener('app:languagechange', syncSearchLabel);
 </script>
