@@ -1,0 +1,91 @@
+Chuleta para editar proyectos
+
+Dónde se edita: src/data/projects/entries/<slug>.ts. Si es un proyecto nuevo, hay que importarlo y añadirlo a rawProjects en src/data/projects/index.ts.
+
+Qué significan los campos
+
+┌───────────────┬─────────────────────────────────────────────────────────────────────────────────┐
+│     Campo     │                                     Qué es                                      │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│               │ Identificador único. Forma la URL (/proyectos/<slug>), es el nombre de la       │
+│ slug          │ carpeta de imágenes y el prefijo de las traducciones (project.<slug>.title). No │
+│               │  lo cambies salvo que renombres todo lo demás.                                  │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│               │ No es nada especial de Astro. Es una constante que he puesto arriba en algunos  │
+│ BASE          │ archivos como atajo de la carpeta de imágenes: const BASE =                     │
+│               │ '/images/projects/2021-22/.../willy-fog'. Después se usa `${BASE}/poster.jpg`   │
+│               │ en vez de escribir la ruta entera. Puedes usarla o escribir la ruta completa.   │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ context       │ 'grado', 'master', 'personal' o 'laboral'. Es un filtro del listado.            │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ publicable    │ true publica el proyecto; false lo oculta y no genera página.                   │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ featured      │ true lo muestra en destacados de la home (solo si también es publicable).       │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ status        │ 'completado', 'en-desarrollo', 'prototipo' o 'pausado'.                         │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ academicYear  │ Curso ('2023-24') y asignaturas. La primera asignatura es la principal.         │
+│ / subjects    │                                                                                 │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│               │ videojuegos, red, aplicaciones, desarrollo-web, modelado-3d, animacion-2d,      │
+│ disciplines   │ animacion-3d, ilustracion, diseño-2d, ux-ui, arquitectura, bases-datos, devops, │
+│               │  analisis-datos, documentacion, ia.                                             │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ technologies  │ { name: 'Unity', level: 'principal' | 'secundaria' | 'experimental' }.          │
+├───────────────┼─────────────────────────────────────────────────────────────────────────────────┤
+│ coverImage    │ Portada de las tarjetas. Es obligatoria en cualquier proyecto publicado.        │
+└───────────────┴─────────────────────────────────────────────────────────────────────────────────┘
+
+Story: 4 bloques
+
+Cada bloque es { kind, icon, text: localizedText('es', 'en') }.
+
+- Tipos (kind): 'context', 'objective', 'implementation', 'learning'.
+- Iconos habituales (icon): school, flag, target, deployed_code, insights, bolt.
+- Opcional: si no tienes información para un bloque, quítalo y no se mostrará.
+- Relacionados: highlights y skillGains también son localizedText y se editan igual.
+
+Multimedia: dónde va cada cosa
+
+featuredMedia: { type: 'video', src: `${BASE}/video.mp4`, poster: `${BASE}/poster.jpg`, title: 'Vídeo del juego' },
+
+gallery: [                       // SOLO imágenes y vídeos
+  { type: 'image', src: `${BASE}/captura1.png`, alt: 'Pantalla de inicio' },
+  { type: 'video', src: `${BASE}/demo.mp4`, poster: `${BASE}/demo.jpg`, title: 'Demo' },
+],
+galleryConfig: { columns: 3, gap: 'medium', layout: 'masonry' },   // columns 1-5 · gap small|medium|large · layout masonry|grid|featured
+
+resources: [                     // PDFs, enlaces, juegos, prototipos
+  { type: 'pdf',  url: `${BASE}/memoria.pdf`, title: 'Memoria PDF' },
+  { type: 'link', url: 'https://github.com/...', title: 'Código en GitHub' },
+  { type: 'link', url: 'https://tuusuario.itch.io/juego', title: 'Jugar' },
+],
+
+- featuredMedia (opcional) es el contenido principal que se ve arriba. Si no lo pones, la portada hace de contenido principal.
+  - Acepta image, video (local, YouTube o Vimeo), pdf, iframe, game o link.
+  - Si el mismo archivo está en gallery, no se repite.
+- gallery solo muestra image y video.
+- resources acepta pdf, link, game, iframe, video y audio.
+  - El tipo se detecta por la URL: YouTube/Vimeo, Figma (/proto/), .pdf, GitHub, itch.io, Drive.
+  - Para forzar la forma de mostrarlo, añade display: 'embed' (incrustado) o display: 'link' (solo enlace).
+- Rutas locales: empiezan por /images/...; el prefijo /Portfolio se añade solo.
+- Vídeos: deben pesar menos de 100 MB, mejor mucho menos. Usa MP4 H.264.
+- PDFs: antes de publicarlos, comprueba que no tengan datos de terceros.
+
+Orden de la página: cabecera → contenido principal y galería → recursos → historia → rol y contribuciones → habilidades y destacados. Cualquier sección vacía se oculta sola.
+
+Textos y traducciones
+
+Para el texto que ve el usuario, src/data/translations.ts manda sobre el .ts del proyecto. Las claves son project.<slug>.title, .desc, .role, .team, .duration, .challenges, .solution y .learnings, cada una en el bloque ES y en el EN. Si cambias description o role en un proyecto, cámbialo también ahí en los dos idiomas, o no se verá. Los títulos de recursos nuevos (por ejemplo 'Código en GitHub') se traducen añadiéndolos a LINK_KEYS en src/data/projects/translation-maps.ts; si no, salen en español en inglés también.
+
+Flujo mínimo
+
+1. Pon los archivos en public/images/projects/<curso>/<asignatura>/<slug>/, con nombres en minúsculas, sin tildes y con guiones.
+2. Referéncialos en el .ts del proyecto.
+3. Si es nuevo, regístralo en index.ts y pon publicable: true.
+4. Actualiza las traducciones.
+5. Ejecuta npm run build y npx astro check.
+
+Sobre optimize-videos.sh
+
+El script que cambiaste omite cualquier destino que ya exista. Como animacion-personaje.mp4 y videopracticafinal.mp4 ya están en public/, no se recodificarán. Mueve o borra esas dos copias antes de ejecutarlo. En MEDIA_ORG_NEXT_STEPS.md dije que el script las sustituía; con esta versión no es así.

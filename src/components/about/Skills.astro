@@ -45,7 +45,7 @@ const isEs = lang === 'es';
                   {t(lang, `project.${slug}.title`)}
                 </a>
               );
-            })}
+            }).map((element) => element)}
           </div>
         </div>
       ))}

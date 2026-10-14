@@ -94,4 +94,5 @@ export const histeria: ProjectInput = {
     team: 'SealyStudio - 5 personas',
     duration: '6 meses',
     learnings: 'La coordinación del equipo, los plazos y la integración fueron lo más difícil. Quedé satisfecho con el resultado.',
+    featured: true,
   };

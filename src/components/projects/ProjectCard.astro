@@ -38,7 +38,7 @@ const safeDescription = translatedDescription === descKey ? description : transl
 
 <a
   href={withBasePath(`/proyectos/${slug}`)}
-  class="group block overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none"
+  class="group block overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 dark:border-white/10 dark:bg-zinc-900/40 dark:shadow-none flex flex-col h-full"
   data-disciplines={disciplines.join(',')}
   data-project-origin={origin}
   data-project-context={context}
@@ -47,7 +47,7 @@ const safeDescription = translatedDescription === descKey ? description : transl
   data-project-subjects={JSON.stringify(subjects)}
   data-project-technologies={JSON.stringify(technologies)}
 >
-  <div class="relative aspect-video overflow-hidden">
+  <div class="relative aspect-video overflow-hidden flex-shrink-0">
     {coverImage ? (
       <img
         src={withBasePath(coverImage)}
@@ -72,9 +72,9 @@ const safeDescription = translatedDescription === descKey ? description : transl
     </div>
   </div>
 
-  <div class="p-6">
+  <div class="p-6 flex flex-col flex-grow min-w-0">
     <!-- Disciplinas traducidas -->
-    <div class="flex flex-wrap gap-1 mb-2">
+    <div class="flex flex-wrap gap-1 mb-2 min-w-0">
       {disciplines.slice(0, 3).map((discipline) => {
         const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
         if (!info) return null;
@@ -87,10 +87,10 @@ const safeDescription = translatedDescription === descKey ? description : transl
       })}
     </div>
     <!-- ✅ AÑADIDA LA CLASE card-title AQUÍ -->
-    <h3 class="card-title text-xl font-bold text-black group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400 transition-colors" data-i18n={titleKey}>
+    <h3 class="card-title text-xl font-bold text-black group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400 transition-colors break-words" data-i18n={titleKey}>
       {safeTitle}
     </h3>
-    <p class="card-text mt-2 text-black dark:text-gray-300 line-clamp-2" data-i18n={descKey}>
+    <p class="card-text mt-2 text-black dark:text-gray-300 line-clamp-2 flex-grow break-words" data-i18n={descKey}>
       {safeDescription}
     </p>
   </div>
