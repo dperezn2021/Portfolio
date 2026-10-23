@@ -2,6 +2,7 @@
 import { site } from '../../data/settings';
 import SectionTitle from '../common/SectionTitle.astro';
 import { withBasePath } from '../../utils/paths';
+import { imageSize } from '../../utils/image-size';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 
@@ -25,6 +26,7 @@ const { lang = 'es' } = Astro.props;
         <div class="aspect-square w-full max-w-md overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400/20 to-fuchsia-500/20 p-1">
           <img
             src={withBasePath('/images/extra/fotoDani.jpg')}
+            {...imageSize('/images/extra/fotoDani.jpg')}
             alt={site.name}
             class="h-full w-full rounded-2xl object-cover"
           />

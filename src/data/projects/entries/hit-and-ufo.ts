@@ -3,7 +3,7 @@ import { localizedText } from '../types';
 import type { ProjectInput } from '../types';
 
 const media = '/images/projects/2023-24/juegos-en-red/hit-and-ufo';
-const shot = (n: number, alt: string) => ({ type: 'image' as const, src: `${media}/hittandufo${n}.png`, alt });
+const shot = (n: number, alt: string) => ({ type: 'image' as const, src: `${media}/hittandufo${n}.webp`, alt });
 
 export const hitAndUfo: ProjectInput = {
     slug: 'hit-and-ufo',
@@ -71,7 +71,7 @@ export const hitAndUfo: ProjectInput = {
     ],
     featured: false,
     status: 'completado',
-    coverImage: `${media}/hittandufo_portada.png`,
+    coverImage: `${media}/hittandufo_portada.jpg`,
     featuredMedia: {
       type: 'video',
       src: `${media}/demo-multijugador.mp4`,

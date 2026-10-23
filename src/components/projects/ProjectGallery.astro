@@ -1,6 +1,7 @@
 ---
 import type { GalleryItem } from '../../data/projects';
 import { resolveEmbed } from '../../utils/media';
+import { imageSize } from '../../utils/image-size';
 
 interface GalleryImage {
   src: string;
@@ -64,7 +65,7 @@ const gapClasses: Record<GapSize, string> = {
       {resolvedMedia.map(({ item, embed }, index) => (
         <div class="break-inside-avoid overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 shadow-sm hover:shadow-md transition-shadow">
           {item.type === 'image' && (
-            <img src={item.src} alt={item.alt || `${alt} ${index + 1}`} data-i18n-alt-key={altTranslationKey} data-i18n-alt-suffix={index + 1} class="w-full h-auto object-contain cursor-pointer transition duration-500 group-hover:scale-[1.02]" loading="lazy" data-fullsrc={item.src} onclick="openLightbox(this)" />
+            <img src={item.src} {...imageSize(item.src)} alt={item.alt || `${alt} ${index + 1}`} data-i18n-alt-key={altTranslationKey} data-i18n-alt-suffix={index + 1} class="w-full h-auto object-contain cursor-pointer transition duration-500 group-hover:scale-[1.02]" loading="lazy" data-fullsrc={item.src} onclick="openLightbox(this)" />
           )}
           {item.type === 'video' && embed?.embedUrl && (
             <div class="aspect-video w-full">

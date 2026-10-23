@@ -69,7 +69,7 @@ export const rakiAnimacion: ProjectInput = {
     ],
     featured: true,
     status: 'completado',
-    coverImage: '/images/projects/2023-24/animacion-3d/raki-animacion/raki_fantasyisland_portada.png',
+    coverImage: '/images/projects/2023-24/animacion-3d/raki-animacion/raki_fantasyisland_portada.jpg',
     featuredMedia: {
       type: 'video',
       src: '/images/projects/2023-24/animacion-3d/raki-animacion/explicativo.mp4',
@@ -82,7 +82,7 @@ export const rakiAnimacion: ProjectInput = {
       { type: 'video', src: '/images/projects/2023-24/animacion-3d/raki-animacion/animacion-personaje.mp4', poster: '/images/projects/2023-24/animacion-3d/raki-animacion/animacion-personaje-poster.jpg', title: 'Animación del personaje en 3ds Max', titleEn: 'Character animation in 3ds Max' },
       ...Array.from({ length: 11 }, (_, i) => ({
         type: 'image' as const,
-        src: `/images/projects/2023-24/animacion-3d/raki-animacion/raki_fantasyisland${i + 1}.png`,
+        src: `/images/projects/2023-24/animacion-3d/raki-animacion/raki_fantasyisland${i + 1}.webp`,
         alt: `Captura ${i + 1} del proyecto de animación 3D de Raki en Fantasy Island`,
       })),
       { type: 'image', src: '/images/projects/2023-24/animacion-3d/raki-animacion/escenarioprincipal.jpg', alt: 'Vista general del escenario principal de Fantasy Island' },

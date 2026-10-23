@@ -32,3 +32,22 @@ Algunos proyectos destacados:
 - LinkedIn: [Daniel Pérez Navarro](https://www.linkedin.com/in/dpereznavarro/)
 - GitHub: [dperezn2021](https://github.com/dperezn2021)
 - Email: [d.pereznavarro15@gmail.com](mailto:d.pereznavarro15@gmail.com)
+
+## Desarrollo
+
+Sitio estático con Astro 7 + Tailwind 4, desplegado en GitHub Pages bajo `/Portfolio`. Requiere Node 22.12 o superior.
+
+```bash
+npm install
+npm run dev       # servidor local
+npm run check     # astro check (tipos); también se ejecuta en el CI
+npm run build     # genera dist/
+npm run optimize-images  # tras añadir PNG/JPG nuevos a public/images/projects
+```
+
+El formulario de contacto usa EmailJS. Para que funcione en local, crea un `.env` con `PUBLIC_EMAILJS_PUBLIC_KEY`, `PUBLIC_EMAILJS_SERVICE_ID` y `PUBLIC_EMAILJS_TEMPLATE_ID`; en producción se leen de las variables del repositorio (`EMAILJS_*`).
+
+Al añadir capturas nuevas, ponlas en `public/images/projects/...` como PNG/JPG, ejecuta `npm run optimize-images` (las convierte a WebP, guarda los originales en `Contenido_Porfolio/originales-imagenes/` y actualiza `src/data/image-sizes.json`) y referencia el archivo resultante (`.webp`; las portadas sin transparencia salen como `.jpg`).
+
+Cómo añadir proyectos, medios y traducciones: [`docs/PORTFOLIO_GUIDE.md`](docs/PORTFOLIO_GUIDE.md) y [`docs/PROJECT_CHEATSHEET.md`](docs/PROJECT_CHEATSHEET.md).
+

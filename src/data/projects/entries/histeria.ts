@@ -6,7 +6,7 @@ const BASE = '/images/projects/2024-25/juegos-para-web-y-redes-sociales/histeria
 
 const shot = (n: number, alt = 'Captura de Histeria: Los Fragmentos de la Mente') => ({
   type: 'image' as const,
-  src: `${BASE}/histeria${n}.png`,
+  src: `${BASE}/histeria${n}.webp`,
   alt,
 });
 
@@ -76,7 +76,7 @@ export const histeria: ProjectInput = {
       { name: 'itch.io', level: 'secundaria' },
     ],
     status: 'completado',
-    coverImage: `${BASE}/histeria_portada.png`,
+    coverImage: `${BASE}/histeria_portada.jpg`,
     gallery: [
       shot(1, 'Escena en pixel art de una habitación oscura con una chimenea, un sillón y una ventana'),
       shot(2), shot(3), shot(4), shot(5), shot(6), shot(7), shot(8),

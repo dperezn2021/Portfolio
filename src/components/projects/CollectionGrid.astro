@@ -4,6 +4,7 @@
 import Localized from '../common/Localized.astro';
 import { t } from '../../data/translations';
 import { withBasePath } from '../../utils/paths';
+import { imageSize } from '../../utils/image-size';
 import { ACCENT_GRADIENTS } from '../../utils/collection-accents';
 import type { CollectionItem } from '../../data/collections';
 import type { Language } from '../../utils/url';
@@ -25,7 +26,7 @@ const { projectSlug, items, lang = 'es' } = Astro.props;
       <article class={`group relative flex flex-col overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:border-white/10 dark:bg-zinc-900/40`}>
         <div class="relative aspect-video overflow-hidden">
           {item.cover ? (
-            <img src={withBasePath(item.cover)} alt={item.title} class="h-full w-full object-cover" loading="lazy" decoding="async" />
+            <img src={withBasePath(item.cover)} {...imageSize(item.cover)} alt={item.title} class="h-full w-full object-cover" loading="lazy" decoding="async" />
           ) : (
             <div class={`flex h-full w-full items-center justify-center bg-linear-to-br ${ACCENT_GRADIENTS[item.accent]}`} aria-hidden="true">
               <span class="material-symbols-outlined text-white/90" style="font-size: 4rem;">{item.icon}</span>

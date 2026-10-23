@@ -4,6 +4,7 @@ import { getProjectTagTranslationKey } from '../../data/projects';
 import { t } from '../../data/translations';
 import type { Language } from '../../utils/url';
 import { withBasePath } from '../../utils/paths';
+import { imageSize } from '../../utils/image-size';
 
 interface Props {
   slug: string;
@@ -51,6 +52,7 @@ const safeDescription = translatedDescription === descKey ? description : transl
     {coverImage ? (
       <img
         src={withBasePath(coverImage)}
+        {...imageSize(coverImage)}
         alt={safeTitle}
         data-i18n-alt-key={titleKey}
         class="h-full w-full object-cover transition duration-700 group-hover:scale-110"

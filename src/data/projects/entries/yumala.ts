@@ -65,7 +65,7 @@ export const yumala: ProjectInput = {
     ],
     featured: false,
     status: 'completado',
-    coverImage: '/images/projects/2021-22/diseno-digital-2d/yumala/yumala_portada.png',
+    coverImage: '/images/projects/2021-22/diseno-digital-2d/yumala/yumala_portada.jpg',
     gallery: [],
     galleryConfig: { columns: 4, layout: 'masonry' },
     resources: [

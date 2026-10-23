@@ -27,3 +27,9 @@ npm-debug.log*
 
 # Material fuente local (vídeos originales, memorias con datos privados): no se versiona
 Contenido_Porfolio/
+
+# Herramientas locales de asistentes / analítica personal
+.codemie/
+.claude/settings.local.json
+docs/codemie/
+backup/

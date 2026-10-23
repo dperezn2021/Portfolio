@@ -9,6 +9,12 @@ export const TRANSLATIONS = {
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
 
+    // 404
+    'notfound.title': 'Esta página no existe',
+    'notfound.text': 'Puede que el enlace esté roto o que el proyecto haya cambiado de dirección.',
+    'notfound.home': 'Volver al inicio',
+    'notfound.projects': 'Ver proyectos',
+
     // Hero
     'hero.status': 'Activo en el sector',
     'hero.name': 'Daniel Pérez Navarro -',
@@ -813,6 +819,12 @@ export const TRANSLATIONS = {
     'nav.trayectory': 'Career',
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
+
+    // 404
+    'notfound.title': 'This page does not exist',
+    'notfound.text': 'The link may be broken or the project may have moved.',
+    'notfound.home': 'Back to home',
+    'notfound.projects': 'View projects',
 
     // Profile
     'profile.title': 'Graduate in Game Design and Development',
