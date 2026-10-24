@@ -59,6 +59,13 @@ export const michaelSoffieldTheRescue: ProjectInput = {
     localizedText('Programación en Adventure Game Studio', 'Programming in Adventure Game Studio'),
     localizedText('Diálogos de aventura gráfica', 'Graphic adventure dialogues'),
   ],
+  en: {
+    title: 'Michael Scofield: The Rescue',
+    description: 'Group 2D pixel-art graphic adventure with a top-down view, inspired by Prison Break: Michael Scofield tries to escape from prison. It features inventory, objects, dialogues, puzzles and several zones, and is built with Adventure Game Studio.',
+    challenges: 'The programming: getting every interaction in the game to work.',
+    role: 'Scenarios and maps, sprites, programming and dialogues',
+    team: 'Group academic project',
+  },
   tags: ['Adventure Game Studio', 'Pixel art', 'Narrativa'],
   subjects: ['Narración, Guion y Storyboard'],
   disciplines: ['videojuegos', 'ilustracion'],

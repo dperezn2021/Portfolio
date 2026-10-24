@@ -1,0 +1,32 @@
+---
+import { t } from '../../../data/translations';
+import type { Language } from '../../../utils/url';
+
+interface Props {
+  emoji: string;
+  titleKey: string;
+  subtitleKey?: string;
+  lang: Language;
+  spacing?: 'mb-6' | 'mb-8';
+}
+
+const { emoji, titleKey, subtitleKey, lang, spacing = 'mb-8' } = Astro.props;
+---
+
+<div class={`flex items-center gap-3 ${spacing}`}>
+  <span class="text-2xl">{emoji}</span>
+  {subtitleKey ? (
+    <div>
+      <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n={titleKey}>
+        {t(lang, titleKey)}
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n={subtitleKey}>
+        {t(lang, subtitleKey)}
+      </p>
+    </div>
+  ) : (
+    <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n={titleKey}>
+      {t(lang, titleKey)}
+    </h2>
+  )}
+</div>

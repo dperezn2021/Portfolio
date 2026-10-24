@@ -44,12 +44,17 @@ export const animalesYPlantasFantasticos: ProjectInput = {
   skillGains: [
     localizedText('Pintura digital con tableta', 'Digital painting with a tablet'),
   ],
-  tags: ['Ilustración'],
+  en: {
+    title: 'Fantasy Animals and Plants',
+    description: 'Individual Artistic Drawing work: illustrations of invented animals and plants, digitally painted with a tablet from Pinterest references.',
+    role: 'Illustrator',
+    team: 'Individual academic project',
+  },
+  tags: ['Ilustración', 'Tableta Huion'],
   subjects: ['Dibujo Artístico'],
   disciplines: ['ilustracion'],
   technologies: [
     { name: 'Photoshop', level: 'principal' },
-    { name: 'Tableta Huion', level: 'secundaria' },
   ],
   publicable: false,
   featured: false,

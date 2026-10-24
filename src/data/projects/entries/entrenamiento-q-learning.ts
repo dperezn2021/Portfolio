@@ -49,6 +49,11 @@ export const entrenamientoQLearning: ProjectInput = {
     localizedText('Aprendizaje por refuerzo (Q-learning)', 'Reinforcement learning (Q-learning)'),
     localizedText('Diseño de recompensas y penalizaciones', 'Reward and penalty design'),
   ],
+  en: {
+    title: 'Q-Learning Training',
+    description: 'Group project in Unity and C# in which an agent learns through reinforcement to flee from a chaser and avoid obstacles on a grid, using a Q-table, rewards, penalties and training episodes.',
+    team: 'Academic group project',
+  },
   tags: ['IA', 'Q-Learning', 'Unity'],
   subjects: ['Desarrollo de Juegos con Inteligencia Artificial'],
   disciplines: ['videojuegos', 'ia'],

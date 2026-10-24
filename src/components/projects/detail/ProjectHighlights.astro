@@ -1,0 +1,46 @@
+---
+import type { LocalizedText } from '../../../data/projects';
+import type { Language } from '../../../utils/url';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  skillGains: LocalizedText[];
+  highlights: LocalizedText[];
+  lang: Language;
+}
+
+const { skillGains, highlights, lang } = Astro.props;
+const localized = (value: LocalizedText) => (lang === 'es' ? value.es : value.en);
+---
+
+{skillGains.length > 0 && (
+  <section class="mb-16">
+    <SectionHeading emoji="🚀" titleKey="project.skills_gained_label" lang={lang} spacing="mb-6" />
+    <div class="flex flex-wrap gap-3">
+      {skillGains.map((skill) => (
+        <span class="rounded-full border border-cyan-200 bg-white px-4 py-2 text-sm font-medium text-cyan-800 transition-all hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/30 dark:bg-zinc-900 dark:text-cyan-300 dark:hover:bg-cyan-950/30" data-i18n-es={skill.es} data-i18n-en={skill.en}>
+          <span data-i18n-es={skill.es} data-i18n-en={skill.en}>{localized(skill)}</span>
+        </span>
+      ))}
+    </div>
+  </section>
+)}
+
+{highlights.length > 0 && (
+  <section class="mb-16">
+    <SectionHeading emoji="✨" titleKey="project.highlights_label" lang={lang} spacing="mb-6" />
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {highlights.map((highlight) => {
+        const text = localized(highlight);
+        const emoji = text.match(/^[^\s]+/)?.[0] || '✨';
+        const rest = text.replace(/^[^\s]+\s/, '');
+        return (
+          <div class="flex items-start gap-3 rounded-2xl border border-cyan-100 bg-white p-4 transition-all hover:border-cyan-300 dark:border-white/10 dark:bg-zinc-900/50 dark:hover:border-cyan-400/30" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>
+            <span class="text-lg">{emoji}</span>
+            <span class="text-sm text-gray-700 dark:text-gray-300" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>{rest}</span>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}

@@ -1,0 +1,83 @@
+---
+import { DISCIPLINE_MAP, getDisciplineLabel, getProjectTagTranslationKey, getProjectTypeTranslationKey } from '../../../data/projects';
+import type { Project } from '../../../data/projects';
+import { t } from '../../../data/translations';
+import { withBasePath } from '../../../utils/paths';
+import type { Language } from '../../../utils/url';
+
+interface Props {
+  project: Project;
+  title: string;
+  description: string;
+  lang: Language;
+}
+
+const { project, title, description, lang } = Astro.props;
+const projectTypeKey = getProjectTypeTranslationKey(project.type);
+
+const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: string; classes: string }> = {
+  'completado': { emoji: '✅', key: 'project.status.completed', classes: 'bg-green-100 text-green-700 dark:bg-green-400/10 dark:text-green-300' },
+  'en-desarrollo': { emoji: '🔄', key: 'project.status.in_development', classes: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-400/10 dark:text-yellow-300' },
+  'prototipo': { emoji: '🧪', key: 'project.status.prototype', classes: 'bg-blue-100 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300' },
+  'pausado': { emoji: '⏸️', key: 'project.status.paused', classes: 'bg-orange-100 text-orange-700 dark:bg-orange-400/10 dark:text-orange-300' },
+};
+---
+
+<div class="mb-8">
+  <a
+    href={withBasePath('/proyectos')}
+    class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400 group"
+  >
+    <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+    <span data-i18n="project.back">{t(lang, 'project.back')}</span>
+  </a>
+</div>
+
+<header class="mb-12">
+  <div class="flex flex-wrap items-center gap-2 mb-4">
+    {project.disciplines.map((discipline) => {
+      const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
+      if (!info) return null;
+      return (
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-100/80 px-3 py-1 text-xs font-semibold text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
+          <span>{info.emoji}</span>
+          <span data-i18n={`discipline.${discipline}`}>{getDisciplineLabel(discipline, lang)}</span>
+        </span>
+      );
+    })}
+    <span class="text-sm text-gray-500 dark:text-gray-400">{project.year}</span>
+    <span class="text-sm text-gray-400 dark:text-gray-600">•</span>
+    <span class="text-sm text-gray-500 dark:text-gray-400" data-i18n={projectTypeKey}>{projectTypeKey ? t(lang, projectTypeKey) : project.type}</span>
+    {project.status && (
+      <span class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${statusMap[project.status].classes}`}>
+        <span>{statusMap[project.status].emoji}</span>
+        <span data-i18n={statusMap[project.status].key}>{t(lang, statusMap[project.status].key)}</span>
+      </span>
+    )}
+  </div>
+
+  <h1
+    class="font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl"
+    data-i18n={`project.${project.slug}.title`}
+  >
+    {title}
+  </h1>
+
+  <p
+    class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
+    data-i18n={`project.${project.slug}.desc`}
+  >
+    {description}
+  </p>
+
+  <div class="mt-4 flex flex-wrap gap-2">
+    {project.tags.map((tag) => {
+      const tagKey = getProjectTagTranslationKey(tag);
+      return (
+        <span class="rounded-full border border-cyan-200/30 bg-cyan-100/20 px-4 py-1.5 text-sm font-medium text-cyan-600 dark:border-cyan-400/20 dark:bg-cyan-400/5 dark:text-cyan-400">
+          #{tagKey ? <span data-i18n={tagKey}>{t(lang, tagKey)}</span> : tag}
+        </span>
+      );
+    })}
+  </div>
+</header>

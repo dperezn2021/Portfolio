@@ -44,11 +44,16 @@ export const figuraFemeninaConArmadura: ProjectInput = {
   skillGains: [
     localizedText('Dibujo anatómico del natural', 'Anatomical life drawing'),
   ],
-  tags: ['Ilustración'],
+  en: {
+    title: 'Female Figure in Armour',
+    description: 'Individual Artistic Drawing work: life drawing and an exercise in digitally dressing a female figure in armour.',
+    role: 'Draughtsman',
+    team: 'Individual academic project',
+  },
+  tags: ['Ilustración', 'Lápiz y papel'],
   subjects: ['Dibujo Artístico'],
   disciplines: ['ilustracion'],
   technologies: [
-    { name: 'Lápiz y papel', level: 'principal' },
     { name: 'Photoshop', level: 'secundaria' },
   ],
   publicable: false,

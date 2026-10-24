@@ -4,8 +4,9 @@ export type ReasonType = 'subject' | 'discipline' | 'year' | 'technologies' | 'l
 
 export interface RelatedProject {
   project: Project;
-  reason: string;
   reasonType: ReasonType;
+  /** Valor compartido (slug de disciplina, asignatura, año o tecnología); vacío en el motivo genérico. */
+  reasonValue: string;
 }
 
 export function getRelatedProjects(
@@ -21,7 +22,7 @@ export function getRelatedProjects(
 
   const scored = candidates.map((project) => {
     let score = 0;
-    let reason = '';
+    let reasonValue = '';
     let reasonType: ReasonType = 'default';
 
     // Asignaturas (prioridad 1)
@@ -31,7 +32,7 @@ export function getRelatedProjects(
       );
       if (commonSubjects.length > 0) {
         score += commonSubjects.length * 10;
-        reason = `Misma asignatura: ${commonSubjects[0]}`;
+        reasonValue = commonSubjects[0];
         reasonType = 'subject';
       }
     }
@@ -43,7 +44,7 @@ export function getRelatedProjects(
       );
       if (commonDisciplines.length > 0) {
         score += commonDisciplines.length * 5;
-        reason = `Mismo área: ${commonDisciplines[0]}`;
+        reasonValue = commonDisciplines[0];
         reasonType = 'discipline';
       }
     }
@@ -51,7 +52,7 @@ export function getRelatedProjects(
     // Año (prioridad 3)
     if (score === 0 && currentProject.year === project.year) {
       score += 3;
-      reason = `Mismo año: ${project.year}`;
+      reasonValue = String(project.year);
       reasonType = 'year';
     }
 
@@ -62,22 +63,22 @@ export function getRelatedProjects(
       const commonTechs = currentTechs.filter(t => projectTechs.includes(t));
       if (commonTechs.length > 0) {
         score += commonTechs.length * 2;
-        reason = `Misma tecnología: ${commonTechs[0]}`;
+        reasonValue = commonTechs[0];
         reasonType = 'technologies';
       }
     }
 
     if (score === 0) {
-      reason = 'Proyecto relacionado';
+      reasonValue = '';
       reasonType = 'default';
     }
 
-    return { project, score, reason, reasonType };
+    return { project, score, reasonValue, reasonType };
   });
 
   return scored
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map((item) => ({ project: item.project, reason: item.reason, reasonType: item.reasonType }));
+    .map((item) => ({ project: item.project, reasonType: item.reasonType, reasonValue: item.reasonValue }));
 }

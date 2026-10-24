@@ -36,6 +36,11 @@ export interface GalleryItem {
 
 export type ProjectTechnology = { name: string; level?: 'principal' | 'secundaria' | 'experimental' };
 
+export type ProjectTextField = 'title' | 'description' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings';
+
+/** Versión en inglés de los textos del proyecto; el español vive en los campos del propio proyecto. */
+export type ProjectEnglishText = Partial<Record<ProjectTextField, string>>;
+
 export interface Project {
   slug: string;
   year: number;
@@ -87,6 +92,7 @@ export interface Project {
   team?: string;
   duration?: string;
   learnings?: string;
+  en?: ProjectEnglishText;
   status?: 'completado' | 'en-desarrollo' | 'prototipo' | 'pausado';
   technologies?: ProjectTechnology[];
   disciplines: string[];

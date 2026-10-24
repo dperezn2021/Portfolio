@@ -41,6 +41,11 @@ export const proyectoValorantDatos: ProjectInput = {
     localizedText('Modelado de datos en XML y JSON', 'Data modelling in XML and JSON'),
     localizedText('Consultas y filtros en MongoDB', 'Queries and filters in MongoDB'),
   ],
+  en: {
+    title: 'Valorant Project (Data)',
+    description: 'Group data management assignment on Valorant (agents, abilities, matches and more), with XML and JSON documents stored in MongoDB and queried with filters from MongoDB Compass.',
+    team: 'Academic group project',
+  },
   tags: ['Bases de datos', 'MongoDB', 'JSON', 'XML'],
   subjects: ['Gestión de Datos en Medios Digitales'],
   disciplines: ['bases-datos'],

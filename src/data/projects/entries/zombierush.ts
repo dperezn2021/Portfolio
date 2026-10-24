@@ -55,6 +55,12 @@ export const zombierush: ProjectInput = {
     localizedText('Programación orientada a objetos en C++', 'Object-oriented programming in C++'),
     localizedText('Manejo de punteros y depuración', 'Pointer handling and debugging'),
   ],
+  en: {
+    title: 'ZombieRush',
+    description: 'Group C++ video game in which a zombie must reach the goal without dying across three levels. I handled part of the programming and found a 3D asset.',
+    role: 'Programmer',
+    team: 'Group academic project',
+  },
   tags: ['C++', 'POO'],
   subjects: ['Programación Avanzada'],
   disciplines: ['videojuegos'],

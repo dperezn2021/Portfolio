@@ -7,14 +7,19 @@ import ProjectGallery from "../../components/projects/ProjectGallery.astro";
 import ProjectResources from "../../components/projects/ProjectResources.astro";
 import FeaturedMedia from "../../components/projects/FeaturedMedia.astro";
 import CollectionGrid from "../../components/projects/CollectionGrid.astro";
+import ProjectHero from "../../components/projects/detail/ProjectHero.astro";
+import ProjectStory from "../../components/projects/detail/ProjectStory.astro";
+import ProjectFacts from "../../components/projects/detail/ProjectFacts.astro";
+import ProjectHighlights from "../../components/projects/detail/ProjectHighlights.astro";
+import RelatedProjects from "../../components/projects/detail/RelatedProjects.astro";
+import SectionHeading from "../../components/projects/detail/SectionHeading.astro";
 import { getPublicItems } from "../../data/collections";
-import { publicProjects, DISCIPLINE_MAP, getDisciplineLabel, getProjectTagTranslationKey, getProjectTypeTranslationKey } from "../../data/projects";
+import { publicProjects } from "../../data/projects";
 import { t } from "../../data/translations";
-import type { LocalizedText, Project, ProjectStoryStep } from "../../data/projects";
+import type { Project, ProjectTextField } from "../../data/projects";
 import type { Language } from "../../utils/url";
 import { withBasePath } from '../../utils/paths';
 import { getRelatedProjects } from '../../utils/related-projects';
-import ProjectCard from '../../components/projects/ProjectCard.astro';
 
 export async function getStaticPaths() {
   return publicProjects.map((project) => ({
@@ -29,10 +34,13 @@ interface Props {
 }
 
 const { project, lang = 'es' } = Astro.props;
-const galleryConfig = project.galleryConfig || {};
 const collectionItems = getPublicItems(project.slug);
-const isEs = lang === 'es';
 const relatedProjects = getRelatedProjects(project, publicProjects, 3);
+
+// Texto en el idioma activo; el español vive en la propia entrada y el inglés en `project.en`.
+const text = (field: ProjectTextField) => (lang === 'en' ? project.en?.[field] ?? project[field] : project[field]);
+const title = text('title') ?? project.title;
+const description = text('description') ?? project.description;
 
 // Contenido principal: usa `featuredMedia` si el proyecto lo define; si no,
 // la portada (`cover`) sigue haciendo de contenido principal como siempre.
@@ -50,90 +58,14 @@ const galleryMedia = project.gallery
     poster: item.poster ? withBasePath(item.poster) : undefined,
   }));
 
-// Helper para obtener texto traducido del proyecto
-const projectText = (field: keyof Pick<Project, 'title' | 'description' | 'challenges' | 'solution' | 'role' | 'team' | 'duration' | 'learnings'>, fallback: string) => {
-  const key = `project.${project.slug}.${field}`;
-  const translated = t(lang, key);
-  return translated === key ? fallback : translated;
-};
-
-const getLocalizedValue = (value: LocalizedText) => (isEs ? value.es : value.en);
-
-const storySteps: ProjectStoryStep[] = project.story ?? [];
-const skillGains = project.skillGains ?? [];
-const localizedHighlights = project.highlights ?? [];
-
-// ✅ Textos traducidos para el renderizado inicial
-const translatedTitle = projectText('title', project.title);
-const translatedDescription = projectText('description', project.description);
-const translatedRole = project.role ? projectText('role', project.role) : null;
-const translatedTeam = project.team ? projectText('team', project.team) : null;
-const translatedDuration = project.duration ? projectText('duration', project.duration) : null;
-const projectTypeKey = getProjectTypeTranslationKey(project.type);
-
-// ✅ Claves para data-i18n (para que el JavaScript pueda actualizarlos)
 const titleKey = `project.${project.slug}.title`;
-const descKey = `project.${project.slug}.desc`;
-const roleKey = `project.${project.slug}.role`;
-const teamKey = `project.${project.slug}.team`;
-const durationKey = `project.${project.slug}.duration`;
-
-const statusMap: Record<NonNullable<Project['status']>, { emoji: string; key: string; color: string }> = {
-  'completado': { emoji: '✅', key: 'project.status.completed', color: 'green' },
-  'en-desarrollo': { emoji: '🔄', key: 'project.status.in_development', color: 'yellow' },
-  'prototipo': { emoji: '🧪', key: 'project.status.prototype', color: 'blue' },
-  'pausado': { emoji: '⏸️', key: 'project.status.paused', color: 'orange' },
-};
-
-// Configuración de colores para cada tipo de paso
-const stepConfig: Record<string, { 
-  gradient: string; 
-  bg: string; 
-  border: string; 
-  iconBg: string; 
-  iconColor: string;
-  label: string;
-}> = {
-  'context': {
-    gradient: 'from-blue-500 to-cyan-400',
-    bg: 'bg-blue-50/80 dark:bg-blue-950/30',
-    border: 'border-blue-200 dark:border-blue-800/30',
-    iconBg: 'bg-blue-100 dark:bg-blue-900/40',
-    iconColor: 'text-blue-600 dark:text-blue-400',
-    label: 'project.story.context'
-  },
-  'objective': {
-    gradient: 'from-amber-500 to-yellow-400',
-    bg: 'bg-amber-50 dark:bg-amber-950/20',
-    border: 'border-amber-200 dark:border-amber-800/30',
-    iconBg: 'bg-amber-100 dark:bg-amber-900/30',
-    iconColor: 'text-amber-700 dark:text-amber-300',
-    label: 'project.story.objective'
-  },
-  'implementation': {
-    gradient: 'from-emerald-500 to-teal-400',
-    bg: 'bg-emerald-50 dark:bg-emerald-950/20',
-    border: 'border-emerald-200 dark:border-emerald-800/30',
-    iconBg: 'bg-emerald-100 dark:bg-emerald-900/40',
-    iconColor: 'text-emerald-600 dark:text-emerald-400',
-    label: 'project.story.implementation'
-  },
-  'learning': {
-    gradient: 'from-cyan-500 to-sky-400',
-    bg: 'bg-cyan-50 dark:bg-cyan-950/20',
-    border: 'border-cyan-200 dark:border-cyan-800/30',
-    iconBg: 'bg-cyan-100 dark:bg-cyan-900/30',
-    iconColor: 'text-cyan-700 dark:text-cyan-300',
-    label: 'project.story.learning'
-  }
-};
 ---
 
 <MainLayout
-  title={`${translatedTitle} | Daniel Pérez Navarro`}
-  description={translatedDescription}
-  ogTitle={translatedTitle}
-  ogDescription={translatedDescription}
+  title={`${title} | Daniel Pérez Navarro`}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
   ogImage={project.cover ? withBasePath(project.cover) : undefined}
   ogUrl={withBasePath(`/proyectos/${project.slug}`)}
 >
@@ -141,376 +73,60 @@ const stepConfig: Record<string, {
 
   <main class="pt-24">
     <article class="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-20">
-      
-      <!-- ============================================ -->
-      <!-- 1. BOTÓN VOLVER -->
-      <!-- ============================================ -->
-      <div class="mb-8">
-        <a
-          href={withBasePath('/proyectos')}
-          class="inline-flex items-center gap-2 text-cyan-600 hover:underline dark:text-cyan-400 group"
-        >
-          <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
-          <span data-i18n="project.back">{t(lang, 'project.back')}</span>
-        </a>
-      </div>
+      <ProjectHero project={project} title={title} description={description} lang={lang} />
 
-      <!-- ============================================ -->
-      <!-- 2. HERO - TÍTULO Y METADATOS -->
-      <!-- ============================================ -->
-      <header class="mb-12">
-        <!-- Badges -->
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-          {project.disciplines.map((discipline) => {
-            const info = DISCIPLINE_MAP[discipline as keyof typeof DISCIPLINE_MAP];
-            if (!info) return null;
-            const label = getDisciplineLabel(discipline, lang);
-            return (
-              <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-100/80 px-3 py-1 text-xs font-semibold text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300">
-                <span>{info.emoji}</span>
-                <span data-i18n={`discipline.${discipline}`}>{label}</span>
-              </span>
-            );
-          })}
-          <span class="text-sm text-gray-500 dark:text-gray-400">{project.year}</span>
-          <span class="text-sm text-gray-400 dark:text-gray-600">•</span>
-          <span class="text-sm text-gray-500 dark:text-gray-400" data-i18n={projectTypeKey}>{projectTypeKey ? t(lang, projectTypeKey) : project.type}</span>
-          {project.status && (
-            <span
-              class={`
-                inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold
-                ${project.status === "completado" ? "bg-green-100 text-green-700 dark:bg-green-400/10 dark:text-green-300" : ""}
-                ${project.status === "en-desarrollo" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-400/10 dark:text-yellow-300" : ""}
-                ${project.status === "prototipo" ? "bg-blue-100 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300" : ""}
-                ${project.status === "pausado" ? "bg-orange-100 text-orange-700 dark:bg-orange-400/10 dark:text-orange-300" : ""}
-              `}
-            >
-              <span>{statusMap[project.status].emoji}</span>
-              <span data-i18n={statusMap[project.status].key}>{t(lang, statusMap[project.status].key)}</span>
-            </span>
-          )}
-        </div>
-
-        {/* ✅ TÍTULO CON data-i18n */}
-        <h1 
-          class="font-grotesk text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl"
-          data-i18n={titleKey}
-        >
-          {translatedTitle}
-        </h1>
-
-        {/* ✅ DESCRIPCIÓN CON data-i18n */}
-        <p 
-          class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
-          data-i18n={descKey}
-        >
-          {translatedDescription}
-        </p>
-
-        <div class="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => {
-            const tagKey = getProjectTagTranslationKey(tag);
-            return (
-              <span class="rounded-full border border-cyan-200/30 bg-cyan-100/20 px-4 py-1.5 text-sm font-medium text-cyan-600 dark:border-cyan-400/20 dark:bg-cyan-400/5 dark:text-cyan-400">
-                #{tagKey ? <span data-i18n={tagKey}>{t(lang, tagKey)}</span> : tag}
-              </span>
-            );
-          })}
-        </div>
-      </header>
-
-      <!-- ============================================ -->
-      <!-- 3. CONTENIDO PRINCIPAL (destacado) -->
-      <!-- ============================================ -->
       {featuredItem && (
         <section class="mb-12">
-          <FeaturedMedia item={featuredItem} title={translatedTitle} titleKey={titleKey} />
+          <FeaturedMedia item={featuredItem} title={title} titleKey={titleKey} />
         </section>
       )}
 
-      <!-- ============================================ -->
-      <!-- 4. GALERÍA MULTIMEDIA (imágenes + vídeos) -->
-      <!-- ============================================ -->
       {galleryMedia.length > 0 && (
         <section class="mb-16">
-          <ProjectGallery items={galleryMedia} alt={translatedTitle} altTranslationKey={titleKey} config={galleryConfig} />
+          <ProjectGallery items={galleryMedia} alt={title} altTranslationKey={titleKey} config={project.galleryConfig || {}} />
         </section>
       )}
 
-      <!-- ============================================ -->
-      <!-- 4b. ELEMENTOS DE LA COLECCIÓN (p. ej. los juegos de BONK) -->
-      <!-- ============================================ -->
       {collectionItems.length > 0 && (
         <section class="mb-16">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-2xl">🎮</span>
-            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="collection.games_title">
-              {t(lang, 'collection.games_title')}
-            </h2>
-          </div>
+          <SectionHeading emoji="🎮" titleKey="collection.games_title" lang={lang} />
           <CollectionGrid projectSlug={project.slug} items={collectionItems} lang={lang} />
         </section>
       )}
 
-      <!-- ============================================ -->
-      <!-- 5. RECURSOS Y ENLACES (justo tras el contenido multimedia) -->
-      <!-- ============================================ -->
       {project.resources.length > 0 && (
         <section class="mb-16">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-2xl">🔗</span>
-            <div>
-              <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.resources_title">
-                {t(lang, 'project.resources_title')}
-              </h2>
-              <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="project.resources_subtitle">
-                {t(lang, 'project.resources_subtitle')}
-              </p>
-            </div>
-          </div>
+          <SectionHeading emoji="🔗" titleKey="project.resources_title" subtitleKey="project.resources_subtitle" lang={lang} />
           <ProjectResources resources={project.resources} lang={lang} />
         </section>
       )}
 
-      <!-- ============================================ -->
-      <!-- 6. LÍNEA DE TIEMPO DEL PROYECTO (STORY) -->
-      <!-- ============================================ -->
-      {storySteps.length > 0 && (
+      {(project.story?.length ?? 0) > 0 && (
         <section class="mb-16">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-2xl">📖</span>
-            <div>
-              <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.story_title">
-                {t(lang, 'project.story_title')}
-              </h2>
-              <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="project.story_subtitle">
-                {t(lang, 'project.story_subtitle')}
-              </p>
-            </div>
-          </div>
-
-          <!-- TIMELINE HORIZONTAL -->
-          <div class="relative">
-            <div class="absolute left-0 right-0 top-6 h-0.5 bg-linear-to-r from-sky-400 via-emerald-400 to-amber-400"></div>
-            
-            <div class="relative grid grid-cols-1 gap-8 md:grid-cols-4">
-              {storySteps.map((step) => {
-                const config = stepConfig[step.kind] || stepConfig['context'];
-                
-                return (
-                  <div class="relative flex flex-col items-center">
-                    <div class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-cyan-700 text-white shadow-lg shadow-cyan-700/20 transition-transform duration-300 hover:scale-110 dark:bg-cyan-500 dark:text-zinc-950">
-                      <span class="material-symbols-outlined text-2xl">{step.icon}</span>
-                    </div>
-                    
-                    <div class={`
-                      relative mt-6 w-full rounded-2xl border p-5 transition-all duration-300 hover:shadow-md
-                      ${config.bg} ${config.border}
-                    `}>
-                      <div class={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-linear-to-r ${config.gradient}`}></div>
-                      
-                      <div class="relative pt-1">
-                        <p class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n={config.label}>
-                          {t(lang, config.label)}
-                        </p>
-                        <p class="mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300" data-i18n-es={step.text.es} data-i18n-en={step.text.en}>
-                          {getLocalizedValue(step.text)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <ProjectStory steps={project.story ?? []} lang={lang} />
         </section>
       )}
 
-      <!-- ============================================ -->
-      <!-- 7. ROL Y CONTRIBUCIONES: EQUIPO, DURACIÓN + TECNOLOGÍAS -->
-      <!-- ============================================ -->
       <section class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div class="space-y-4">
-          {translatedRole && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
-              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
-                <span class="material-symbols-outlined text-sm">person</span>
-                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.role_label">
-                  {t(lang, 'project.role_label')}
-                </h3>
-              </div>
-              <p class="mt-2 text-black dark:text-white" data-i18n={roleKey}>
-                {translatedRole}
-              </p>
-            </div>
-          )}
-
-          {translatedTeam && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
-              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
-                <span class="material-symbols-outlined text-sm">group</span>
-                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.team_label">
-                  {t(lang, 'project.team_label')}
-                </h3>
-              </div>
-              <p class="mt-2 text-black dark:text-white" data-i18n={teamKey}>
-                {translatedTeam}
-              </p>
-            </div>
-          )}
-
-          {translatedDuration && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900/40">
-              <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
-                <span class="material-symbols-outlined text-sm">schedule</span>
-                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.duration_label">
-                  {t(lang, 'project.duration_label')}
-                </h3>
-              </div>
-              <p class="mt-2 text-black dark:text-white" data-i18n={durationKey}>
-                {translatedDuration}
-              </p>
-            </div>
-          )}
-        </div>
-
-        <div class="md:col-span-2">
-          {project.technologies && project.technologies.length > 0 && (
-            <div class="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/40 h-full">
-              <div class="flex items-center gap-2 mb-4 text-cyan-600 dark:text-cyan-400">
-                <span class="material-symbols-outlined text-sm">code</span>
-                <h3 class="text-sm font-bold uppercase tracking-wider" data-i18n="project.technologies_label">
-                  {t(lang, 'project.technologies_label')}
-                </h3>
-              </div>
-              <div class="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    class={`
-                      rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105
-                      ${tech.level === "principal" ? "bg-cyan-50 text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-400/30" : ""}
-                      ${tech.level === "secundaria" ? "bg-sky-50 text-sky-800 dark:bg-sky-400/10 dark:text-sky-300 border border-sky-200 dark:border-sky-400/20" : ""}
-                      ${tech.level === "experimental" ? "bg-amber-50 text-amber-800 dark:bg-amber-400/10 dark:text-amber-300 border border-amber-200 dark:border-amber-400/20" : ""}
-                    `}
-                  >
-                    {tech.name}
-                    {tech.level === "principal" && " ⭐"}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <ProjectFacts
+          slug={project.slug}
+          role={text('role')}
+          team={text('team')}
+          duration={text('duration')}
+          technologies={project.technologies}
+          lang={lang}
+        />
       </section>
 
-      <!-- ============================================ -->
-      <!-- 8. SKILL GAINS -->
-      <!-- ============================================ -->
-      {skillGains.length > 0 && (
-        <section class="mb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl">🚀</span>
-            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.skills_gained_label">
-              {t(lang, 'project.skills_gained_label')}
-            </h2>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            {skillGains.map((skill) => (
-              <span class="rounded-full border border-cyan-200 bg-white px-4 py-2 text-sm font-medium text-cyan-800 transition-all hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/30 dark:bg-zinc-900 dark:text-cyan-300 dark:hover:bg-cyan-950/30" data-i18n-es={skill.es} data-i18n-en={skill.en}>
-                <span data-i18n-es={skill.es} data-i18n-en={skill.en}>{getLocalizedValue(skill)}</span>
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
+      <ProjectHighlights skillGains={project.skillGains ?? []} highlights={project.highlights ?? []} lang={lang} />
 
-      <!-- ============================================ -->
-      <!-- 9. HIGHLIGHTS -->
-      <!-- ============================================ -->
-      {localizedHighlights.length > 0 && (
-        <section class="mb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl">✨</span>
-            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.highlights_label">
-              {t(lang, 'project.highlights_label')}
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {localizedHighlights.map((highlight) => {
-              const text = getLocalizedValue(highlight);
-              const emoji = text.match(/^[^\s]+/)?.[0] || '✨';
-              const rest = text.replace(/^[^\s]+\s/, '');
-              return (
-                <div class="flex items-start gap-3 rounded-2xl border border-cyan-100 bg-white p-4 transition-all hover:border-cyan-300 dark:border-white/10 dark:bg-zinc-900/50 dark:hover:border-cyan-400/30" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>
-                  <span class="text-lg">{emoji}</span>
-                  <span class="text-sm text-gray-700 dark:text-gray-300" data-i18n-es={highlight.es} data-i18n-en={highlight.en}>{rest}</span>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
+      <RelatedProjects related={relatedProjects} lang={lang} />
 
-      <!-- ============================================ -->
-      <!-- 9b. PROYECTOS RELACIONADOS -->
-      <!-- ============================================ -->
-      {relatedProjects.length > 0 && (
-        <section class="mb-16">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-2xl">🔗</span>
-            <h2 class="font-grotesk text-2xl font-bold text-black dark:text-white" data-i18n="project.related_title">
-              {t(lang, 'project.related_title')}
-            </h2>
-          </div>
-          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" style="grid-auto-rows: 1fr;">
-            {relatedProjects.map((item) => {
-              const reasonColorMap = {
-                'subject': 'border border-purple-400/50 bg-purple-100/20 text-purple-700 dark:border-purple-400/30 dark:bg-purple-500/10 dark:text-purple-300',
-                'discipline': 'border border-cyan-400/50 bg-cyan-100/20 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300',
-                'year': 'border border-amber-400/50 bg-amber-100/20 text-amber-700 dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-300',
-                'technologies': 'border border-emerald-400/50 bg-emerald-100/20 text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-300',
-                'languages': 'border border-blue-400/50 bg-blue-100/20 text-blue-700 dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300',
-                'default': 'border border-gray-400/50 bg-gray-100/20 text-gray-700 dark:border-gray-400/30 dark:bg-gray-500/10 dark:text-gray-300'
-              };
-
-              return (
-                <div class="flex flex-col h-full">
-                  <ProjectCard
-                  slug={item.project.slug}
-                  title={item.project.title}
-                  description={item.project.description}
-                  coverImage={item.project.cover ?? ''}
-                  tags={item.project.tags}
-                  disciplines={item.project.disciplines}
-                  context={item.project.context}
-                  academicYear={item.project.academicYear}
-                  year={item.project.year}
-                  subjects={item.project.subjects}
-                  technologies={item.project.technologies?.map((tech) => tech.name) ?? []}
-                  type={item.project.type}
-                  lang={lang}
-                  />
-                  <div class="mt-2">
-                    <span class={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${reasonColorMap[item.reasonType]}`}>
-                      {item.reason}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      <!-- ============================================ -->
-      <!-- 10. VOLVER -->
-      <!-- ============================================ -->
       <div class="flex flex-wrap gap-4 pt-4 border-t border-gray-200 dark:border-white/10">
         <a href={withBasePath('/proyectos')} class="btn-primary" data-i18n="project.back">
           {t(lang, 'project.back')}
         </a>
       </div>
-
     </article>
   </main>
 

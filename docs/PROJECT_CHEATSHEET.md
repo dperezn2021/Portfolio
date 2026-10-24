@@ -73,7 +73,7 @@ Verificado en el código: `challenges`, `solution` y `learnings` están en el ti
 
 | Campo | Qué es |
 |---|---|
-| `slug` | Identificador único: URL `/proyectos/<slug>`, nombre de la carpeta de imágenes y prefijo `project.<slug>.*` de las traducciones. |
+| `slug` | Identificador único: URL `/proyectos/<slug>`, nombre de la carpeta de imágenes y prefijo de las claves `project.<slug>.*` que se generan para el cambio de idioma. |
 | `BASE` | Solo una constante local (no es nada de Astro) con la carpeta de imágenes del proyecto; se usa como `` `${BASE}/foto.png` ``. Puedes escribir la ruta entera si prefieres. |
 | `context` | Filtro del listado: `grado`, `master`, `personal`, `laboral`. |
 | `type` | Etiqueta del tipo. Valores traducidos (`PROJECT_TYPE_KEYS`): `'Proyecto de la Universidad'`, `'Trabajo de Fin de Grado'`, `'Personal'`, `'Freelance'`. Otro texto se muestra tal cual, sin traducir. |
@@ -103,14 +103,14 @@ Verificado en el código: `challenges`, `solution` y `learnings` están en el ti
 
 ## Textos y traducciones
 
-El texto de la página sale de `src/data/translations.ts` cuando existen las claves `project.<slug>.{title,desc,role,team,duration,challenges,solution,learnings}` (bloques ES y EN); los campos del `.ts` son el respaldo. Si cambias `description` (clave `desc`), `role`, `team` o `duration`, cámbialos también ahí en los dos idiomas. `story`, `highlights` y `skillGains` son bilingües dentro del propio `.ts`. Los títulos de recursos nuevos se traducen añadiéndolos a `LINK_KEYS` en `src/data/projects/translation-maps.ts` y al diccionario (`project.link.*`); los ya traducidos: Jugar, Vídeo Explicativo, Prototipo, Memoria PDF, Web Sealy Studio, Ir a la web, Descargar Video Demo, Descargar Memoria PDF (y los añadidos por proyecto).
+Los textos del proyecto viven en su propia entrada (`src/data/projects/entries/<slug>.ts`): el español en `title`, `description`, `role`, `team`, `duration`, `challenges`, `solution`, `learnings`, y el inglés en el bloque `en: { ... }` con los mismos nombres. Las claves `project.<slug>.*` del diccionario (necesarias para el cambio de idioma en cliente) se generan solas a partir de ahí, así que no hay que tocar `translations.ts`; si falta un campo en `en`, se muestra el español. `story`, `highlights` y `skillGains` son bilingües dentro del propio `.ts`. Los títulos de recursos nuevos se traducen añadiéndolos a `LINK_KEYS` en `src/data/projects/translation-maps.ts` y al diccionario (`project.link.*`); los ya traducidos: Jugar, Vídeo Explicativo, Prototipo, Memoria PDF, Web Sealy Studio, Ir a la web, Descargar Video Demo, Descargar Memoria PDF (y los añadidos por proyecto).
 
 ## Antes de publicar (`publicable: true`)
 
 - [ ] `coverImage` existe y es una imagen; hay al menos un recurso visual significativo.
 - [ ] Descripción factual; autoría clara (individual/grupo, qué hice yo, qué es de otros).
 - [ ] Todas las rutas existen y funcionan con `/Portfolio/`; ningún archivo supera 100 MB.
-- [ ] Claves `project.<slug>.*` en ES y EN, si cambiaste textos.
+- [ ] Bloque `en` del proyecto actualizado si cambiaste textos en español.
 - [ ] Fila de `academic-catalog.ts` y de `docs/ACADEMIC_PROJECTS.md` actualizadas.
 - [ ] `npm run build` y `npx astro check` sin errores.
 

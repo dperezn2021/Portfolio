@@ -10,6 +10,11 @@ export const fabrica: ProjectInput = {
   type: 'Proyecto de la Universidad',
   title: 'Fábrica',
   description: 'Práctica individual sencilla de Fundamentos de Tecnología de Videojuegos sobre una fábrica.',
+  en: {
+    title: 'Factory',
+    description: 'Simple individual assignment for Video Game Technology Fundamentals about a factory.',
+    team: 'Individual academic project',
+  },
   tags: ['JavaScript'],
   subjects: ['Fundamentos de Tecnología de Videojuegos'],
   disciplines: ['videojuegos'],

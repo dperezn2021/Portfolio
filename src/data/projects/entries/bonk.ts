@@ -43,6 +43,12 @@ export const bonk: ProjectInput = {
       ),
     },
   ],
+  en: {
+    title: 'BONK',
+    description: 'A personal collection of seven arcade web games built in 2026 with artificial intelligence assistance, designed to be lightweight, accessible and suitable for platforms such as YouTube Playables. All of them are published on itch.io.',
+    role: 'Collection author (AI-assisted development)',
+    team: 'Personal project - Individual',
+  },
   tags: ['Videojuegos web', 'Phaser 3', 'Desarrollo con IA'],
   disciplines: ['videojuegos', 'ia'],
   technologies: [

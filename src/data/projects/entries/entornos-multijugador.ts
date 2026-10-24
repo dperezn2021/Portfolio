@@ -41,6 +41,12 @@ export const entornosMultijugador: ProjectInput = {
     localizedText('Programación de lobbies multijugador', 'Multiplayer lobby programming'),
     localizedText('Comunicación en red entre jugadores', 'Network communication between players'),
   ],
+  en: {
+    title: 'Multiplayer Environments',
+    description: 'Integration of multiplayer communication into an already developed game (humans, zombies, contagion and coins). I built the complete lobby and took part in programming the communication.',
+    role: 'Lobby and multiplayer communication programmer',
+    team: 'Academic group project',
+  },
   tags: ['Multijugador', 'Lobby'],
   subjects: ['Entornos Multijugador'],
   disciplines: ['videojuegos', 'red'],

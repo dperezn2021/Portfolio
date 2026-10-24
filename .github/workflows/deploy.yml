@@ -35,6 +35,9 @@ jobs:
           PUBLIC_EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID || secrets.EMAILJS_SERVICE_ID }}
           PUBLIC_EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID || secrets.EMAILJS_TEMPLATE_ID }}
 
+      - name: Check icons
+        run: npm run check:icons
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

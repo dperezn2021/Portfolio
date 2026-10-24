@@ -41,6 +41,12 @@ export const personajeDjAutonomo: ProjectInput = {
     localizedText('Árboles de comportamiento', 'Behaviour trees'),
     localizedText('IA de personajes en Unity', 'Character AI in Unity'),
   ],
+  en: {
+    title: 'Autonomous DJ Character',
+    description: 'Autonomous DJ for a party in an existing video game, where the protagonist has to collect three objects. I programmed its behaviour with behaviour trees in Unity and C#.',
+    role: 'DJ behaviour and music system programmer',
+    team: 'Work on an existing video game',
+  },
   tags: ['IA', 'Behaviour Trees', 'Unity'],
   subjects: ['Comportamiento de Personajes'],
   disciplines: ['videojuegos', 'ia'],

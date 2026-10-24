@@ -2,6 +2,11 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* cyan-600 oscurecido: el original da 3,7:1 sobre blanco; este llega a 5,4:1 (AA para texto pequeño) */
+@theme {
+  --color-cyan-600: #0e7490;
+}
+
 /* ============================================
    RESET Y BASE
    ============================================ */

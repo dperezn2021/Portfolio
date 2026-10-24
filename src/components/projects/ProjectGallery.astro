@@ -65,7 +65,7 @@ const gapClasses: Record<GapSize, string> = {
       {resolvedMedia.map(({ item, embed }, index) => (
         <div class="break-inside-avoid overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 shadow-sm hover:shadow-md transition-shadow">
           {item.type === 'image' && (
-            <img src={item.src} {...imageSize(item.src)} alt={item.alt || `${alt} ${index + 1}`} data-i18n-alt-key={altTranslationKey} data-i18n-alt-suffix={index + 1} class="w-full h-auto object-contain cursor-pointer transition duration-500 group-hover:scale-[1.02]" loading="lazy" data-fullsrc={item.src} onclick="openLightbox(this)" />
+            <img src={item.src} {...imageSize(item.src)} alt={item.alt || `${alt} ${index + 1}`} data-i18n-alt-key={altTranslationKey} data-i18n-alt-suffix={index + 1} class="w-full h-auto object-contain cursor-pointer transition duration-500 group-hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-cyan-500" loading="lazy" tabindex="0" role="button" data-fullsrc={item.src} onclick="openLightbox(this)" />
           )}
           {item.type === 'video' && embed?.embedUrl && (
             <div class="aspect-video w-full">
@@ -93,10 +93,10 @@ const gapClasses: Record<GapSize, string> = {
 </div>
 
 {imageItems.length > 0 && (
-  <div id="lightbox" class="fixed inset-0 z-9999 hidden items-center justify-center bg-black/95 backdrop-blur-sm" onclick="closeLightbox()">
-    <button class="absolute top-4 right-4 z-10000 text-white text-4xl hover:text-cyan-300 transition-colors" onclick="closeLightbox()">✕</button>
-    <button class="absolute left-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="prevImage(event)" id="lightbox-prev">‹</button>
-    <button class="absolute right-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="nextImage(event)" id="lightbox-next">›</button>
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes / Image gallery" class="fixed inset-0 z-9999 hidden items-center justify-center bg-black/95 backdrop-blur-sm" onclick="closeLightbox()">
+    <button type="button" id="lightbox-close" aria-label="Cerrar / Close" class="absolute top-4 right-4 z-10000 text-white text-4xl hover:text-cyan-300 transition-colors" onclick="closeLightbox()">✕</button>
+    <button type="button" aria-label="Imagen anterior / Previous image" class="absolute left-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="prevImage(event)" id="lightbox-prev">‹</button>
+    <button type="button" aria-label="Imagen siguiente / Next image" class="absolute right-4 z-10000 text-white text-5xl hover:text-cyan-300 transition-colors" onclick="nextImage(event)" id="lightbox-next">›</button>
     <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg" />
     <span id="lightbox-counter" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium"></span>
   </div>
@@ -106,6 +106,7 @@ const gapClasses: Record<GapSize, string> = {
   let currentImages: string[] = [];
   let currentGalleryImages: HTMLImageElement[] = [];
   let currentIndex = 0;
+  let lastFocused: HTMLElement | null = null;
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
   const lightboxCounter = document.getElementById('lightbox-counter');
@@ -122,9 +123,11 @@ const gapClasses: Record<GapSize, string> = {
     currentIndex = currentImages.indexOf(imageElement.getAttribute('data-fullsrc') || imageElement.src);
     if (currentIndex === -1) currentIndex = 0;
     showImage(currentIndex);
+    lastFocused = document.activeElement as HTMLElement | null;
     lightbox?.classList.remove('hidden');
     lightbox?.classList.add('flex');
     document.body.style.overflow = 'hidden';
+    document.getElementById('lightbox-close')?.focus();
   }
 
   function showImage(index: number) {
@@ -141,6 +144,8 @@ const gapClasses: Record<GapSize, string> = {
     lightbox?.classList.add('hidden');
     lightbox?.classList.remove('flex');
     document.body.style.overflow = '';
+    lastFocused?.focus();
+    lastFocused = null;
   }
 
   function prevImage(event: Event) {
@@ -163,7 +168,20 @@ const gapClasses: Record<GapSize, string> = {
   });
 
   document.addEventListener('keydown', (e) => {
+    const target = e.target as HTMLElement;
+    if ((e.key === 'Enter' || e.key === ' ') && target.matches?.('.project-gallery img[data-fullsrc]')) {
+      e.preventDefault();
+      openLightbox(target);
+      return;
+    }
     if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Tab' && lightbox) {
+      const focusable = Array.from(lightbox.querySelectorAll<HTMLElement>('button')).filter((el) => el.style.display !== 'none');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+    }
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage(e); }
     if (e.key === 'ArrowRight') { e.preventDefault(); nextImage(e); }

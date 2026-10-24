@@ -44,6 +44,12 @@ export const juegoDeLaVida: ProjectInput = {
   skillGains: [
     localizedText('Programación de un autómata celular en JavaScript', 'Programming a cellular automaton in JavaScript'),
   ],
+  en: {
+    title: 'Game of Life',
+    description: 'Individual implementation of Conway\'s Game of Life for Video Game Technology Fundamentals, programmed with HTML, CSS and JavaScript.',
+    role: 'Programmer',
+    team: 'Individual academic project',
+  },
   tags: ['JavaScript'],
   subjects: ['Fundamentos de Tecnología de Videojuegos'],
   disciplines: ['videojuegos'],

@@ -1,15 +1,11 @@
-function initAnimations() {
+export function initAnimations() {
   const header = document.getElementById('top-nav');
 
-  const onScroll = () => {
-    if (!header) return;
-    header.classList.toggle('scrolled', window.scrollY > 8);
-  };
-
+  const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 8);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Optional reveal animations for elements that opt in.
+  // Animaciones de entrada para los elementos con [data-reveal].
   const revealItems = document.querySelectorAll('[data-reveal]');
   if (!revealItems.length || typeof IntersectionObserver === 'undefined') return;
 
@@ -21,10 +17,8 @@ function initAnimations() {
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.12 }
+    { threshold: 0.12 },
   );
 
   revealItems.forEach((item) => observer.observe(item));
 }
-
-window.initAnimations = initAnimations;

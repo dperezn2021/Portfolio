@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "optimize-images": "node scripts/optimize-images.mjs",
+    "check:icons": "node scripts/check-icons.mjs",
     "astro": "astro"
   },
   "dependencies": {

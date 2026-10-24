@@ -60,8 +60,11 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
       
       <button
         id="menu-toggle"
+        type="button"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
         class="block md:hidden rounded-lg border border-gray-200 bg-white p-2 shadow-sm transition-colors hover:bg-white dark:border-white/10 dark:bg-transparent dark:shadow-none dark:hover:bg-white/10"
-        aria-label="Toggle menu"
+        aria-label="Abrir menú / Open menu"
       >
         <span class="material-symbols-outlined text-cyan-600 dark:text-cyan-400">
           menu
@@ -116,6 +119,7 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
 
     toggle.addEventListener('click', () => {
       const isOpen = menu.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!isOpen));
       const icon = toggle.querySelector('.material-symbols-outlined');
       if (icon) {
         icon.textContent = isOpen ? 'menu' : 'close';
@@ -125,6 +129,7 @@ const { currentPage = '/', lang = 'es' } = Astro.props;
     menu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
         const icon = toggle.querySelector('.material-symbols-outlined');
         if (icon) {
           icon.textContent = 'menu';

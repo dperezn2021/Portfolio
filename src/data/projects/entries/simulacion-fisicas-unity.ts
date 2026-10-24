@@ -48,6 +48,10 @@ export const simulacionFisicasUnity: ProjectInput = {
     localizedText('Simulación de telas y estructuras deformables', 'Cloth and deformable structure simulation'),
     localizedText('Ajuste de parámetros físicos (gravedad, masa, viento)', 'Tuning physical parameters (gravity, mass, wind)'),
   ],
+  en: {
+    title: 'Physics simulation in Unity',
+    description: 'Four physics simulation assignments in Unity: two cloths, a pyramidal structure of nodes and springs and a tree under wind. Each one was tested by changing parameters such as gravity, node mass or wind.',
+  },
   tags: ['Simulación física', 'Unity', 'Animación 3D'],
   subjects: ['Animación 3D'],
   disciplines: ['animacion-3d'],

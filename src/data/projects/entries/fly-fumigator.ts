@@ -29,6 +29,12 @@ export const flyFumigator: ProjectInput = {
       ),
     },
   ],
+  en: {
+    title: 'Fly Fumigator',
+    description: 'Group fly-swatter game in a 2D scene with flies and wasps, made with Adobe Animate. Flies were squashed with the mouse. My part: drawings, sprites, animations and other tasks.',
+    role: 'Drawings, sprites and animations',
+    team: 'Group academic project',
+  },
   tags: [],
   subjects: ['Diseño Digital 2D'],
   disciplines: ['videojuegos', 'diseño-2d'],

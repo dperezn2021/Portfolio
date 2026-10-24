@@ -41,6 +41,12 @@ export const wordle: ProjectInput = {
     localizedText('Desarrollo de apps Android', 'Android app development'),
     localizedText('Interfaz de teclado en pantalla', 'On-screen keyboard interface'),
   ],
+  en: {
+    title: 'Wordle',
+    description: 'Simple group adaptation of Wordle for Android, with an on-screen keyboard, colour hints and a large word bank. I was in charge of the programming.',
+    role: 'Programmer',
+    team: 'Academic group project',
+  },
   tags: ['Android', 'App móvil'],
   subjects: ['Desarrollo de Aplicaciones para Dispositivos Móviles'],
   disciplines: ['aplicaciones'],

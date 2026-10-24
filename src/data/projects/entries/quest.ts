@@ -41,6 +41,12 @@ export const quest: ProjectInput = {
     localizedText('Desarrollo de apps con Flutter', 'App development with Flutter'),
     localizedText('Configuración del entorno Android', 'Android environment setup'),
   ],
+  en: {
+    title: 'Quest',
+    description: 'First group Android app: a general-knowledge quiz app built with Flutter and Android Studio. I was in charge of the programming and design.',
+    role: 'Programmer and designer',
+    team: 'Academic group project',
+  },
   tags: ['Android', 'Flutter', 'App móvil'],
   subjects: ['Desarrollo de Aplicaciones para Dispositivos Móviles'],
   disciplines: ['aplicaciones'],

@@ -1,5 +1,4 @@
 // src/data/projects/index.ts
-import { t } from '../translations';
 import type { ProjectInput, Project } from './types';
 
 export * from './types';
@@ -127,5 +126,3 @@ export const projects: Project[] = rawProjects.map((project) => {
 
 export const publicProjects = projects.filter((project) => project.publicable);
 
-// Re-exportar t para facilitar el uso
-export { t };

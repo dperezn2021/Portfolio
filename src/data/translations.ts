@@ -1,13 +1,27 @@
 // src/data/translations.ts
+import { publicProjects } from './projects';
+import { buildProjectTranslations } from './projects/translations';
+
+// Los textos de cada proyecto viven en su entrada (src/data/projects/entries); aquí solo se exponen como claves.
+const projectTexts = buildProjectTranslations(publicProjects);
 
 export const TRANSLATIONS = {
   es: {
+    ...projectTexts.es,
     // Navegación
     'nav.home': 'Inicio',
     'nav.about': 'Sobre Mí',
     'nav.trayectory': 'Trayectoria',
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
+
+    // Proyectos relacionados
+    'project.related.subject': 'Misma asignatura',
+    'project.related.discipline': 'Misma área',
+    'project.related.year': 'Mismo año',
+    'project.related.technologies': 'Misma tecnología',
+    'project.related.languages': 'Mismo lenguaje',
+    'project.related.default': 'Proyecto relacionado',
 
     // 404
     'notfound.title': 'Esta página no existe',
@@ -117,194 +131,66 @@ export const TRANSLATIONS = {
     // ============================================
     // ALIEN RUSH (ES)
     // ============================================
-    'project.alien-rush.title': 'AlienRush',
-    'project.alien-rush.desc': 'Videojuego en red 1 contra 1, desarrollado en equipo para Juegos en Red. Dos naves compiten en vista cenital por abducir más humanos, con 5 vidas por jugador, y el juego incluye registro, inicio de sesión, chat y lobbies.',
-    'project.alien-rush.challenges': 'La comunicación entre los clientes de los dos jugadores y la integración del trabajo de todo el equipo.',
-    'project.alien-rush.solution': 'El equipo construyó un juego con cuentas de usuario, lobbies y chat, que avisa al jugador cuando el servidor no está disponible. Mi parte fue la programación y la integración dentro del equipo.',
-    'project.alien-rush.role': 'Desarrollador (programación e integración en equipo)',
-    'project.alien-rush.team': 'GG Team - 4 personas',
-    'project.alien-rush.duration': '5 meses',
-    'project.alien-rush.learnings': 'La comunicación entre clientes y la integración del trabajo de todo el equipo fueron lo más exigente del proyecto.',
 
     // ============================================
     // ASTROFURY (ES)
     // ============================================
-    'project.astrofury.title': 'Astrofury',
-    'project.astrofury.desc': 'Shooter espacial por oleadas hecho en equipo con Unity y C#: hay que sobrevivir, sumar puntos y gastarlos en una tienda de objetos y mejoras. Mi parte fueron las interfaces, la implementación de los objetos, la integración y las pruebas.',
-    'project.astrofury.challenges': 'Aplicar varios patrones de diseño en un mismo juego y coordinar los sistemas entre sí dentro de Unity.',
-    'project.astrofury.solution': 'El equipo organizó el juego con prefabs y ScriptableObjects y con los patrones Singleton, State, Object Pooling, Flyweight y Observer. Yo me encargué de las interfaces y de implementar los objetos, y de integrar y probar el resultado.',
-    'project.astrofury.role': 'Programador (interfaces, objetos e integración)',
-    'project.astrofury.team': 'EquipoT - 4 personas',
-    'project.astrofury.duration': '4 meses',
-    'project.astrofury.learnings': 'Lo más exigente fue dominar los patrones de diseño y coordinar los sistemas del juego dentro de Unity.',
 
     // ============================================
     // FANTASY ISLAND (ES)
     // ============================================
-    'project.fantasy-island.title': 'Fantasy Island',
-    'project.fantasy-island.desc': 'Isla flotante fantástica para un videojuego, con montañas, un riachuelo con cascadas laterales, una torre, un poblado abandonado y un castillo. Proyecto individual: bocetos en Photoshop, modelado en SketchUp, ensamblaje y texturizado en 3ds Max y renders finales.',
-    'project.fantasy-island.challenges': 'Mantener una escala consistente entre elementos muy distintos (terreno, torre, poblado y castillo) en un trabajo que exigió muchas horas.',
-    'project.fantasy-island.solution': 'Partí de bocetos en Photoshop, modelé cada elemento en SketchUp y los exporté a 3ds Max para ensamblar la escena, texturizar con imágenes propias o de internet, iluminar y renderizar.',
-    'project.fantasy-island.role': 'Artista 3D, Modelador y Texturizador',
-    'project.fantasy-island.team': 'Proyecto académico personal - Individual',
-    'project.fantasy-island.duration': '4 meses',
-    'project.fantasy-island.learnings': 'Mantener una escala consistente entre todos los elementos de una escena grande fue lo más difícil. El proyecto me exigió muchas horas de modelado, ensamblaje y texturizado.',
 
     // ============================================
     // FLAPPY CHEF (ES)
     // ============================================
-    'project.flappy-chef.title': 'FlappyChef',
-    'project.flappy-chef.desc': 'Juego Android en equipo que se controla con el movimiento del móvil: un chef esquiva platos, tenedores y fuego. Usa la cámara para tomar una foto, el micrófono para soplar, potenciadores y un tema que cambia según la hora.',
-    'project.flappy-chef.challenges': 'Integrar el micrófono, los sensores del móvil y la rotoscopia en un juego, y empezar a desarrollar en Android.',
-    'project.flappy-chef.solution': 'El juego combina el control por movimiento del dispositivo con la cámara y el micrófono como parte de la jugabilidad. Mi parte fue la programación, la lógica y el diseño, repartidos con el resto del equipo.',
-    'project.flappy-chef.role': 'Desarrollador (programación, lógica y diseño en equipo)',
-    'project.flappy-chef.team': 'Proyecto académico grupal - 4 personas',
-    'project.flappy-chef.duration': '2.5 meses',
-    'project.flappy-chef.learnings': 'Integrar el micrófono, los sensores y la rotoscopia en el juego fue lo más difícil.',
 
     // ============================================
     // GO FOR SPORTS (ES)
     // ============================================
-    'project.go-for-sports.title': 'Go For Sports',
-    'project.go-for-sports.desc': 'Prototipo individual en Figma de un juego educativo de preguntas sobre deportes. Combina un apartado de teoría con dos modos de juego, "Chut a portería" y "Cuarto de partido", y se diseñó a partir de entrevistas y pruebas con seis usuarios.',
-    'project.go-for-sports.challenges': 'Diseñar una experiencia accesible y fácil de seguir para perfiles de usuario distintos, con feedback claro al acertar y al fallar.',
-    'project.go-for-sports.solution': 'Entrevisté y probé el prototipo con seis usuarios y usé sus respuestas para tomar decisiones de diseño. Construí dos modos de juego con navegación interactiva, reintentos tras cada fallo y transiciones entre pantallas.',
-    'project.go-for-sports.role': 'Diseñador UX/UI',
-    'project.go-for-sports.team': 'Proyecto académico personal - Individual',
-    'project.go-for-sports.duration': '3 meses',
-    'project.go-for-sports.learnings': 'Fue mi primer proyecto con Figma: aprendí a prototipar interacciones, usar plugins y exportar recursos. También entrevisté y probé el prototipo con seis usuarios.',
 
     // ============================================
     // GOROBEIA (ES)
     // ============================================
-    'project.gorobeia.title': 'Gorobeia',
-    'project.gorobeia.desc': 'Concept art individual de un videojuego ficticio en el que Gorak defiende a su tribu. Incluye el diseño del personaje y de dos escenarios, con siluetas, color, expresiones, props y el proceso de layouts y thumbnails.',
-    'project.gorobeia.challenges': 'Representar con claridad las expresiones faciales y las emociones del protagonista, y mantener un estilo coherente entre personaje y escenarios.',
-    'project.gorobeia.solution': 'Partí de referencias y pruebas, trabajé el personaje desde las siluetas hasta el color y las expresiones, y construí los escenarios a partir de un layout y thumbnails, estudiando la profundidad con valores antes de pasar a color.',
-    'project.gorobeia.role': 'Ilustrador y diseñador conceptual',
-    'project.gorobeia.team': 'Proyecto académico personal - Individual',
-    'project.gorobeia.duration': '2 meses',
-    'project.gorobeia.learnings': 'Lo más difícil fueron las expresiones faciales y las emociones del protagonista. Trabajé el diseño desde las siluetas hasta el color y estudié la profundidad de los escenarios con valores.',
 
     // ============================================
     // HISTERIA (ES)
     // ============================================
-    'project.histeria.title': 'Histeria: Los Fragmentos de la Mente',
-    'project.histeria.desc': 'Roguelike narrativo en pixel art, desarrollado en equipo (SealyStudio), sobre una niña que afronta el duelo tras la muerte de su madre. Hecho con Unity y C#; yo me encargué de la programación, los niveles, los objetos en Unity, la publicación en itch.io y parte de la gestión.',
-    'project.histeria.challenges': 'Coordinar a un equipo de cinco personas, cumplir los plazos e integrar el trabajo de todos en un único juego, tratando un tema delicado con respeto.',
-    'project.histeria.solution': 'Planificación del proyecto con presupuestos y fases, y un juego en Unity con dash, lágrimas, puñetazo, objetos con sonido y diálogos. Publicamos el juego en itch.io.',
-    'project.histeria.role': 'Programador, diseñador de niveles y gestión',
-    'project.histeria.team': 'SealyStudio - 5 personas',
-    'project.histeria.duration': '6 meses',
-    'project.histeria.learnings': 'La coordinación del equipo, los plazos y la integración fueron lo más difícil. Quedé satisfecho con el resultado.',
 
     // ============================================
     // HIT AND UFO (ES)
     // ============================================
-    'project.hit-and-ufo.title': 'HittAndUfo',
-    'project.hit-and-ufo.desc': 'Carrera de plataformas 2D en red entre Hitt, fuerte pero lento, y un UFO pequeño y ágil. Cliente en Phaser 3 y servidor en Java con Spring Boot. Yo diseñé y programé el nivel y el tutorial e integré los assets.',
-    'project.hit-and-ufo.challenges': 'Sincronizar el movimiento y los power-ups entre jugadores y definir un flujo claro de login y lobby.',
-    'project.hit-and-ufo.solution': 'Mi parte fue el diseño y la programación del nivel y del tutorial, y la integración de los assets. Las cuentas y el lobby funcionaban; la sincronización de movimientos y power-ups no llegó a funcionar correctamente.',
-    'project.hit-and-ufo.role': 'Programador y diseñador de niveles',
-    'project.hit-and-ufo.team': 'GG Team - 4 personas',
-    'project.hit-and-ufo.duration': '3 meses',
-    'project.hit-and-ufo.learnings': 'La sincronización entre jugadores y un flujo de login y lobby poco definido fueron las mayores dificultades del proyecto.',
 
     // ============================================
     // INTERNATIONAL WARFARE (ES)
     // ============================================
-    'project.international-warfare.title': 'International Warfare',
-    'project.international-warfare.desc': 'Concepto de un videojuego ficticio con documento de diseño (GDD) y simulación de una campaña de financiación. Mi parte fue el diseño gráfico (armas, carátulas e imágenes promocionales), la página web en HTML y CSS y parte del marketing.',
-    'project.international-warfare.challenges': 'Era mi primera página web: ajustar márgenes, padding, títulos y bloques me llevó muchas horas.',
-    'project.international-warfare.solution': 'Diseñé las armas, las carátulas y las imágenes promocionales, y maqueté la web de la campaña en HTML y CSS con VS Code.',
-    'project.international-warfare.role': 'Diseñador gráfico y desarrollador web',
-    'project.international-warfare.team': 'Proyecto académico grupal - 5 personas',
-    'project.international-warfare.duration': '3 meses',
-    'project.international-warfare.learnings': 'Mi primera web en HTML y CSS: ajustar márgenes, padding, títulos y bloques me llevó muchas horas.',
 
     // ============================================
     // MENTEANDO (ES)
     // ============================================
-    'project.menteando.title': 'Menteando',
-    'project.menteando.desc': 'Trabajo de Fin de Grado individual, todavía en desarrollo: una plataforma web de entrenamiento cognitivo para adultos con tests, juegos, métricas de progreso, gamificación y un coach con IA.',
-    'project.menteando.challenges': 'Combinar la investigación sobre cognición con el desarrollo completo de la plataforma. De momento el progreso se guarda en el navegador con localStorage; el backend y la base de datos están planificados.',
-    'project.menteando.solution': 'Una web con perfiles, métricas por capacidad (atención, memoria, control y reflejos), medallas, rachas, exportación de datos y comentarios, con tests y juegos propios. Usa Tailwind, localStorage, EmailJS y Cloudflare Workers, además de Unity y C#.',
-    'project.menteando.role': 'Autor y desarrollador (investigación, arquitectura, frontend, juegos y tests)',
-    'project.menteando.team': 'Trabajo de Fin de Grado - Proyecto individual',
-    'project.menteando.duration': '8 meses',
-    'project.menteando.learnings': 'Investigar la parte cognitiva y desarrollar la plataforma completa por mi cuenta ha sido lo más difícil. El proyecto sigue en desarrollo.',
 
     // ============================================
     // RAKI (ES)
     // ============================================
-    'project.raki.title': 'Raki',
-    'project.raki.desc': 'Elfo guerrero con espada diseñado como personaje de videojuego e integrado en la escena de Fantasy Island. Proyecto individual: turnaround en Photoshop, modelado en 3ds Max, texturas en Substance Painter y renders.',
-    'project.raki.challenges': 'Unir polígonos, mantener simetrías, trabajar con modificadores y evitar caras ocultas sin recurrir a arreglos improvisados.',
-    'project.raki.solution': 'Dibujé el turnaround (vistas frontal y de perfil) para guiar el modelado en 3ds Max. Modelé armadura, guantes, cuerpo, ojos, cara, pelo y espada; después hice el unwrapping y texturicé en Substance Painter.',
-    'project.raki.role': 'Artista 3D',
-    'project.raki.team': 'Proyecto académico personal - Individual',
-    'project.raki.duration': '3 meses',
-    'project.raki.learnings': 'El modelado en 3ds Max fue lo más exigente: unir polígonos, respetar simetrías, usar modificadores y evitar caras ocultas. También aprendí a texturizar un personaje en Substance Painter.',
 
     // ============================================
     // RAKI ANIMACIÓN (ES)
     // ============================================
-    'project.raki-animacion.title': 'Raki, el defensor de Fantasy Island',
-    'project.raki-animacion.desc': 'Proyecto individual de animación 3D que reúne Fantasy Island y Raki: animación de escenario (path constraints, partículas, físicas) y de personaje (mocap, morphing, telas), con rigging CAT en 3ds Max y exportación a Unity.',
-    'project.raki-animacion.challenges': 'Integrar animaciones complejas en Unity. Coordinar animaciones de escenario y personaje en una escena cohesiva. Aprender técnicas de animación 3D avanzadas como CAT, mocaps y rigging.',
-    'project.raki-animacion.solution': 'Utilicé el sistema CAT de 3ds Max para el rigging del personaje. Apliqué técnicas de animación como path constraints, sistemas de partículas, físicas, mocaps, morphing y simulación de telas. Exporté todo a Unity para integrar las animaciones en un entorno interactivo.',
-    'project.raki-animacion.role': 'Artista y animador 3D',
-    'project.raki-animacion.team': 'Proyecto académico personal - Individual',
-    'project.raki-animacion.duration': '5 meses',
-    'project.raki-animacion.learnings': 'Aprendí a integrar en Unity animaciones de escenario y de personaje dentro de una misma escena, combinando rigging con CAT, mocap, morphing y simulación de físicas y telas.',
 
     // ============================================
     // REDES SOCIALES (ES)
     // ============================================
-    'project.redes-sociales.title': 'Redes Sociales',
-    'project.redes-sociales.desc': 'Plantillas de Canva para equipos de fútbol en redes sociales (Instagram, Facebook). Diseño enfocado en marketing deportivo y branding de equipos.',
-    'project.redes-sociales.challenges': 'Crear plantillas versátiles que mantengan la identidad de marca. Diseñar para diferentes formatos y plataformas con una estética coherente y profesional.',
-    'project.redes-sociales.solution': 'Diseñé un sistema de plantillas modulares que mantienen una identidad visual coherente. Adapté cada plantilla a las especificaciones de cada plataforma y creé una guía de estilo para el cliente.',
-    'project.redes-sociales.role': 'Diseñador Gráfico',
-    'project.redes-sociales.team': 'Proyecto personal - Individual',
-    'project.redes-sociales.duration': '0.5 mes',
-    'project.redes-sociales.learnings': 'Aprendí a diseñar para diferentes formatos y plataformas. Mejoré mis habilidades de branding y marketing deportivo. Descubrí cómo crear plantillas versátiles y adaptables.',
 
     // ============================================
     // SÍ, SEÑOR OSCURO (ES)
     // ============================================
-    'project.si-senor-oscuro.title': 'Sí, Señor Oscuro',
-    'project.si-senor-oscuro.desc': 'Adaptación grupal del juego de mesa «¡Sí, Señor Oscuro!» a formato digital, con turnos, tablero e interfaz. Diseñé las cartas ilustradas en Photoshop y participé de forma activa en la gestión del proyecto con Miro y Jira.',
-    'project.si-senor-oscuro.challenges': 'Mantener la esencia del juego de mesa en la versión digital. Diseñar cartas que comuniquen su función de forma intuitiva y mantengan la estética del juego original.',
-    'project.si-senor-oscuro.solution': 'Trabajé en estrecha colaboración con el equipo para entender la esencia del juego original. Diseñé las cartas con iconografía clara y colores diferenciados para cada rol, manteniendo la estética del juego de mesa.',
-    'project.si-senor-oscuro.role': 'Diseñador de cartas y apoyo en la gestión del proyecto',
-    'project.si-senor-oscuro.team': 'Proyecto académico grupal - 6 personas',
-    'project.si-senor-oscuro.duration': '2 meses',
-    'project.si-senor-oscuro.learnings': 'Aprendí a adaptar un juego de mesa a formato digital. Mejoré mis habilidades de ilustración de cartas. Descubrí cómo mantener la esencia del juego original en una nueva plataforma.',
 
     // ============================================
     // THE WHISPERS OF SHADOWS (ES)
     // ============================================
-    'project.whispers-of-shadows.title': 'The Whispers of Shadows',
-    'project.whispers-of-shadows.desc': 'Tráiler cinematográfico de un videojuego ya existente, realizado en grupo para Diseño Visual y Arte Final. Me encargué del castillo, del antagonista, de las cinemáticas y del montaje del vídeo, sobre todo con 3ds Max.',
-    'project.whispers-of-shadows.challenges': 'Mantener la coherencia visual entre los distintos elementos y conseguir una calidad suficiente en las cinemáticas.',
-    'project.whispers-of-shadows.solution': 'Modelé el castillo y el antagonista en 3ds Max, con algo de Blender y Photoshop, preparé las cinemáticas y monté el tráiler. El videojuego en sí no es obra mía.',
-    'project.whispers-of-shadows.role': 'Artista 3D (castillo, antagonista, cinemáticas y montaje)',
-    'project.whispers-of-shadows.team': 'Proyecto académico grupal - 4 personas',
-    'project.whispers-of-shadows.duration': '2 meses',
-    'project.whispers-of-shadows.learnings': 'Lo más exigente fue mantener la coherencia visual entre piezas y la calidad de las cinemáticas.',
 
     // ============================================
     // YUMALA (ES)
     // ============================================
-    'project.yumala.title': 'Yumala',
-    'project.yumala.desc': 'Carátula de PS4 para Yumala, un videojuego conceptual (MOBA en tercera persona que mezcla magia, mitología y elementos modernos). Composición por capas en Photoshop a partir de bocetos, con título y logotipo hechos con recursos gráficos externos.',
-    'project.yumala.challenges': 'Fusionar elementos antiguos y modernos en una composición visual coherente.',
-    'project.yumala.solution': 'Partí de bocetos y monté la carátula por capas en Photoshop, combinando elementos mitológicos y modernos y añadiendo el título y el logotipo. Mi trabajo fue la composición y el montaje; parte de los recursos gráficos son externos.',
-    'project.yumala.role': 'Diseñador gráfico (composición y montaje)',
-    'project.yumala.team': 'Proyecto académico personal - Individual',
-    'project.yumala.duration': '3 semanas',
-    'project.yumala.learnings': 'Primer contacto con Photoshop: bocetos, trabajo por capas y composición de una carátula.',
 
     // About
     'about.title': 'Sobre Mí',
@@ -706,80 +592,6 @@ export const TRANSLATIONS = {
     // ============================================
     // PROYECTOS: textos añadidos por la actualización de contenidos (ES)
     // ============================================
-    'project.animales-y-plantas-fantasticos.title': 'Animales y Plantas Fantásticos',
-    'project.animales-y-plantas-fantasticos.desc': 'Trabajo individual de Dibujo Artístico: ilustraciones de animales y plantas inventados, pintadas en digital con tableta a partir de referencias de Pinterest.',
-    'project.animales-y-plantas-fantasticos.role': 'Ilustrador',
-    'project.animales-y-plantas-fantasticos.team': 'Proyecto académico individual',
-    'project.entornos-multijugador.title': 'Entornos Multijugador',
-    'project.entornos-multijugador.desc': 'Integración de comunicación multijugador en un juego ya desarrollado (humanos, zombis, contagio y monedas). Desarrollé el lobby completo y participé en la programación de la comunicación.',
-    'project.entornos-multijugador.role': 'Programador del lobby y de la comunicación multijugador',
-    'project.entornos-multijugador.team': 'Proyecto académico grupal',
-    'project.entrenamiento-q-learning.title': 'Entrenamiento Q-Learning',
-    'project.entrenamiento-q-learning.desc': 'Proyecto grupal en Unity y C# en el que un agente aprende por refuerzo a huir de un perseguidor y esquivar obstáculos sobre una cuadrícula, mediante una Q-table, recompensas, penalizaciones y episodios de entrenamiento.',
-    'project.entrenamiento-q-learning.team': 'Proyecto académico grupal',
-    'project.fabrica.title': 'Fábrica',
-    'project.fabrica.desc': 'Práctica individual sencilla de Fundamentos de Tecnología de Videojuegos sobre una fábrica.',
-    'project.fabrica.team': 'Proyecto académico individual',
-    'project.figura-femenina-con-armadura.title': 'Figura Femenina con Armadura',
-    'project.figura-femenina-con-armadura.desc': 'Trabajo individual de Dibujo Artístico: dibujo anatómico del natural y ejercicio de vestir digitalmente una figura femenina con una armadura.',
-    'project.figura-femenina-con-armadura.role': 'Dibujante',
-    'project.figura-femenina-con-armadura.team': 'Proyecto académico individual',
-    'project.fly-fumigator.title': 'Fly Fumigator',
-    'project.fly-fumigator.desc': 'Juego grupal tipo matamoscas en un escenario 2D con moscas y avispas, creado con Adobe Animate. Las moscas se aplastaban con el ratón. Mi parte: dibujos, sprites, animaciones y otras tareas.',
-    'project.fly-fumigator.role': 'Dibujos, sprites y animaciones',
-    'project.fly-fumigator.team': 'Proyecto académico grupal',
-    'project.investigacion-ratchet-and-clank.title': 'Investigación: Ratchet & Clank',
-    'project.investigacion-ratchet-and-clank.desc': 'Investigación extensa para Dibujo Artístico sobre el diseño de Ratchet & Clank: personajes, escenarios, props, interfaces, diálogos, animaciones y cinemáticas.',
-    'project.investigacion-ratchet-and-clank.role': 'Investigación y redacción',
-    'project.juego-de-la-vida.title': 'Juego de la Vida',
-    'project.juego-de-la-vida.desc': 'Implementación individual del Juego de la Vida de Conway para Fundamentos de Tecnología de Videojuegos, programada con HTML, CSS y JavaScript.',
-    'project.juego-de-la-vida.role': 'Programador',
-    'project.juego-de-la-vida.team': 'Proyecto académico individual',
-    'project.michael-soffield-the-rescue.title': 'Michael Scofield: The Rescue',
-    'project.michael-soffield-the-rescue.desc': 'Aventura gráfica grupal en 2D pixel art con vista cenital, inspirada en Prison Break: Michael Scofield intenta escapar de la cárcel. Incluye inventario, objetos, diálogos, puzles y varias zonas, y está creada con Adventure Game Studio.',
-    'project.michael-soffield-the-rescue.challenges': 'La programación: conseguir que todas las interacciones del juego funcionasen.',
-    'project.michael-soffield-the-rescue.role': 'Escenarios y mapas, sprites, programación y diálogos',
-    'project.michael-soffield-the-rescue.team': 'Proyecto académico grupal',
-    'project.personaje-dj-autonomo.title': 'Personaje DJ Autónomo',
-    'project.personaje-dj-autonomo.desc': 'DJ autónomo para una fiesta de un videojuego ya existente, en la que el protagonista debe recoger tres objetos. Programé su comportamiento con árboles de comportamiento en Unity y C#.',
-    'project.personaje-dj-autonomo.role': 'Programador del comportamiento del DJ y del sistema musical',
-    'project.personaje-dj-autonomo.team': 'Trabajo sobre un videojuego existente',
-    'project.practica-a-estrella.title': 'Práctica A* (Pathfinding)',
-    'project.practica-a-estrella.desc': 'Práctica grupal de navegación con el algoritmo A* sobre una cuadrícula: un personaje debía llegar a la meta pasando por puntos intermedios. Desarrollada en Unity con C#.',
-    'project.practica-a-estrella.team': 'Proyecto académico grupal',
-    'project.proyecto-valorant-datos.title': 'Proyecto Valorant (Datos)',
-    'project.proyecto-valorant-datos.desc': 'Trabajo grupal de gestión de datos sobre Valorant (agentes, habilidades, partidas y otros), con documentos XML y JSON almacenados en MongoDB y consultados con filtros desde MongoDB Compass.',
-    'project.proyecto-valorant-datos.team': 'Proyecto académico grupal',
-    'project.quest.title': 'Quest',
-    'project.quest.desc': 'Primera aplicación Android grupal: una app de preguntas de cultura general desarrollada con Flutter y Android Studio. Me encargué de la programación y el diseño.',
-    'project.quest.role': 'Programador y diseñador',
-    'project.quest.team': 'Proyecto académico grupal',
-    'project.retrato-de-carla.title': 'Retrato de Carla',
-    'project.retrato-de-carla.desc': 'Trabajo individual de Dibujo Artístico: retratos de Carla de frente y de perfil, dibujados con lápiz y carboncillo, con versiones digitales en Photoshop y caricaturas.',
-    'project.retrato-de-carla.role': 'Dibujante',
-    'project.retrato-de-carla.team': 'Proyecto académico individual',
-    'project.rompecubos.title': 'Rompecubos',
-    'project.rompecubos.desc': 'Juego grupal tipo Breakout de Fundamentos de Tecnología de Videojuegos, con varios niveles y fases, hecho con HTML, CSS, JavaScript y Phaser 3. Aporté la idea y la programación.',
-    'project.rompecubos.role': 'Idea y programación',
-    'project.rompecubos.team': 'Proyecto académico grupal',
-    'project.terra-trolls.title': 'Terra Trolls',
-    'project.terra-trolls.desc': 'Proyecto grupal de concept art para un videojuego, con personajes, escenarios e interfaces. Mi aportación fueron los escenarios 2D, ilustrados en Photoshop con tableta Huion.',
-    'project.terra-trolls.role': 'Ilustrador de escenarios',
-    'project.terra-trolls.team': 'Proyecto académico grupal',
-    'project.willy-fog.title': 'Willy Fog',
-    'project.willy-fog.desc': 'Animación 2D individual de Willy Fog caminando, con un giro adicional del gorro. Fondo y personaje dibujados en Photoshop y animados por fotogramas clave en Adobe Animate.',
-    'project.willy-fog.challenges': 'Las manos se quedaban fijas durante el paso y las rodillas se doblaban de forma poco natural.',
-    'project.willy-fog.solution': 'Dibujé el personaje separado en cabeza, torso, brazos, manos, piernas, pies y gorro para poder animar cada pieza por separado con fotogramas clave.',
-    'project.willy-fog.role': 'Dibujo y animación',
-    'project.willy-fog.team': 'Proyecto académico personal - Individual',
-    'project.wordle.title': 'Wordle',
-    'project.wordle.desc': 'Adaptación grupal y sencilla de Wordle para Android, con teclado en pantalla, pistas por colores y un banco amplio de palabras. Me encargué de la programación.',
-    'project.wordle.role': 'Programador',
-    'project.wordle.team': 'Proyecto académico grupal',
-    'project.zombierush.title': 'ZombieRush',
-    'project.zombierush.desc': 'Videojuego grupal en C++ en el que un zombi debe llegar a la meta sin morir a lo largo de tres niveles. Me encargué de parte de la programación y de buscar un asset 3D.',
-    'project.zombierush.role': 'Programador',
-    'project.zombierush.team': 'Proyecto académico grupal',
     'project.link.codigo_en_github': 'Código en GitHub',
     'project.link.concept_art_de_escenario_pdf': 'Concept art de escenario (PDF)',
     'project.link.concept_art_de_personaje_pdf': 'Concept art de personaje (PDF)',
@@ -800,25 +612,31 @@ export const TRANSLATIONS = {
     'collection.other_games': 'Más juegos de la colección',
     'collection.ai_note': 'Este juego forma parte de una colección desarrollada con asistencia de inteligencia artificial.',
     'collection.ai_note_link': 'Ver cómo se hizo',
-    'project.bonk.title': 'BONK',
-    'project.bonk.desc': 'Colección personal de siete videojuegos arcade web desarrollados en 2026 con asistencia de inteligencia artificial, pensados para ser ligeros, accesibles y aptos para plataformas como YouTube Playables. Todos están publicados en itch.io.',
-    'project.bonk.role': 'Autor de la colección (desarrollo asistido por IA)',
-    'project.bonk.team': 'Proyecto personal - Individual',
-    'project.simulacion-fisicas-unity.title': 'Simulación de físicas en Unity',
-    'project.simulacion-fisicas-unity.desc': 'Cuatro prácticas de simulación física en Unity: dos telas, una estructura piramidal de nodos y resortes y un árbol sometido al viento. Cada práctica se probó modificando parámetros como la gravedad, la masa de los nodos o el viento.',
     'project.tag.web_games': 'Videojuegos web',
     'project.tag.ai_assisted': 'Desarrollo con IA',
     'project.tag.physics_simulation': 'Simulación física',
+    'project.tag.huion_tablet': 'Tableta Huion',
+    'project.tag.pencil_charcoal': 'Lápiz y carboncillo',
+    'project.tag.pencil_paper': 'Lápiz y papel',
     'project.link.bonk_itch': 'Colección BONK en itch.io',
   },
 
   en: {
+    ...projectTexts.en,
     // Navigation
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.trayectory': 'Career',
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
+
+    // Related projects
+    'project.related.subject': 'Same subject',
+    'project.related.discipline': 'Same area',
+    'project.related.year': 'Same year',
+    'project.related.technologies': 'Same technology',
+    'project.related.languages': 'Same language',
+    'project.related.default': 'Related project',
 
     // 404
     'notfound.title': 'This page does not exist',
@@ -928,194 +746,66 @@ export const TRANSLATIONS = {
     // ============================================
     // ALIEN RUSH (EN)
     // ============================================
-    'project.alien-rush.title': 'AlienRush',
-    'project.alien-rush.desc': 'A 1v1 online game built as a team for the Network Games course. Two ships compete in a top-down view to abduct more humans, with 5 lives per player, and the game includes registration, login, chat and lobbies.',
-    'project.alien-rush.challenges': 'Communication between the two players\' clients and integrating the whole team\'s work.',
-    'project.alien-rush.solution': 'The team built a game with user accounts, lobbies and chat that warns the player when the server is unavailable. My part was programming and integration within the team.',
-    'project.alien-rush.role': 'Developer (programming and team integration)',
-    'project.alien-rush.team': 'GG Team - 4 people',
-    'project.alien-rush.duration': '5 months',
-    'project.alien-rush.learnings': 'Client-to-client communication and integrating the whole team\'s work were the most demanding parts of the project.',
 
     // ============================================
     // ASTROFURY (EN)
     // ============================================
-    'project.astrofury.title': 'Astrofury',
-    'project.astrofury.desc': 'Team-made wave-based space shooter built with Unity and C#: you survive, score points and spend them in a shop of items and upgrades. My part was the interfaces, the implementation of the items, integration and testing.',
-    'project.astrofury.challenges': 'Applying several design patterns in the same game and coordinating its systems within Unity.',
-    'project.astrofury.solution': 'The team organized the game with prefabs and ScriptableObjects and with the Singleton, State, Object Pooling, Flyweight and Observer patterns. I took care of the interfaces and implemented the items, and integrated and tested the result.',
-    'project.astrofury.role': 'Programmer (interfaces, items and integration)',
-    'project.astrofury.team': 'TeamT - 4 people',
-    'project.astrofury.duration': '4 months',
-    'project.astrofury.learnings': 'The most demanding part was getting to grips with the design patterns and coordinating the game\'s systems within Unity.',
 
     // ============================================
     // FANTASY ISLAND (EN)
     // ============================================
-    'project.fantasy-island.title': 'Fantasy Island',
-    'project.fantasy-island.desc': 'A fantasy floating island for a video game, with mountains, a stream with side waterfalls, a tower, an abandoned village and a castle. Individual project: Photoshop sketches, SketchUp modeling, assembly and texturing in 3ds Max, and final renders.',
-    'project.fantasy-island.challenges': 'Keeping a consistent scale across very different elements (terrain, tower, village and castle) in a project that took many hours.',
-    'project.fantasy-island.solution': 'I started from Photoshop sketches, modeled each element in SketchUp and exported them to 3ds Max to assemble the scene, texture it with my own or web images, light it and render it.',
-    'project.fantasy-island.role': '3D Artist, Modeler and Texture Artist',
-    'project.fantasy-island.team': 'Personal academic project - Individual',
-    'project.fantasy-island.duration': '4 months',
-    'project.fantasy-island.learnings': 'Keeping a consistent scale across all the elements of a large scene was the hardest part. The project took many hours of modeling, assembly and texturing.',
 
     // ============================================
     // FLAPPY CHEF (EN)
     // ============================================
-    'project.flappy-chef.title': 'FlappyChef',
-    'project.flappy-chef.desc': 'A team-built Android game controlled by moving the phone: a chef dodges plates, forks and fire. It uses the camera to take a photo, the microphone for blowing, power-ups and a theme that changes with the time of day.',
-    'project.flappy-chef.challenges': 'Integrating the microphone, the phone\'s sensors and rotoscoping into a game, while getting started with Android development.',
-    'project.flappy-chef.solution': 'The game combines motion control with the camera and microphone as part of the gameplay. My part was programming, game logic and design, shared with the rest of the team.',
-    'project.flappy-chef.role': 'Developer (programming, logic and team design)',
-    'project.flappy-chef.team': 'Group academic project - 4 people',
-    'project.flappy-chef.duration': '2.5 months',
-    'project.flappy-chef.learnings': 'Integrating the microphone, the sensors and rotoscoping into the game was the hardest part.',
 
     // ============================================
     // GO FOR SPORTS (EN)
     // ============================================
-    'project.go-for-sports.title': 'Go For Sports',
-    'project.go-for-sports.desc': 'Individual Figma prototype of an educational sports quiz game. It combines a theory section with two game modes, "Shot on goal" and "Game quarter", and was designed from interviews and tests with six users.',
-    'project.go-for-sports.challenges': 'Designing an accessible, easy-to-follow experience for different user profiles, with clear feedback on right and wrong answers.',
-    'project.go-for-sports.solution': 'I interviewed and tested the prototype with six users and used their answers to make design decisions. I built two game modes with interactive navigation, retries after every miss and transitions between screens.',
-    'project.go-for-sports.role': 'UX/UI Designer',
-    'project.go-for-sports.team': 'Personal academic project - Individual',
-    'project.go-for-sports.duration': '3 months',
-    'project.go-for-sports.learnings': 'It was my first project with Figma: I learned to prototype interactions, use plugins and export assets. I also interviewed and tested the prototype with six users.',
 
     // ============================================
     // GOROBEIA (EN)
     // ============================================
-    'project.gorobeia.title': 'Gorobeia',
-    'project.gorobeia.desc': 'Individual concept art for a fictional video game in which Gorak defends his tribe. It includes the design of the character and two environments, with silhouettes, color, expressions, props and the layout and thumbnail process.',
-    'project.gorobeia.challenges': 'Clearly conveying the protagonist\'s facial expressions and emotions, and keeping a coherent style across character and environments.',
-    'project.gorobeia.solution': 'I started from references and tests, worked on the character from silhouettes to color and expressions, and built the environments from a layout and thumbnails, studying depth with values before moving on to color.',
-    'project.gorobeia.role': 'Illustrator and conceptual designer',
-    'project.gorobeia.team': 'Personal academic project - Individual',
-    'project.gorobeia.duration': '2 months',
-    'project.gorobeia.learnings': 'The hardest part was the protagonist\'s facial expressions and emotions. I worked on the design from silhouettes to color and studied the depth of the environments using values.',
 
     // ============================================
     // HISTERIA (EN)
     // ============================================
-    'project.histeria.title': 'Histeria: Los Fragmentos de la Mente',
-    'project.histeria.desc': 'A narrative roguelike in pixel art, built by a team (SealyStudio), about a girl coping with grief after her mother\'s death. Made with Unity and C#; I handled programming, levels, Unity objects, the itch.io release and part of the project management.',
-    'project.histeria.challenges': 'Coordinating a team of five, meeting deadlines and integrating everyone\'s work into a single game, while treating a delicate subject with respect.',
-    'project.histeria.solution': 'Project planning with budgets and phases, and a Unity game with a dash, tears, a punch, objects with sound and dialogues. We released the game on itch.io.',
-    'project.histeria.role': 'Programmer, level designer and project management',
-    'project.histeria.team': 'SealyStudio - 5 people',
-    'project.histeria.duration': '6 months',
-    'project.histeria.learnings': 'Team coordination, deadlines and integration were the hardest parts. I was happy with the result.',
 
     // ============================================
     // HIT AND UFO (EN)
     // ============================================
-    'project.hit-and-ufo.title': 'HittAndUfo',
-    'project.hit-and-ufo.desc': '2D online platformer race between Hitt, strong but slow, and a small, agile UFO. Phaser 3 client and a Java Spring Boot server. I designed and programmed the level and the tutorial and integrated the assets.',
-    'project.hit-and-ufo.challenges': 'Synchronizing movement and power-ups between players and defining a clear login and lobby flow.',
-    'project.hit-and-ufo.solution': 'My part was designing and programming the level and the tutorial, and integrating the assets. Accounts and the lobby worked; movement and power-up synchronization never worked properly.',
-    'project.hit-and-ufo.role': 'Programmer and level designer',
-    'project.hit-and-ufo.team': 'GG Team - 4 people',
-    'project.hit-and-ufo.duration': '3 months',
-    'project.hit-and-ufo.learnings': 'Synchronization between players and a poorly defined login and lobby flow were the project\'s biggest difficulties.',
 
     // ============================================
     // INTERNATIONAL WARFARE (EN)
     // ============================================
-    'project.international-warfare.title': 'International Warfare',
-    'project.international-warfare.desc': 'Concept for a fictional video game with a game design document (GDD) and a simulated funding campaign. My part was the graphic design (weapons, covers and promotional images), the HTML and CSS website, and part of the marketing.',
-    'project.international-warfare.challenges': 'It was my first web page: adjusting margins, padding, titles and blocks took me many hours.',
-    'project.international-warfare.solution': 'I designed the weapons, covers and promotional images, and built the campaign website in HTML and CSS with VS Code.',
-    'project.international-warfare.role': 'Graphic designer and web developer',
-    'project.international-warfare.team': 'Group academic project - 5 people',
-    'project.international-warfare.duration': '3 months',
-    'project.international-warfare.learnings': 'My first website in HTML and CSS: adjusting margins, padding, titles and blocks took me many hours.',
 
     // ============================================
     // MENTEANDO (EN)
     // ============================================
-    'project.menteando.title': 'Menteando',
-    'project.menteando.desc': 'An individual Final Degree Project, still in development: a web cognitive-training platform for adults with tests, games, progress metrics, gamification and an AI coach.',
-    'project.menteando.challenges': 'Combining research on cognition with building the whole platform. For now progress is stored in the browser with localStorage; the backend and database are planned.',
-    'project.menteando.solution': 'A website with profiles, metrics per ability (attention, memory, control and reflexes), badges, streaks, data export and comments, with its own tests and games. It uses Tailwind, localStorage, EmailJS and Cloudflare Workers, as well as Unity and C#.',
-    'project.menteando.role': 'Author and developer (research, architecture, frontend, games and tests)',
-    'project.menteando.team': 'Final Degree Project - Individual project',
-    'project.menteando.duration': '8 months',
-    'project.menteando.learnings': 'Researching the cognitive side and building the whole platform on my own has been the hardest part. The project is still in development.',
 
     // ============================================
     // RAKI (EN)
     // ============================================
-    'project.raki.title': 'Raki',
-    'project.raki.desc': 'A warrior elf with a sword designed as a video game character and integrated into the Fantasy Island scene. Individual project: Photoshop turnaround, 3ds Max modeling, Substance Painter textures and renders.',
-    'project.raki.challenges': 'Joining polygons, keeping symmetries, working with modifiers and avoiding hidden faces without resorting to improvised fixes.',
-    'project.raki.solution': 'I drew the turnaround (front and profile views) to guide the modeling in 3ds Max. I modeled the armor, gloves, body, eyes, face, hair and sword; then I did the unwrapping and textured in Substance Painter.',
-    'project.raki.role': '3D Artist',
-    'project.raki.team': 'Personal academic project - Individual',
-    'project.raki.duration': '3 months',
-    'project.raki.learnings': 'The 3ds Max modeling was the most demanding part: joining polygons, respecting symmetries, using modifiers and avoiding hidden faces. I also learned to texture a character in Substance Painter.',
 
     // ============================================
     // RAKI ANIMACIÓN (EN)
     // ============================================
-    'project.raki-animacion.title': 'Raki, the Defender of Fantasy Island',
-    'project.raki-animacion.desc': 'Individual 3D animation project that brings together Fantasy Island and Raki: environment animation (path constraints, particles, physics) and character animation (mocap, morphing, cloth), with CAT rigging in 3ds Max and export to Unity.',
-    'project.raki-animacion.challenges': 'Integrating complex animations in Unity. Coordinating environment and character animations in a cohesive scene. Learning advanced 3D animation techniques such as CAT, mocap and rigging.',
-    'project.raki-animacion.solution': 'I used the CAT system in 3ds Max to rig the character. I applied animation techniques such as path constraints, particle systems, physics, mocap, morphing and cloth simulation. I exported everything to Unity to integrate the animations in an interactive environment.',
-    'project.raki-animacion.role': '3D Artist and Animator',
-    'project.raki-animacion.team': 'Personal academic project - Individual',
-    'project.raki-animacion.duration': '5 months',
-    'project.raki-animacion.learnings': 'I learned to integrate environment and character animations into a single Unity scene, combining CAT rigging, mocap, morphing, and physics and cloth simulation.',
 
     // ============================================
     // REDES SOCIALES (EN)
     // ============================================
-    'project.redes-sociales.title': 'Social Media',
-    'project.redes-sociales.desc': 'Canva templates for football teams on social media (Instagram, Facebook). Design focused on sports marketing and team branding.',
-    'project.redes-sociales.challenges': 'Create versatile templates that maintain brand identity. Design for different formats and platforms with a coherent and professional aesthetic.',
-    'project.redes-sociales.solution': 'I designed a modular template system that maintains a coherent visual identity. I adapted each template to each platform specifications and created a style guide for the client.',
-    'project.redes-sociales.role': 'Graphic Designer',
-    'project.redes-sociales.team': 'Personal project - Individual',
-    'project.redes-sociales.duration': '0.5 month',
-    'project.redes-sociales.learnings': 'I learned to design for different formats and platforms. I improved my branding and sports marketing skills. I discovered how to create versatile and adaptable templates.',
 
     // ============================================
     // SÍ, SEÑOR OSCURO (EN)
     // ============================================
-    'project.si-senor-oscuro.title': 'Yes, Dark Lord',
-    'project.si-senor-oscuro.desc': 'Team adaptation of the board game "Yes, Dark Lord!" to a digital format, with turns, a board and an interface. I designed the illustrated cards in Photoshop and took an active part in managing the project with Miro and Jira.',
-    'project.si-senor-oscuro.challenges': 'Maintain the essence of the board game in the digital version. Design cards that communicate their function intuitively and maintain the original game aesthetics.',
-    'project.si-senor-oscuro.solution': 'I worked closely with the team to understand the essence of the original game. I designed the cards with clear iconography and differentiated colors for each role, maintaining the board game aesthetics.',
-    'project.si-senor-oscuro.role': 'Card designer and project management support',
-    'project.si-senor-oscuro.team': 'Group academic project - 6 people',
-    'project.si-senor-oscuro.duration': '2 months',
-    'project.si-senor-oscuro.learnings': 'I learned to adapt a board game to digital format. I improved my card illustration skills. I discovered how to maintain the essence of the original game on a new platform.',
 
     // ============================================
     // THE WHISPERS OF SHADOWS (EN)
     // ============================================
-    'project.whispers-of-shadows.title': 'The Whispers of Shadows',
-    'project.whispers-of-shadows.desc': 'A cinematic trailer for an existing video game, made as a group for the Visual Design and Final Art course. I was responsible for the castle, the antagonist, the cinematics and the video editing, mainly in 3ds Max.',
-    'project.whispers-of-shadows.challenges': 'Keeping the different elements visually consistent and reaching enough quality in the cinematics.',
-    'project.whispers-of-shadows.solution': 'I modeled the castle and the antagonist in 3ds Max, with some Blender and Photoshop, prepared the cinematics and edited the trailer. The game itself is not my work.',
-    'project.whispers-of-shadows.role': '3D artist (castle, antagonist, cinematics and editing)',
-    'project.whispers-of-shadows.team': 'Group academic project - 4 people',
-    'project.whispers-of-shadows.duration': '2 months',
-    'project.whispers-of-shadows.learnings': 'The most demanding aspects were keeping the pieces visually consistent and the quality of the cinematics.',
 
     // ============================================
     // YUMALA (EN)
     // ============================================
-    'project.yumala.title': 'Yumala',
-    'project.yumala.desc': 'PS4 cover for Yumala, a conceptual video game (a third-person MOBA mixing magic, mythology and modern elements). Layered composition in Photoshop from sketches, with the title and logo made from external graphic resources.',
-    'project.yumala.challenges': 'Merging ancient and modern elements into a coherent visual composition.',
-    'project.yumala.solution': 'I started from sketches and built the cover in layers in Photoshop, combining mythological and modern elements and adding the title and logo. My work was the composition and assembly; part of the graphic resources are external.',
-    'project.yumala.role': 'Graphic designer (composition and assembly)',
-    'project.yumala.team': 'Personal academic project - Individual',
-    'project.yumala.duration': '3 weeks',
-    'project.yumala.learnings': 'First contact with Photoshop: sketches, layer-based work and composing a cover.',
 
     // About
     'about.title': 'About Me',
@@ -1517,80 +1207,6 @@ export const TRANSLATIONS = {
     // ============================================
     // PROYECTOS: textos añadidos por la actualización de contenidos (EN)
     // ============================================
-    'project.animales-y-plantas-fantasticos.title': 'Fantasy Animals and Plants',
-    'project.animales-y-plantas-fantasticos.desc': 'Individual Artistic Drawing work: illustrations of invented animals and plants, digitally painted with a tablet from Pinterest references.',
-    'project.animales-y-plantas-fantasticos.role': 'Illustrator',
-    'project.animales-y-plantas-fantasticos.team': 'Individual academic project',
-    'project.entornos-multijugador.title': 'Multiplayer Environments',
-    'project.entornos-multijugador.desc': 'Integration of multiplayer communication into an already developed game (humans, zombies, contagion and coins). I built the complete lobby and took part in programming the communication.',
-    'project.entornos-multijugador.role': 'Lobby and multiplayer communication programmer',
-    'project.entornos-multijugador.team': 'Academic group project',
-    'project.entrenamiento-q-learning.title': 'Q-Learning Training',
-    'project.entrenamiento-q-learning.desc': 'Group project in Unity and C# in which an agent learns through reinforcement to flee from a chaser and avoid obstacles on a grid, using a Q-table, rewards, penalties and training episodes.',
-    'project.entrenamiento-q-learning.team': 'Academic group project',
-    'project.fabrica.title': 'Factory',
-    'project.fabrica.desc': 'Simple individual assignment for Video Game Technology Fundamentals about a factory.',
-    'project.fabrica.team': 'Individual academic project',
-    'project.figura-femenina-con-armadura.title': 'Female Figure in Armour',
-    'project.figura-femenina-con-armadura.desc': 'Individual Artistic Drawing work: life drawing and an exercise in digitally dressing a female figure in armour.',
-    'project.figura-femenina-con-armadura.role': 'Draughtsman',
-    'project.figura-femenina-con-armadura.team': 'Individual academic project',
-    'project.fly-fumigator.title': 'Fly Fumigator',
-    'project.fly-fumigator.desc': 'Group fly-swatter game in a 2D scene with flies and wasps, made with Adobe Animate. Flies were squashed with the mouse. My part: drawings, sprites, animations and other tasks.',
-    'project.fly-fumigator.role': 'Drawings, sprites and animations',
-    'project.fly-fumigator.team': 'Group academic project',
-    'project.investigacion-ratchet-and-clank.title': 'Research: Ratchet & Clank',
-    'project.investigacion-ratchet-and-clank.desc': 'Extensive research for Artistic Drawing on the design of Ratchet & Clank: characters, environments, props, interfaces, dialogue, animations and cutscenes.',
-    'project.investigacion-ratchet-and-clank.role': 'Research and writing',
-    'project.juego-de-la-vida.title': 'Game of Life',
-    'project.juego-de-la-vida.desc': 'Individual implementation of Conway\'s Game of Life for Video Game Technology Fundamentals, programmed with HTML, CSS and JavaScript.',
-    'project.juego-de-la-vida.role': 'Programmer',
-    'project.juego-de-la-vida.team': 'Individual academic project',
-    'project.michael-soffield-the-rescue.title': 'Michael Scofield: The Rescue',
-    'project.michael-soffield-the-rescue.desc': 'Group 2D pixel-art graphic adventure with a top-down view, inspired by Prison Break: Michael Scofield tries to escape from prison. It features inventory, objects, dialogues, puzzles and several zones, and is built with Adventure Game Studio.',
-    'project.michael-soffield-the-rescue.challenges': 'The programming: getting every interaction in the game to work.',
-    'project.michael-soffield-the-rescue.role': 'Scenarios and maps, sprites, programming and dialogues',
-    'project.michael-soffield-the-rescue.team': 'Group academic project',
-    'project.personaje-dj-autonomo.title': 'Autonomous DJ Character',
-    'project.personaje-dj-autonomo.desc': 'Autonomous DJ for a party in an existing video game, where the protagonist has to collect three objects. I programmed its behaviour with behaviour trees in Unity and C#.',
-    'project.personaje-dj-autonomo.role': 'DJ behaviour and music system programmer',
-    'project.personaje-dj-autonomo.team': 'Work on an existing video game',
-    'project.practica-a-estrella.title': 'A* Practice (Pathfinding)',
-    'project.practica-a-estrella.desc': 'Group assignment on navigation with the A* algorithm on a grid: a character had to reach the goal by passing through intermediate points. Built in Unity with C#.',
-    'project.practica-a-estrella.team': 'Academic group project',
-    'project.proyecto-valorant-datos.title': 'Valorant Project (Data)',
-    'project.proyecto-valorant-datos.desc': 'Group data management assignment on Valorant (agents, abilities, matches and more), with XML and JSON documents stored in MongoDB and queried with filters from MongoDB Compass.',
-    'project.proyecto-valorant-datos.team': 'Academic group project',
-    'project.quest.title': 'Quest',
-    'project.quest.desc': 'First group Android app: a general-knowledge quiz app built with Flutter and Android Studio. I was in charge of the programming and design.',
-    'project.quest.role': 'Programmer and designer',
-    'project.quest.team': 'Academic group project',
-    'project.retrato-de-carla.title': 'Portrait of Carla',
-    'project.retrato-de-carla.desc': 'Individual Artistic Drawing work: front and profile portraits of Carla drawn in pencil and charcoal, with digital versions in Photoshop and caricatures.',
-    'project.retrato-de-carla.role': 'Draughtsman',
-    'project.retrato-de-carla.team': 'Individual academic project',
-    'project.rompecubos.title': 'Cube Breaker',
-    'project.rompecubos.desc': 'Group Breakout-style game for Video Game Technology Fundamentals, with several levels and phases, built with HTML, CSS, JavaScript and Phaser 3. I contributed the idea and the programming.',
-    'project.rompecubos.role': 'Idea and programming',
-    'project.rompecubos.team': 'Group academic project',
-    'project.terra-trolls.title': 'Terra Trolls',
-    'project.terra-trolls.desc': 'Group concept art project for a video game, with characters, environments and interfaces. My contribution was the 2D environments, illustrated in Photoshop with a Huion tablet.',
-    'project.terra-trolls.role': 'Environment illustrator',
-    'project.terra-trolls.team': 'Group academic project',
-    'project.willy-fog.title': 'Willy Fog',
-    'project.willy-fog.desc': 'Individual 2D animation of Willy Fog walking, with an extra hat spin. Background and character drawn in Photoshop and animated with keyframes in Adobe Animate.',
-    'project.willy-fog.challenges': 'The hands stayed fixed during the step and the knees bent in an unnatural way.',
-    'project.willy-fog.solution': 'I drew the character split into head, torso, arms, hands, legs, feet and hat so I could animate each piece separately with keyframes.',
-    'project.willy-fog.role': 'Drawing and animation',
-    'project.willy-fog.team': 'Personal academic project - Individual',
-    'project.wordle.title': 'Wordle',
-    'project.wordle.desc': 'Simple group adaptation of Wordle for Android, with an on-screen keyboard, colour hints and a large word bank. I was in charge of the programming.',
-    'project.wordle.role': 'Programmer',
-    'project.wordle.team': 'Academic group project',
-    'project.zombierush.title': 'ZombieRush',
-    'project.zombierush.desc': 'Group C++ video game in which a zombie must reach the goal without dying across three levels. I handled part of the programming and found a 3D asset.',
-    'project.zombierush.role': 'Programmer',
-    'project.zombierush.team': 'Group academic project',
     'project.link.codigo_en_github': 'Code on GitHub',
     'project.link.concept_art_de_escenario_pdf': 'Environment concept art (PDF)',
     'project.link.concept_art_de_personaje_pdf': 'Character concept art (PDF)',
@@ -1611,15 +1227,12 @@ export const TRANSLATIONS = {
     'collection.other_games': 'More games in the collection',
     'collection.ai_note': 'This game is part of a collection developed with artificial intelligence assistance.',
     'collection.ai_note_link': 'See how it was made',
-    'project.bonk.title': 'BONK',
-    'project.bonk.desc': 'A personal collection of seven arcade web games built in 2026 with artificial intelligence assistance, designed to be lightweight, accessible and suitable for platforms such as YouTube Playables. All of them are published on itch.io.',
-    'project.bonk.role': 'Collection author (AI-assisted development)',
-    'project.bonk.team': 'Personal project - Individual',
-    'project.simulacion-fisicas-unity.title': 'Physics simulation in Unity',
-    'project.simulacion-fisicas-unity.desc': 'Four physics simulation assignments in Unity: two cloths, a pyramidal structure of nodes and springs and a tree under wind. Each one was tested by changing parameters such as gravity, node mass or wind.',
     'project.tag.web_games': 'Web games',
     'project.tag.ai_assisted': 'AI-assisted development',
     'project.tag.physics_simulation': 'Physics simulation',
+    'project.tag.huion_tablet': 'Huion tablet',
+    'project.tag.pencil_charcoal': 'Pencil and charcoal',
+    'project.tag.pencil_paper': 'Pencil and paper',
     'project.link.bonk_itch': 'BONK collection on itch.io',
   }
 };

@@ -55,7 +55,7 @@ const contextFilters = Object.entries(contextMap).map(([id, info]) => buildFilte
           aria-pressed="false"
         >
           <span class="flex items-center gap-2"><span>{filter.emoji}</span><span data-i18n={`filter.context.${filter.id}`}>{filter.label}</span></span>
-          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-400">+</span>
+          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-500">+</span>
         </button>
       ))}
     </div>
@@ -113,7 +113,7 @@ const contextFilters = Object.entries(contextMap).map(([id, info]) => buildFilte
             <span>{filter.emoji}</span>
             <span data-i18n={`discipline.${filter.id}`}>{filter.label}</span>
           </span>
-          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-400">+</span>
+          <span class="filter-indicator text-[10px] uppercase tracking-wide text-gray-500">+</span>
         </button>
       ))}
     </div>

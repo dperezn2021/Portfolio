@@ -161,23 +161,19 @@ Edita:
 
 La detección y cambio de idioma se gestionan con:
 
-- `public/scripts/language.js`
+- `src/scripts/language.ts`
 - `src/data/translations.ts`
 - `src/utils/url.ts`
 
 El proyecto usa `data-i18n` para cambiar textos dinámicamente con JavaScript, sin necesidad de recargar toda la página.
 
 ## 7. Scripts del cliente
-Los scripts globales están en:
+Los scripts globales (TypeScript) están en `src/scripts/`:
 
-- `public/scripts/theme.js`
-- `public/scripts/language.js`
-- `public/scripts/animations.js`
-- `public/scripts/filters.js`
-- `public/scripts/contact.js`
-- `public/scripts/main.js`
+- `theme.ts`, `language.ts`, `animations.ts`, `filters.ts`, `contact.ts`
+- `main.ts` (los inicializa; es lo único que importa `src/layouts/MainLayout.astro`)
 
-Estos scripts se cargan desde `src/layouts/MainLayout.astro` y controlan:
+Astro los empaqueta y les pone hash en el nombre, y controlan:
 
 - tema claro/oscuro,
 - idioma,

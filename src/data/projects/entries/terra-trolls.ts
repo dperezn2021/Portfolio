@@ -46,12 +46,17 @@ export const terraTrolls: ProjectInput = {
   skillGains: [
     localizedText('Ilustración digital de escenarios', 'Digital environment illustration'),
   ],
-  tags: ['Ilustración', 'Concept Art', 'Escenarios'],
+  en: {
+    title: 'Terra Trolls',
+    description: 'Group concept art project for a video game, with characters, environments and interfaces. My contribution was the 2D environments, illustrated in Photoshop with a Huion tablet.',
+    role: 'Environment illustrator',
+    team: 'Group academic project',
+  },
+  tags: ['Ilustración', 'Concept Art', 'Escenarios', 'Tableta Huion'],
   subjects: ['Dibujo Artístico'],
   disciplines: ['ilustracion'],
   technologies: [
     { name: 'Photoshop', level: 'principal' },
-    { name: 'Tableta Huion', level: 'secundaria' },
   ],
   publicable: true,
   featured: false,

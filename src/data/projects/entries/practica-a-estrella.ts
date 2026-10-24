@@ -41,6 +41,11 @@ export const practicaAEstrella: ProjectInput = {
     localizedText('Pathfinding con A*', 'A* pathfinding'),
     localizedText('IA de navegación en Unity', 'Navigation AI in Unity'),
   ],
+  en: {
+    title: 'A* Practice (Pathfinding)',
+    description: 'Group assignment on navigation with the A* algorithm on a grid: a character had to reach the goal by passing through intermediate points. Built in Unity with C#.',
+    team: 'Academic group project',
+  },
   tags: ['IA', 'Pathfinding', 'Unity'],
   subjects: ['Desarrollo de Juegos con Inteligencia Artificial'],
   disciplines: ['videojuegos', 'ia'],

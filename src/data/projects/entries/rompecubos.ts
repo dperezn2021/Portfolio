@@ -52,6 +52,12 @@ export const rompecubos: ProjectInput = {
   skillGains: [
     localizedText('Colisiones y físicas con Phaser 3', 'Collisions and physics with Phaser 3'),
   ],
+  en: {
+    title: 'Cube Breaker',
+    description: 'Group Breakout-style game for Video Game Technology Fundamentals, with several levels and phases, built with HTML, CSS, JavaScript and Phaser 3. I contributed the idea and the programming.',
+    role: 'Idea and programming',
+    team: 'Group academic project',
+  },
   tags: ['Phaser 3', 'JavaScript'],
   subjects: ['Fundamentos de Tecnología de Videojuegos'],
   disciplines: ['videojuegos'],

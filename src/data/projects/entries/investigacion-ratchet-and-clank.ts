@@ -45,6 +45,11 @@ export const investigacionRatchetAndClank: ProjectInput = {
   skillGains: [
     localizedText('Análisis del diseño visual de un videojuego', 'Visual design analysis of a video game'),
   ],
+  en: {
+    title: 'Research: Ratchet & Clank',
+    description: 'Extensive research for Artistic Drawing on the design of Ratchet & Clank: characters, environments, props, interfaces, dialogue, animations and cutscenes.',
+    role: 'Research and writing',
+  },
   tags: ['Investigación', 'Diseño de videojuegos'],
   subjects: ['Dibujo Artístico'],
   disciplines: ['ilustracion', 'documentacion'],
