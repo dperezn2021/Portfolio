@@ -1,6 +1,6 @@
 # Chuleta: cómo editar un proyecto
 
-**Dónde:** `src/data/projects/entries/<slug>.ts`. Si es nuevo, impórtalo y añádelo a `rawProjects` en `src/data/projects/index.ts`, y enlaza su asignatura en `src/data/academic-catalog.ts`.
+**Dónde:** `src/data/projects/entries/<slug>.ts`. Si es nuevo, impórtalo y añádelo a `rawProjects` en `src/data/projects/index.ts`, y enlaza su asignatura en `docs/ACADEMIC_PROJECTS.md`.
 
 ## Orden canónico de campos
 
@@ -111,7 +111,7 @@ Los textos del proyecto viven en su propia entrada (`src/data/projects/entries/<
 - [ ] Descripción factual; autoría clara (individual/grupo, qué hice yo, qué es de otros).
 - [ ] Todas las rutas existen y funcionan con `/Portfolio/`; ningún archivo supera 100 MB.
 - [ ] Bloque `en` del proyecto actualizado si cambiaste textos en español.
-- [ ] Fila de `academic-catalog.ts` y de `docs/ACADEMIC_PROJECTS.md` actualizadas.
+- [ ] Fila de `docs/ACADEMIC_PROJECTS.md` actualizada.
 - [ ] `npm run build` y `npx astro check` sin errores.
 
 ## Colecciones (BONK)

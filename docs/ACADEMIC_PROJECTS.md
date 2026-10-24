@@ -1,10 +1,6 @@
 # Inventario académico del portfolio
 
-Este documento es la **referencia legible** del catálogo de asignaturas del grado y de qué proyecto (si lo hay) tiene cada una. La fuente de verdad *programática* (la que usa el código, aunque no se renderiza en la web pública) es:
-
-- `src/data/academic-catalog.ts`
-
-Si algo aquí y en `academic-catalog.ts` no coincide, **gana `academic-catalog.ts`** y hay que actualizar este documento para que vuelva a coincidir. No mantengas una tercera lista en ningún otro sitio.
+Este documento es la **única fuente** del catálogo de asignaturas del grado y de qué proyecto (si lo hay) tiene cada una. No hay una copia en código: mantén la lista solo aquí.
 
 Los datos reales de cada proyecto (título, descripción, imágenes, enlaces...) viven en:
 
@@ -36,14 +32,14 @@ Tienen archivo `.ts` (`publicable: false`) **y carpeta de assets ya creada** en 
 Tienen archivo `.ts` oculto (siguen existiendo, no se han borrado), pero **no están en la lista de proyectos a preparar que confirmaste** y por eso **no se les ha creado carpeta de assets**: `bingo` (Programación Visual), `producto-haptico-startup` (Empresa y Videojuegos), `storyboard-escena-literaria` (Lenguaje Audiovisual y Medios Interactivos), `presentacion-directx12` (Procesadores Gráficos Avanzados). Pendiente de decidir si se archivan/eliminan o se mantienen como backlog para una futura selección.
 
 ### 4. Trabajos interesantes pendientes de investigar (4)
-**No son proyectos** (no tienen archivo `.ts`, no se les inventa descripción ni contenido). Tienen una carpeta provisional en `public/images/pendientes-investigacion/{curso}/{asignatura}/` para ir guardando pistas/material hasta que se pueda definir un proyecto real:
+**No son proyectos** (no tienen archivo `.ts`, no se les inventa descripción ni contenido). Todavía no tienen carpeta de assets; se crea cuando se defina un proyecto real:
 
 - Estadística (Segundo) — posibles prácticas con R.
 - Modelado Geométrico (Primero) — operaciones con matrices, transformaciones y rotaciones de objetos 3D; software usado pendiente de confirmar.
 - Informática Gráfica (Segundo) — prácticas de programación gráfica, gráficos 3D y APIs, pendientes de identificar.
 - Narración, Guion y Storyboard (Primero) — colección de análisis de videojuegos realizados durante la asignatura (aparte del proyecto `michael-soffield-the-rescue`, que sí está confirmado).
 
-Ver `public/images/pendientes-investigacion/README.md` para cómo promocionar uno de estos a proyecto real cuando esté suficientemente identificado.
+Cuando uno esté suficientemente identificado, se promociona a proyecto real siguiendo «Añadir un proyecto» más abajo.
 
 ---
 
@@ -122,11 +118,11 @@ Chuleta completa de campos, orden canónico y multimedia: `docs/PROJECT_CHEATSHE
 2. Mínimo imprescindible: `slug`, `year`, `type`, `title`, `description`, `tags`, `featured`, `disciplines`.
 3. Añade `publicable: false` si todavía no tiene material suficiente.
 4. Impórtalo y añádelo al array `rawProjects` en `src/data/projects/index.ts`.
-5. Actualiza la fila correspondiente en `src/data/academic-catalog.ts` (y en este documento) para enlazar el `slug` con su asignatura.
+5. Actualiza la fila correspondiente en este documento para enlazar el `slug` con su asignatura.
 6. Crea su carpeta `public/images/projects/{curso}/{asignatura-principal}/{slug}/` (ver más abajo).
 
 ### Promocionar un candidato de investigación a proyecto
-Ver `public/images/pendientes-investigacion/README.md`.
+Crea su archivo `entries/<slug>.ts` (con `publicable: false`) y sigue los pasos de «Añadir un proyecto».
 
 ### Textos traducidos (importante)
 Los textos del proyecto viven en su propia entrada (`src/data/projects/entries/<slug>.ts`): el español en `title`, `description`, `role`, `team`, `duration`, `challenges`, `solution`, `learnings`, y el inglés en el bloque `en: { ... }` con los mismos nombres. Las claves `project.<slug>.*` del diccionario (necesarias para el cambio de idioma en cliente) se generan solas a partir de ahí, así que no hay que tocar `translations.ts`; si falta un campo en `en`, se muestra el español. `story`, `highlights` y `skillGains` son bilingües dentro del propio `.ts`. Los títulos de enlaces/recursos nuevos se traducen añadiéndolos a `LINK_KEYS` en `src/data/projects/translation-maps.ts` y al diccionario.
@@ -153,4 +149,4 @@ Cuando el proyecto ya tenga al menos portada y la información mínima, cambia `
 Usa el array `subjects: ['Asignatura principal', 'Asignatura secundaria']` — el primer elemento se considera la asignatura principal (se usa, entre otras cosas, para la carpeta de assets). Ejemplo real: `histeria` tiene `subjects: ['Juegos para Web y Redes Sociales', 'Gestión y Dirección de Proyectos']` y un único `resources` (sin duplicar recursos entre asignaturas).
 
 ### Añadir una asignatura nueva al catálogo
-Añade una fila al array `ACADEMIC_CATALOG` en `src/data/academic-catalog.ts` (y la fila equivalente en este documento) con `degreeYear`, `academicYear`, `subject`, `projectSlugs` y `status`.
+Añade una fila a la tabla de su curso en este documento con `degreeYear`, `academicYear`, `subject`, `projectSlugs` y `status`.

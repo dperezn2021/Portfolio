@@ -60,7 +60,7 @@ La información del sitio vive en:
 
 - `src/data/settings.ts`
 - `src/data/projects/` (índice `index.ts` + proyectos individuales en `entries/`)
-- `src/data/academic-catalog.ts` (inventario de asignaturas del grado y qué proyecto tiene cada una — ver `docs/ACADEMIC_PROJECTS.md`)
+- `docs/ACADEMIC_PROJECTS.md` (inventario de asignaturas del grado y qué proyecto tiene cada una)
 - `src/data/education.ts`
 - `src/data/experience.ts`
 - `src/data/learning.ts`
@@ -130,7 +130,7 @@ Mínimo imprescindible: `slug`, `year`, `type`, `title`, `description`, `tags`, 
 - `galleryImages` o `gallery` — galería de imágenes **y vídeos** mezclados (nunca PDFs ni enlaces sueltos)
 - `resources` — recursos y enlaces opcionales (GitHub, itch.io, PDF, documentación, demo, Figma, web...); los proyectos antiguos siguen funcionando con `links`/`externalLinks`
 - `publicable` — `false` oculta el proyecto por completo (sin página, sin listados, sin filtros)
-- `academicYear`, `context`, `subjects` — metadatos académicos; si el proyecto pertenece a una asignatura, regístralo también en `src/data/academic-catalog.ts` (ver `docs/ACADEMIC_PROJECTS.md`)
+- `academicYear`, `context`, `subjects` — metadatos académicos; si el proyecto pertenece a una asignatura, regístralo también en `docs/ACADEMIC_PROJECTS.md`
 - `status`
 
 Si añades un proyecto nuevo, también conviene revisar:
