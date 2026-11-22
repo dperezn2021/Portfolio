@@ -384,7 +384,7 @@ export const TRANSLATIONS = {
     'credential.type.degree': 'Grado',
     'credential.type.master': 'Máster',
     'credential.type.specialization': 'Especialización',
-    'credential.type.short_course': 'Curso completado',
+    'credential.type.short_course': 'Curso',
     'credential.type.pending': 'En preparación',
     
     // ==========================================
@@ -1005,7 +1005,7 @@ export const TRANSLATIONS = {
     'credential.type.degree': 'Degree',
     'credential.type.master': "Master's degree",
     'credential.type.specialization': 'Specialization',
-    'credential.type.short_course': 'Completed course',
+    'credential.type.short_course': 'Course',
     'credential.type.pending': 'In preparation',
     
     // ==========================================
