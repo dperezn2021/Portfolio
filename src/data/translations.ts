@@ -222,7 +222,7 @@ export const TRANSLATIONS = {
     'about.learning.tag_university': 'Universidad',
     'about.learning.tag_work': 'Trabajo',
     'about.learning.tag_personal': 'Personal',
-    'about.learning.short_courses_title': 'Cursos completados',
+    'about.learning.short_courses_title': 'Otros cursos y certificaciones',
     'about.learning.pending_title': 'Certificaciones en preparación',
     'about.learning.current_title': 'Aprendizaje actual',
     'about.learning.current_description': 'Estoy ampliando mis conocimientos en animación 3D, desarrollo web moderno y herramientas para crear productos digitales.',
@@ -386,17 +386,23 @@ export const TRANSLATIONS = {
     'credential.type.specialization': 'Especialización',
     'credential.type.short_course': 'Curso completado',
     'credential.type.pending': 'En preparación',
-    'credential.master-3d-animation.title': 'Animación 3D para las Industrias del Entretenimiento',
-
+    
     // ==========================================
     // TÍTULOS DE CERTIFICACIONES (ES)
     // ==========================================
     'credential.degree-game-design.title': 'Diseño y Desarrollo de Videojuegos',
-    'credential.specialization-3d-animation.title': 'Especialización en Animación 3D para las industrias del Entretenimiento',
+    'credential.master-3d-animation.title': 'Animación 3D para las Industrias del Entretenimiento',
+
+    'credential.master-course-blender-maya.title': 'Modelado y la Animación 3D: Maya y Blender',
+    'credential.master-course-unity-unreal.title': 'Programación de Videojuegos: Unity y Unreal Engine',
+    'credential.master-course-adobe-creative.title': 'Adobe Creative: Indesign, Illustrator, Photoshop',
+    'credential.master-course-ai-fundamentals.title': 'Fundamentos de Inteligencia Artificial Generativa',
+
     'credential.claude-101.title': 'Certificate of Completion: Claude 101',
     'credential.claude-api.title': 'Building with the Claude API',
     'credential.ai-fluency.title': 'Certificate of Completion: AI Fluency Framework & Foundations',
     'credential.claude-code-action.title': 'Claude Code in Action',
+
     'credential.claude-architect-foundations.title': 'Claude Certified Architect — Foundations',
 
     // ==========================================
@@ -837,7 +843,7 @@ export const TRANSLATIONS = {
     'about.learning.tag_university': 'University',
     'about.learning.tag_work': 'Work',
     'about.learning.tag_personal': 'Personal',
-    'about.learning.short_courses_title': 'Completed courses',
+    'about.learning.short_courses_title': 'Other courses and certifications',
     'about.learning.pending_title': 'Certifications in preparation',
     'about.learning.current_title': 'Current learning',
     'about.learning.current_description': 'I am expanding my knowledge of 3D animation, modern web development and tools for building digital products.',
@@ -1001,17 +1007,23 @@ export const TRANSLATIONS = {
     'credential.type.specialization': 'Specialization',
     'credential.type.short_course': 'Completed course',
     'credential.type.pending': 'In preparation',
-    'credential.master-3d-animation.title': '3D Animation for the Entertainment Industries',
-
+    
     // ==========================================
     // CREDENTIAL TITLES (EN)
     // ==========================================
     'credential.degree-game-design.title': 'Game Design and Development',
-    'credential.specialization-3d-animation.title': 'Advanced 3D Animation',
+    'credential.master-3d-animation.title': '3D Animation for the Entertainment Industries',
+
+    'credential.master-course-blender-maya.title': 'Blender and Maya: 3D Modeling and Animation',
+    'credential.master-course-unity-unreal.title': 'Unity and Unreal: Game Development and Interactive Experiences',
+    'credential.master-course-adobe-creative.title': 'Adobe Creative Suite: Digital Art and UX/UI Design',
+    'credential.master-course-ai-fundamentals.title': 'AI Fundamentals for Creative Industries',
+
     'credential.claude-101.title': 'Certificate of Completion: Claude 101',
     'credential.claude-api.title': 'Building with the Claude API',
     'credential.ai-fluency.title': 'Certificate of Completion: AI Fluency Framework & Foundations',
     'credential.claude-code-action.title': 'Claude Code in Action',
+
     'credential.claude-architect-foundations.title': 'Claude Certified Architect — Foundations',
 
     // ==========================================

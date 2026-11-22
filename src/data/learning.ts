@@ -78,6 +78,38 @@ export const credentials: Credential[] = [
     icon: 'movie',
     inProgress: true,
   },
+  {
+  id: 'master-course-blender-maya',
+  type: 'short_course',
+  issuer: 'UNIR · Universidad Internacional de La Rioja',
+  year: '2026',
+  icon: 'brush',
+  inProgress: true
+},
+{
+  id: 'master-course-unity-unreal',
+  type: 'short_course',
+  issuer: 'UNIR · Universidad Internacional de La Rioja',
+  year: '2026',
+  icon: 'sports_esports',
+  inProgress: true
+},
+{
+  id: 'master-course-adobe-creative',
+  type: 'short_course',
+  issuer: 'UNIR · Universidad Internacional de La Rioja',
+  year: '2026',
+  icon: 'palette',
+  inProgress: true
+},
+{
+  id: 'master-course-ai-fundamentals',
+  type: 'short_course',
+  issuer: 'UNIR · Universidad Internacional de La Rioja',
+  year: '2026',
+  icon: 'psychology',
+  inProgress: false
+}
 ];
 
 // ============================================
